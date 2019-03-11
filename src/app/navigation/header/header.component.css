@@ -1,0 +1,63 @@
+a {
+  text-decoration: none;
+  color: white;
+}
+
+a:hover, a:active{
+  color: lightgray;
+}
+
+.navigation-items{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  display: inline;
+}
+
+mat-toolbar{
+  border-radius: 0;
+  position: fixed;
+  z-index: 10000;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+@media(max-width: 959px){
+  mat-toolbar{
+    border-radius: 0;
+  }
+}
+
+.example-icon {
+  padding: 0 14px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+
+/*
+
+ */
+
+.mat-toolbar-row, .mat-toolbar-single-row {
+  height: 80px;
+}
+
+.iggi{
+  font-size: xx-large;
+}
+
+/*
+https://css-tricks.com/almanac/properties/b/box-shadow/
+ */
+
+
+.effect {
+  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+}
+

@@ -1,0 +1,25 @@
+<div class="container">
+  <br>
+  <h3>Candidature au poste de moderateur pour le debat {{debateTheme}} </h3>
+  <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+  <span [ngStyle]="{'color':responseSuccess?'green':'red'}">{{message}}</span>
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let candidature of candidatures">
+      <div class="row">
+        <div class="col-md-4"><img src="{{candidatureImgUrl(candidature.candidate.memberid)}}" alt="PHOTO"/></div>
+
+        <div class="col-md-4">
+          <h3>{{candidature.candidate.firstname + '  ' + candidature.candidate.lastname}}</h3>
+          <span>Sexe: {{candidature.candidate.gender}}</span><br>
+          <span>E-Mail: {{candidature.candidate.email}}</span><br>
+          <span>Telephone: {{candidature.candidate.phone}}</span><br>
+          <span>Pays: {{getCountryName(candidature.candidate)}}</span><br>
+        </div>
+        <div class="col-md-4">
+          <button (click)="accepterCandidature(candidature.moderatorcandidatureid)" *ngIf="!candidature.hasYetSigned" class="btn btn-success"> Accepter Candidature</button>
+          <button (click)="retirerVote(candidature.moderatorcandidatureid)" *ngIf="candidature.hasYetSigned" class="btn btn-danger"> Retirer ma decision</button>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

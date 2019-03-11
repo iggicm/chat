@@ -1,0 +1,70 @@
+<!--<div class="row">
+  <div class="col-12">-->
+    <slideshow [height]="height"
+               [minHeight]="'525px'"
+               [autoPlay]="true"
+               [showArrows]="false"
+               [imageUrls]="imageSources"
+               [lazyLoad]="imageSources?.length > 1"
+               [autoPlayInterval]="3333000"
+               [autoPlayWaitForLazyLoad]="true"
+               [disableSwiping]="true">
+    </slideshow>
+  <!--</div>
+</div>-->
+
+<!-- https://bootsnipp.com/snippets/92xNm -->
+<section id="team" class="pb-5">
+    <div class="row">
+      <div class="col-10 offset-1">
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="card">
+              <div class="card-body text-center">
+                <p>
+                  <img class=" img-fluid" src="../../assets/img/world.png" alt="card image">
+                </p>
+                <h4 class="card-title">Demande d'adhesion & Condition d'adhesion</h4>
+                <p class="card-text">Pour faire partir du groupe IGGI</p>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <a href="#" class="btn btn-success btn-lg" [routerLink]="['/termsofcondition']">Termes des conditions d'adhesion</a>
+                  <a class="btn btn-primary btn-lg" [routerLink]="['/application']">Faire ma demande d'adhesion</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="card">
+              <div class="card-body text-center">
+                <p>
+                  <img class=" img-fluid" src="../../assets/img/world.png" alt="card image">
+                </p>
+                <h4 class="card-title">Participer</h4>
+                <p class="card-text">Se connecter pour participer</p>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <!--<a href="#" class="btn btn-success btn-lg" [routerLink]="['/termsofcondition']">Termes des conditions d'adhesion</a>-->
+                  <a class="btn btn-primary btn-lg" [routerLink]="['/login']">Connexion</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="card">
+              <div class="card-body text-center">
+                <p>
+                  <img class=" img-fluid" src="../../assets/img/world.png" alt="card image">
+                </p>
+                <h4 class="card-title">Demande d'adhesion & Condition d'adhesion</h4>
+                <p class="card-text">Pour faire partir du groupe IGGI</p>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <a href="#" class="btn btn-success btn-lg" [routerLink]="['/termsofcondition']">Termes des conditions d'adhesion</a>
+                  <a class="btn btn-primary btn-lg" [routerLink]="['/application']">Faire ma demande d'adhesion</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!--</div>-->
+</section>

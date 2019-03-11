@@ -1,0 +1,17 @@
+
+.navbar .collapse .navbar-nav{
+  /*background: #ffffff;*/
+  color: #3f51b5;
+  border-bottom: 1px #3f51b5 solid;
+  width: 100%;
+}
+
+
+a.nav-link{
+  color: #3f51b5;
+}
+
+
+.my-nav-link{
+  color: #3f51b5;
+}

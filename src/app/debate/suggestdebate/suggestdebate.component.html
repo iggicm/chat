@@ -1,0 +1,46 @@
+<div class="container" style="margin-top: 100px;">
+  <div class="row">
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 offset-2">
+      <div class="card effect">
+        <div class="card-header">
+          <h3 class="card-title">Sugerer un Debat</h3>
+        </div>
+        <div class="card-body">
+          <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+          <span [ngStyle]="{'color':successResponse?'green':'red'}">{{message}}</span>
+          <form [formGroup]="suggestDebateFormGroup">
+            <div class="field-container">
+              <div class="{{error?'alert-denger':''}}" *ngIf="error" style="color: red;">
+                <span class="elementor-align-center" *ngIf="error">{{message}}</span>
+              </div>
+              <mat-form-field>
+                <input matInput formControlName="theme" placeholder="Theme"  [formControl]="theme" type="text" required autocomplete="off" [value]="">
+              </mat-form-field>
+
+              <mat-form-field class="example-full-width">
+
+                <mat-select placeholder="Centre D'interet" formControlName="interestcenter" required >
+                  <mat-option *ngFor="let option of interestcenters" [value]="option.interestcenterid">
+                    {{option.name}}
+                  </mat-option>
+                </mat-select>
+
+                <!--<input type="text" formControlName="interestcenter" placeholder="Centre d'interet" aria-label="Number" matInput [formControl]="interestcenter" [matAutocomplete]="auto_interestcenter">
+                <mat-autocomplete #auto_interestcenter="matAutocomplete">
+                  <mat-option *ngFor="let option of interestcenters" [value]="option.name">
+                    {{option.name}}
+                  </mat-option>
+                </mat-autocomplete>-->
+              </mat-form-field>
+            </div>
+            <div>
+              <button  class="btn  btn-primary float-right" (click)="submit();" >Proposer</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+

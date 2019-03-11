@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-md-12 text-center">
+    <h3>Listes des propositions a signer</h3>
+  </div>
+</div>
+<div class="row example-large-box mat-elevation-z4">
+  <div class="col-12">
+    <div *ngIf="loading" style="width: 100%; height: 100%; text-align: center;" class="example-section">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+    <span [ngStyle]="{'color':successResponse?'green':'red'}">{{message}}</span>
+    <br>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-3" *ngFor="let p of propositions" >
+        <mat-card  *ngIf="!(p.user == null)">
+          <mat-card-header >
+            <h4>{{p.user.firstname + '  ' + p.user.lastname}}</h4>
+          </mat-card-header>
+          <mat-card-content class="text-center">
+            <p>
+                <button  class="btn btn-link " (click)="signeProposition(p.administratorpropositionid)">Signer</button>
+            </p>
+            <h5>Signataires</h5>
+            <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+              <ngb-panel *ngFor="let s of p.signataires" title="{{s.firstname + '  ' + s.lastname}}">
+                <ng-template ngbPanelContent>
+                  <p>
+                    Telephone: {{s.phone}}
+                  </p>
+                  <p>
+                    E-Mail: {{s.email}}
+                  </p>
+                </ng-template>
+              </ngb-panel>
+            </ngb-accordion>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+

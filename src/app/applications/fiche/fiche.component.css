@@ -1,0 +1,10 @@
+mat-card-header{
+  border-bottom: 1px #a2a2a2 solid;
+}
+
+img{
+  /*border-bottom: 3px #3f51b5 solid;
+  border-radius: 50%;*/
+  height: 200px;
+  width: 200px;
+}

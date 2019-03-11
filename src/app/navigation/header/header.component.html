@@ -1,0 +1,33 @@
+<mat-toolbar color="primary" class="effect">
+  <div fxHide.gt-xs>
+    <button mat-icon-button>
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <div>
+    <a routerLink="/home" class="iggi">IGGI</a> (Interet General - General Interest)
+  </div>
+  <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+    <ul fxLayout fxLayoutGap="15px" class="navigation-items">
+      <li [routerLinkActive]="['active']">
+        <a [routerLink]="['/home']">Accueil</a>
+      </li>
+      <li *ngIf="!isAuthenticated">
+        <a [routerLink]="['/login']">Connexion</a>
+      </li>
+
+      <li *ngIf="isAuthenticated" [routerLinkActive]="['active']">
+
+        <button mat-button [matMenuTriggerFor]="menu"><b>{{name}} </b><i class="material-icons">expand_more</i></button>
+        <mat-menu #menu="matMenu">
+          <a mat-menu-item [routerLink]="['/logout']" style="color: #3f51b5"><mat-icon>power_off</mat-icon><span><b>Deconnexion</b></span></a>
+          <button mat-menu-item>Item 1</button>
+          <button mat-menu-item>Item 2</button>
+        </mat-menu>
+
+
+      </li>
+    </ul>
+  </div>
+</mat-toolbar>
+
