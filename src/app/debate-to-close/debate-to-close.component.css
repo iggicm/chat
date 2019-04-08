@@ -1,0 +1,68 @@
+.field-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.field-container > * {
+  width: 100%;
+}
+.fields-error{
+  font-size: 0.8em;
+  color: red;
+}
+
+.card-header{
+  background-color: #3f51b5;
+  color: #ffffff;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #3f51b5;
+  border-color: #3f51b5;
+}
+
+
+/*==================================================
+ * Effect 5
+ * ===============================================*/
+.effect
+{
+  position: relative;
+}
+
+
+.effect:before, .effect:after
+{
+  z-index: -1;
+  position: absolute;
+  content: "";
+  bottom: 25px;
+  left: 10px;
+  width: 50%;
+  top: 80%;
+  max-width:300px;
+  background: #777;
+  -webkit-box-shadow: 0 35px 20px #777;
+  -moz-box-shadow: 0 35px 20px #777;
+  box-shadow: 0 35px 20px #777;
+  -webkit-transform: rotate(-8deg);
+  -moz-transform: rotate(-8deg);
+  -o-transform: rotate(-8deg);
+  -ms-transform: rotate(-8deg);
+  transform: rotate(-8deg);
+}
+.effect:after
+{
+  -webkit-transform: rotate(8deg);
+  -moz-transform: rotate(8deg);
+  -o-transform: rotate(8deg);
+  -ms-transform: rotate(8deg);
+  transform: rotate(8deg);
+  right: 10px;
+  left: auto;
+}
+
+mat-select{
+  z-index: 5000;
+}

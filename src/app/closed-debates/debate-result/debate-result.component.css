@@ -1,0 +1,9 @@
+.card-horizontal {
+  display: flex;
+  flex: 1 1 auto;
+}
+.btn-primary {
+  color: #fff;
+  background-color: #3f51b5;
+  border-color: #3f51b5;
+}

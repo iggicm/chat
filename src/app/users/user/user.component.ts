@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {User} from '../users.component';
-import {countries} from '../../Constants';
+import {countries, idRootUrl} from '../../Constants';
 import {environment} from '../../../environments/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
@@ -12,8 +12,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 })
 export class UserComponent implements OnInit {
 
-  @Input('user') user:User;
-  @Output('userAccepted') userAccepted = new EventEmitter<User>();
+  @Input('user') user:any;
+  @Output('userAccepted') userAccepted = new EventEmitter<any>();
   genderimg: string;
   countryName:string;
 
@@ -43,12 +43,11 @@ export class UserComponent implements OnInit {
     }
 
 
-    this.photoUrl = "http://localhost:8000/api/users/" + this.user.userid  + "/photo";//'url(\'' + + '/photo\')'
+    this.photoUrl = idRootUrl + 'users/' + this.user.userid  + '/photo';//'url(\'' + + '/photo\')'
 
-    console.log('photoUrl: ' + this.photoUrl);
+    //console.log('photoUrl: ' + this.photoUrl);
 
     this.isAdmin = environment.userdescriptor.userDetails.isAdmin;
-
   }
 //
   proposeAsAdmin(userid:string){
@@ -58,7 +57,7 @@ export class UserComponent implements OnInit {
     this.message = '';
 
     let connecteduserid:string = environment.userdescriptor.userDetails.userid;
-    this.httpClient.post('http://localhost:8000/api/administratorpropositions?scope=ADMINISTRATOR', {}, {
+    this.httpClient.post(idRootUrl + 'administratorpropositions?scope=ADMINISTRATOR', {}, {
       'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
         .set('Authorization', 'Bearer ' +  environment.oauth_client.token),
       'params':{
@@ -67,12 +66,12 @@ export class UserComponent implements OnInit {
       }
     }).subscribe((res: any)=>{
 
-      console.log(JSON.stringify(res));
+      //console.log(JSON.stringify(res));
 
       if (res.success == 1 && res.faillure == 0){
         this.message = res.response;
         this.succesResponse = true;
-        console.log('Emitting: ' + JSON.stringify(this.user));
+        //console.log('Emitting: ' + JSON.stringify(this.user));
         this.userAccepted.emit(this.user);
 
       } else{
@@ -84,7 +83,7 @@ export class UserComponent implements OnInit {
 
     }, error=>{
 
-      console.log(JSON.stringify(error));
+      //console.log(JSON.stringify(error));
       this.loading = false;
       this.message = error.statusText;
       this.succesResponse = false;

@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Gender} from '../domain/model/gender';
-import {countries} from '../Constants';
+import {countries, idRootUrl} from '../Constants';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {HttpClient, HttpEventType, HttpHeaders, HttpRequest, HttpResponse} from '@angular/common/http';
 import {Subject} from 'rxjs';
@@ -29,6 +29,8 @@ export class ApplicationComponent implements OnInit {
 
   cityofresidencies:any[];
   interestcenters:any[];
+
+  idRootUrl:string = idRootUrl;
 
 
   applicationFormGroup: FormGroup;
@@ -92,7 +94,7 @@ export class ApplicationComponent implements OnInit {
       navigator.geolocation.getCurrentPosition((position)=>{
         this.latitude.setValue(position.coords.latitude);
          this.longitude.setValue(position.coords.longitude);
-         console.log('latitude: ' + this.latitude.value + ', longitude: ' + this.longitude.value);
+        // console.log('latitude: ' + this.latitude.value + ', longitude: ' + this.longitude.value);
       });
     } else {
       console.log("Le service de géolocalisation n'est pas disponible sur votre ordinateur.");
@@ -116,7 +118,7 @@ export class ApplicationComponent implements OnInit {
       filename:this.filename
     });
 
-    this.httpClient.get('http://localhost:8000/api/users-cities',{
+    this.httpClient.get(idRootUrl + 'users-cities',{
       'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
     }).subscribe((res:MyResponse)=>{
       //console.log(JSON.stringify(res));
@@ -131,7 +133,7 @@ export class ApplicationComponent implements OnInit {
     });
 
 
-    this.httpClient.get('http://localhost:8000/api/interestcenters',{
+    this.httpClient.get(idRootUrl + 'interestcenters',{
       'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
     }).subscribe((res:MyResponse)=>{
       //console.log(JSON.stringify(res));
@@ -244,13 +246,14 @@ export class ApplicationComponent implements OnInit {
       data.append('phone', this.applicationFormGroup.get('phone').value);
       data.append('commenttotheregistration', this.applicationFormGroup.get('commenttotheregistration').value);
       data.append('gender', this.applicationFormGroup.get('gender').value);
+
       data.append('country', this.applicationFormGroup.get('country').value);
       data.append('latitude', this.applicationFormGroup.get('latitude').value);
       data.append('longitude', this.applicationFormGroup.get('longitude').value);
 
       console.log('DATA: ' + JSON.stringify(data));
 
-      let url : string = 'http://localhost:8000/api/applications';
+      let url : string = idRootUrl + 'applications';
 
       const req = new HttpRequest('POST', url, data, {reportProgress: true});
       // create a new progress-subject for every file

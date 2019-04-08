@@ -2,11 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs';
+import {NgbPopoverConfig} from '@ng-bootstrap/ng-bootstrap';
+import {idRootUrl} from '../Constants';
 
 @Component({
   selector: 'app-debate',
   templateUrl: './debate.component.html',
-  styleUrls: ['./debate.component.css']
+  styleUrls: ['./debate.component.css'],
+  styles: [`
+        :host >>> .popover {
+          max-width: 100%;
+          width: 380px;
+        }
+    `]
 })
 export class DebateComponent implements OnInit {
 
@@ -15,9 +23,13 @@ export class DebateComponent implements OnInit {
   observable: Observable<any>;
 
   isAdmin:boolean = false;
+  //style = {'max-width': '1000px', 'width': '600px'};
+
+  imgUrl:string = window.location.origin  + '/iggi/chat/assets/img/world.png';
+
 
   constructor(private http: HttpClient) {
-
+    console.log();
   }
 
   ngOnInit() {
@@ -49,15 +61,15 @@ export class DebateComponent implements OnInit {
 
       });*/
 
-    this.http.get('http://localhost:8000/api/confirm-admin-access-token',{
+    this.http.get(idRootUrl + 'confirm-admin-access-token',{
       'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
         .set('Authorization', 'Bearer ' + environment.oauth_client.token), 'params':{}
     }).toPromise().then(res=>{
-      console.log('promise ' + JSON.stringify(res));
+     // console.log('promise ' + JSON.stringify(res));
 
       this.isAdmin = res != '0';
 
-      console.log('isAdmin:::::::::::::' + this.isAdmin);
+      //console.log('isAdmin:::::::::::::' + this.isAdmin);
 
     },error=>{
       this.isAdmin =  false;

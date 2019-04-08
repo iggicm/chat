@@ -4,7 +4,7 @@ import {forkJoin, Observable, Subject} from 'rxjs';
 import {HttpClient, HttpEventType, HttpHeaders, HttpRequest, HttpResponse} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {FormBuilder, FormControl, FormGroup, RequiredValidator, Validators} from '@angular/forms';
-import {geoPosition} from '../Constants';
+import {forumRootUrl, geoPosition} from '../Constants';
 
 @Component({
   selector: 'app-upload-dialog',
@@ -15,6 +15,7 @@ export class UploadDialogComponent implements OnInit {
 
   @ViewChild('file') file;
   public files: Set<File> = new Set();
+  public percentages: Array<string> = [];
 
   progress;
   canBeClosed = true;
@@ -33,7 +34,7 @@ export class UploadDialogComponent implements OnInit {
     this.data = data;
     this.debate = data.debate;
     this.comment = data.comment;
-    console.log('Comment in upload File Dialog: ' + JSON.stringify(data.comment) + "\n\nURL: " + data.url + "\n\nDebate: " + JSON.stringify(data.debate));
+    //console.log('Comment in upload File Dialog: ' + JSON.stringify(data.comment) + "\n\nURL: " + data.url + "\n\nDebate: " + JSON.stringify(data.debate));
 
     this.commentFormGroup = this.fb.group({
       body:new FormControl(this.comment.textbody, Validators.required),
@@ -64,6 +65,7 @@ export class UploadDialogComponent implements OnInit {
     for (let key in files) {
       if (!isNaN(parseInt(key))) {
         this.files.add(files[key]);
+        this.percentages.push(0 + ' %');
       }
     }
 
@@ -80,12 +82,14 @@ export class UploadDialogComponent implements OnInit {
     // this will be the our resulting map
     const status: { [key: string]: { progress: Observable<number> } } = {};
 
-    this.http.post('http://localhost:8001/api/debates/' + this.debate.debateid + '/comments?scope=USER', this.commentFormGroup.value, {
+    //console.log("BEFORE UPLOAD: " , JSON.stringify(this.commentFormGroup.value));
+
+    this.http.post(forumRootUrl + 'debates/' + this.debate.debateid + '/comments?scope=USER', this.commentFormGroup.value, {
       'headers': new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
         .set('Authorization', 'Bearer ' + environment.oauth_client.token), 'params': this.commentFormGroup.value
     }).subscribe((response:any) => {
 
-        console.log(JSON.stringify(response));
+        //console.log(JSON.stringify(response));
 
         this.comment.textbody = ' ';
 
@@ -106,12 +110,13 @@ export class UploadDialogComponent implements OnInit {
       });
 
 
-    console.log('there is : ' + files.size + ' files');
+    //console.log('there is : ' + files.size + ' files');
 
-    files.forEach(file => {
+    var u = 0;
+    files.forEach((file) => {
       // create a new multipart-form for every file
       const formData: FormData = new FormData();
-      console.log('file size: ' + file.size);
+      //console.log('file size: ' + file.size);
       formData.append('file', file, file.name);
       formData.append('commentid', this.comment.commentid);
       let httpHeaders = (new HttpHeaders()).set('Authorization', 'Bearer ' + environment.oauth_client.token);
@@ -134,15 +139,17 @@ export class UploadDialogComponent implements OnInit {
           // calculate the progress percentage
           const percentDone = Math.round(100 * event.loaded / event.total);
 
+          this.percentages[u] = percentDone + '%';
           // pass the percentage into the progress-stream
           progress.next(percentDone);
-          console.log('percentage: ' + percentDone);
+          //console.log('percentage: ' + percentDone);
         } else if (event instanceof HttpResponse) {
-
+          //this.percentages[u] = progress. + '%';
+          u++;
           // Close the progress-stream if we get an answer form the API
           // The upload is complete
           progress.complete();
-          console.log('event: ' + JSON.stringify(event.body));
+          //console.log('event: ' + JSON.stringify(event.body));
         }
       });
 

@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {LoginService} from '../login.service';
+import {idRootUrl} from '../Constants';
 
 @Component({
   selector: 'app-reset-password',
@@ -54,17 +55,17 @@ export class ResetPasswordComponent implements OnInit {
     this.message = '';
     if (this.resetPasswordFormGroup.valid) {
       this.loading = true;
-      console.log('submited');
+      //console.log('submited');
       this.successResponse = false;
       this.message= '';
-      this.observable = this.http.post('http://localhost:8000/api/users/' + this.email + '/password-reset/' + this.invitationid, {}, {
+      this.observable = this.http.post(idRootUrl + 'users/' + this.email + '/password-reset/' + this.invitationid, {}, {
         'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json'),
         'params':this.resetPasswordFormGroup.value
       });
       this.observable.subscribe(
         res => {
 
-          console.log(JSON.stringify(res));
+          //console.log(JSON.stringify(res));
 
           let success: number = res.success;
           let faillure: number = res.faillure;
@@ -91,7 +92,7 @@ export class ResetPasswordComponent implements OnInit {
 
 
     }else{
-      console.log('invalide form');
+      //console.log('invalide form');
     }
   }
 

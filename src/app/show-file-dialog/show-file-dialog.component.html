@@ -1,0 +1,10 @@
+
+
+
+<iframe [src]="data.url | safe" style="width: 100%; height: 850px;" *ngIf="!isDocFile(data.url)" class="align-content-center align-items-center align-self-center"></iframe>
+
+
+<iframe [src]="'https://view.officeapps.live.com/op/embed.aspx?src=' + data.url + '&embedded=true' | safe " style="width: 100%; height: 850px;" *ngIf="isDocFile(data.url)"
+        class="align-content-center align-items-center align-self-center"></iframe>
+
+

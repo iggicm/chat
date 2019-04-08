@@ -22,7 +22,7 @@
               <mat-card >
 
                 <mat-card-header >
-                  <img mat-card-avatar src="{{'http://localhost:8000/api/applications/' + application.applicationid + '/photo'}}" />
+                  <img mat-card-avatar src="{{idRootUrl + 'applications/' + application.applicationid + '/photo'}}" />
                   <mat-card-title>{{application.firstname + '  ' + application.lastname}}</mat-card-title>
                   <mat-card-subtitle>{{application.email}} | {{getCountryName(application)}} </mat-card-subtitle>
                 </mat-card-header>

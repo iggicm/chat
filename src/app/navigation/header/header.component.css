@@ -49,9 +49,12 @@ mat-toolbar{
 }
 
 .iggi{
-  font-size: xx-large;
+  font-size: 2.5em;
 }
 
+.iggi-abreviation{
+  font-size: 1.5em;
+}
 /*
 https://css-tricks.com/almanac/properties/b/box-shadow/
  */

@@ -1,0 +1,46 @@
+<mat-card >
+
+  <mat-progress-bar mode="indeterminate" *ngIf="selProposedCandidateLoading"></mat-progress-bar>
+  <span [ngStyle]="{'color':selProposedCandidateResponse?'green':'red'}">{{selProposedCandidateResponseMessage}}</span>
+
+  <mat-card-title>{{debate.theme}}</mat-card-title>
+  <mat-card-subtitle>{{debate.interestcentername}}</mat-card-subtitle>
+  <mat-card-content>
+    <span>Par: {{debate.authorname}}</span><br>
+    <span>
+        <a [routerLink]="['../debate', debate.debateid]" *ngIf="(debate.state == 'ACCEPTED' || debate.state == 'REOPENED' || debate.state == 'INITIATE_DEBATE_CLOSURE')&&(debate.moderators.length>0)" class="btn btn-link">Participer</a> &nbsp;&nbsp;
+              <button (click)="moderatorProposition(debate.debateid)" class="btn  btn-link"
+                      *ngIf="(debate.state == 'ACCEPTED' || debate.state == 'REOPENED' || debate.state == 'INITIATE_DEBATE_CLOSURE') && !debate.connectedUserIsCandidate">Se proposer comme modérateur</button>&nbsp;&nbsp;
+        <a [routerLink]="['../results', debate.debateid]" *ngIf="debate.state == 'CLOSED'" class="btn btn-link">Resultats</a> &nbsp;&nbsp;
+        <a [routerLink]="['../moderator-candidatures', debate.debateid]" *ngIf="isAdmin && (debate.state == 'ACCEPTED' || debate.state == 'REOPENED' || debate.state == 'INITIATE_DEBATE_CLOSURE')" class="btn btn-link" >Candidatures</a> &nbsp;&nbsp;<br>
+      </span>
+    <mat-chip-list><mat-chip color="primary" selected *ngIf="(debate.state == 'ACCEPTED')&&!(debate.moderators.length>0)" >En Attente d'un moderateur</mat-chip></mat-chip-list>
+
+    <!--<div class="{{debate.state == 'ACCEPTED'?'alert-success':'alert-danger'}}">{{debate.state == 'ACCEPTED'?'OUVERT':'FERME'}}</div>-->
+    <span matBadge="{{debate.state == 'CLOSED'?'-':'+'}}" matBadgeColor="{{debate.state == 'CLOSED'?'warn':'primary'}}"
+          matBadgeOverlap="false" class="float-lg-right">
+              <b style="{{debate.state == 'CLOSED'?'color:red;':'color:green;'}}">{{debate.state == 'CLOSED'?'Cloture':'Ouvert'}}</b>
+            </span><br>
+    <h5 *ngIf="debate.moderatorsdetails.length > 0">Moderateurs</h5>
+
+    <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0" *ngIf="debate.moderatorsdetails.length > 0">
+      <ngb-panel *ngFor="let moderatorsdetail of debate.moderatorsdetails" title="{{moderatorsdetail.firstname + '  ' + moderatorsdetail.lastname}}">
+        <ng-template ngbPanelContent>
+          <p>
+            Telephone: {{moderatorsdetail.phone}}
+          </p>
+          <p>
+            E-Mail: {{moderatorsdetail.email}}
+          </p>
+          <p *ngIf="moderatorsdetail.memberid == connectedUserId && (debate.state == 'ACCEPTED' || debate.state == 'REOPENED' || debate.state == 'INITIATE_DEBATE_CLOSURE')">
+            <button class="btn btn-link" (click)="closeDebate(debate.debateid)">Cloturer</button>
+          </p>
+          <p *ngIf="moderatorsdetail.memberid == connectedUserId && (debate.state == 'CLOSED')">
+            <button class="btn btn-link" (click)="reOpen(debate.debateid)">Reouvrir</button>
+          </p>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+  </mat-card-content>
+
+</mat-card>

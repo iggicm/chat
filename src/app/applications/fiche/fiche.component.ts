@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {FormBuilder} from '@angular/forms';
 import {environment} from '../../../environments/environment';
-import {countries, geoPosition} from '../../Constants';
+import {countries, geoPosition, idRootUrl} from '../../Constants';
 import {appStore} from '../../store/AppStore';
 import {MyResponse} from '../../application/application.component';
 import {ApplicationsResponse} from '../../domain/model/ApplicationsResponse';
@@ -38,11 +38,11 @@ export class FicheComponent implements OnInit {
   ngOnInit() {
 
     this.route.params.subscribe((param) => {
-        console.log(JSON.stringify(param));
+        //console.log(JSON.stringify(param));
         this.applicationid=param.applicationid;
         let applications = appStore.getState().applications.applications;
 
-      console.log('appStore.getState().applications ============= ' + JSON.stringify(applications));
+      //console.log('appStore.getState().applications ============= ' + JSON.stringify(applications));
       this.application = null;
       this.applicationfound = false;
       for (let i = 0; i<applications.length; i++){
@@ -63,7 +63,7 @@ export class FicheComponent implements OnInit {
 
             this.application_img = response;
 
-            console.log("IMG = " + response);
+            //console.log("IMG = " + response);
 
           },error => {
             //this.loginResponse = new LoginResponse(0, 1, null, error.error);
@@ -72,7 +72,7 @@ export class FicheComponent implements OnInit {
           () => {
 
           });*/
-        this.photoUrl = 'http://localhost:8000/api/applications/'+this.applicationid+'/photo';
+        this.photoUrl = idRootUrl + 'applications/'+this.applicationid+'/photo';
       }else{
         this.message = 'Erreur: Aucune demande reference par ' + this.applicationid;
       }
@@ -86,7 +86,7 @@ export class FicheComponent implements OnInit {
     this.actionReturnFailed = true;
     this.actionReturnString = '';
     this.loading = true;
-    this.httpClient.post('http://localhost:8000/api/applications/'+this.applicationid+'?scope=ADMINISTRATOR&action=APPLICATION_ACCEPTED', {
+    this.httpClient.post(idRootUrl + 'applications/'+this.applicationid+'?scope=ADMINISTRATOR&action=APPLICATION_ACCEPTED', {
       //action:'APPLICATION_ACCEPTED',
 
     },{
@@ -105,7 +105,7 @@ export class FicheComponent implements OnInit {
       }
 
 
-        console.log("actionReturnString = " + response);
+        //console.log("actionReturnString = " + response);
         this.loading = false;
 
 
@@ -127,7 +127,7 @@ export class FicheComponent implements OnInit {
     this.actionReturnFailed = true;
     this.actionReturnString = '';
     this.loading = true;
-    this.httpClient.post('http://localhost:8000/api/applications/'+this.applicationid+'?scope=ADMINISTRATOR&action=APPLICATION_DENIED', {
+    this.httpClient.post(idRootUrl + 'applications/'+this.applicationid+'?scope=ADMINISTRATOR&action=APPLICATION_DENIED', {
       //action:'APPLICATION_DENIED',
 
     },{
@@ -145,7 +145,7 @@ export class FicheComponent implements OnInit {
           this.actionReturnFailed = true;
         }
 
-        console.log("actionReturnString = " + JSON.stringify(response));
+        //console.log("actionReturnString = " + JSON.stringify(response));
         this.loading = false;
 
       },error => {
@@ -162,7 +162,7 @@ export class FicheComponent implements OnInit {
   }
 
   applicationImgUrl():string{
-    return 'http://localhost:8000/api/applications/'+this.applicationid+'/photo?scope=ADMINISTRATOR';
+    return idRootUrl + 'applications/'+this.applicationid+'/photo?scope=ADMINISTRATOR';
   }
 
   getCountryName(user:any):string {

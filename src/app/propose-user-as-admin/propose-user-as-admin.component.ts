@@ -3,6 +3,7 @@ import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {User} from '../users/users.component';
+import {idRootUrl} from '../Constants';
 
 declare const Pusher: any;
 
@@ -35,7 +36,7 @@ export class ProposeUserAsAdminComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log('users.environment.userdescriptor:  ' + JSON.stringify(environment.userdescriptor));
+    //console.log('users.environment.userdescriptor:  ' + JSON.stringify(environment.userdescriptor));
 
 
     this.pusherPropositionSigned = new Pusher(environment.pusher.key, {
@@ -57,14 +58,14 @@ export class ProposeUserAsAdminComponent implements OnInit {
     this.loading= true;
     this.successResponse= false;
     this.message= '';
-    this.observable = this.httpClient.get('http://localhost:8000/api/users-not-admin-and-not-proposed', {
+    this.observable = this.httpClient.get(idRootUrl + 'users-not-admin-and-not-proposed?scope=ADMINISTRATOR', {
       'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
         .set('Authorization', 'Bearer ' + environment.oauth_client.token)
     });
 
     this.observable.subscribe(response=>{
 
-        console.log(JSON.stringify(response));
+        //console.log(JSON.stringify(response));
 
         let succes: number = response.success;
         let faillite: number = response.faillure;
@@ -107,7 +108,7 @@ export class ProposeUserAsAdminComponent implements OnInit {
   }
 
   removeUserFromList(user:User){
-    console.log('REMOVE USER: ' + JSON.stringify(user));
+    //console.log('REMOVE USER: ' + JSON.stringify(user));
     let users = [];
     for (let u of this.users){
       if (!(u.userid === user.userid)){

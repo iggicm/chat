@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {countries} from '../../Constants';
+import {countries, idRootUrl} from '../../Constants';
 import {environment} from '../../../environments/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
@@ -15,11 +15,12 @@ export class MemberDialogComponent implements OnInit {
   loading = false;
   error:boolean = false;
   message:string = '';
+  idRootUrl:string = idRootUrl;
 
 
   constructor(private dialogRef: MatDialogRef<MemberDialogComponent>, @Inject(MAT_DIALOG_DATA) data: any, private httpClient:HttpClient) {
 
-    console.log("dialog user: " + JSON.stringify(data));
+    //console.log("dialog user: " + JSON.stringify(data));
 
     this.data = data;
 
@@ -27,7 +28,7 @@ export class MemberDialogComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log("dialog user: " + JSON.stringify(this.data));
+    //console.log("dialog user: " + JSON.stringify(this.data));
 
   }
 
@@ -64,22 +65,20 @@ export class MemberDialogComponent implements OnInit {
   }
 
   revokeUser(userid:string){
-    console.log("userid : " + userid);
+    //console.log("userid : " + userid);
 
     this.loading = true;
     this.error = false;
     this.message = '';
-    this.httpClient.post('http://localhost:8000/api/revokedusers/' + userid + '', {},{
+    this.httpClient.post(idRootUrl + 'revokedusers/' + userid + '', {},{
       'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
         .set('Authorization', 'Bearer ' + environment.oauth_client.token), 'params':{}
     }).subscribe((response:any)=>{
 
-        console.log('applications: ' + JSON.stringify(response));
+        //console.log('applications: ' + JSON.stringify(response));
 
         let succes: number = response.success;
         let faillite: number = response.faillure;
-
-
 
         this.error = !(succes === 1 && faillite === 0);
         if (this.error){
@@ -96,7 +95,7 @@ export class MemberDialogComponent implements OnInit {
       },
       () => {
         this.loading = false;
-        console.log('navigationnnnnnnnnnn');
+        //console.log('navigationnnnnnnnnnn');
         //this.ngOnInit();
         //document.location.reload();
 
@@ -111,7 +110,7 @@ export class MemberDialogComponent implements OnInit {
       this.error = !this.error;
     }
 
-    console.log('close call');
+    //console.log('close call');
   }
 
 }

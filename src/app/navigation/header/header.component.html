@@ -5,7 +5,7 @@
     </button>
   </div>
   <div>
-    <a routerLink="/home" class="iggi">IGGI</a> (Interet General - General Interest)
+    <a routerLink="/home" class="iggi"><b>IGGI</b></a> (<b class="iggi-abreviation">I</b>nteret <b class="iggi-abreviation">G</b>eneral - <b class="iggi-abreviation">G</b>eneral <b class="iggi-abreviation">I</b>nterest)
   </div>
   <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
     <ul fxLayout fxLayoutGap="15px" class="navigation-items">
@@ -20,12 +20,9 @@
 
         <button mat-button [matMenuTriggerFor]="menu"><b>{{name}} </b><i class="material-icons">expand_more</i></button>
         <mat-menu #menu="matMenu">
-          <a mat-menu-item [routerLink]="['/logout']" style="color: #3f51b5"><mat-icon>power_off</mat-icon><span><b>Deconnexion</b></span></a>
-          <button mat-menu-item>Item 1</button>
-          <button mat-menu-item>Item 2</button>
+          <a mat-menu-item [routerLink]="['/debates/logout']" style="color: #3f51b5"><mat-icon>power_off</mat-icon><span><b>Deconnexion</b></span></a>
+          <a mat-menu-item [routerLink]="['/debates/config']" style="color: #3f51b5"><mat-icon>settings</mat-icon><span><b>Configurer mom Profil</b></span></a>
         </mat-menu>
-
-
       </li>
     </ul>
   </div>

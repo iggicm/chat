@@ -25,24 +25,25 @@ export interface IImage {
 })
 export class HomeComponent implements OnInit {
   height = '100px';
+  imgUrl:string = location.href;
   imageSources:  (string | IImage)[] = [
     /*{ url: 'https://cdn.vox-cdn.com/uploads/chorus_image/image/56748793/dbohn_170625_1801_0018.0.0.jpg', caption: 'The first slide', href: '#config' },
     { url: 'https://cdn.vox-cdn.com/uploads/chorus_asset/file/9278671/jbareham_170917_2000_0124.jpg', clickAction: () => alert('custom click function') },
     { url: 'https://cdn.vox-cdn.com/uploads/chorus_image/image/56789263/akrales_170919_1976_0104.0.jpg', caption: 'Apple TV', href: '../../assets/carousel/slide1.png' },
     'https://cdn.vox-cdn.com/uploads/chorus_image/image/56674755/mr_pb_is_the_best.0.jpg',*/
-    { url: '../../assets/carousel/slide1.png' , href: '../../assets/carousel/slide1.png' , clickAction: () => alert('custom click function') },
-    { url: '../../assets/carousel/slide1.png' ,  href: '../../assets/carousel/slide1.png' , clickAction: () => alert('custom click function') },
-    { url: '../../assets/carousel/slide1.png' ,  href: '../../assets/carousel/slide1.png' , clickAction: () => alert('custom click function') },
-    { url: '../../assets/carousel/slide1.png' ,  href: '../../assets/carousel/slide1.png' , clickAction: () => alert('custom click function') },
-    { url: '../../assets/carousel/slide1.png' ,  href: '../../assets/carousel/slide1.png' , clickAction: () => alert('custom click function') },
-    { url: '../../assets/carousel/slide1.png' ,  href: '../../assets/carousel/slide1.png' , clickAction: () => alert('custom click function') },
-    { url: '../../assets/carousel/slide1.png' ,  href: '../../assets/carousel/slide1.png' , clickAction: () => alert('custom click function') },
-    { url: '../../assets/carousel/slide1.png' ,  href: '../../assets/carousel/slide1.png' , clickAction: () => alert('custom click function') },
-    { url: '../../assets/carousel/slide1.png' ,  href: '../../assets/carousel/slide1.png' , clickAction: () => alert('custom click function') },
-    { url: '../../assets/carousel/slide1.png' ,  href: '../../assets/carousel/slide1.png' , clickAction: () => alert('custom click function') },
-    { url: '../../assets/carousel/slide1.png' ,  href: '../../assets/carousel/slide1.png' , clickAction: () => alert('custom click function') },
-    { url: '../../assets/carousel/slide1.png' ,  href: '../../assets/carousel/slide1.png' , clickAction: () => alert('custom click function') },
-    { url: '../../assets/carousel/slide1.png' ,  href: '../../assets/carousel/slide1.png' , clickAction: () => alert('custom click function') }
+    { url: this.imgUrl + '/../assets/carousel/slide1.png' , href: this.imgUrl +'/../assets/carousel/slide1.png' , clickAction: () => alert('custom click function') },
+    { url: this.imgUrl +'/../assets/carousel/slide1.png' ,  href: this.imgUrl +'/../assets/carousel/slide1.png' , clickAction: () => alert('custom click function') },
+    { url: this.imgUrl +'/../assets/carousel/slide1.png' ,  href: this.imgUrl +'/../assets/carousel/slide1.png' , clickAction: () => alert('custom click function') },
+    { url: this.imgUrl +'/../assets/carousel/slide1.png' ,  href: this.imgUrl +'/../assets/carousel/slide1.png' , clickAction: () => alert('custom click function') },
+    { url: this.imgUrl +'/../assets/carousel/slide1.png' ,  href: this.imgUrl +'/../assets/carousel/slide1.png' , clickAction: () => alert('custom click function') },
+    { url: this.imgUrl +'/../assets/carousel/slide1.png' ,  href: this.imgUrl +'/../assets/carousel/slide1.png' , clickAction: () => alert('custom click function') },
+    { url: this.imgUrl +'/../assets/carousel/slide1.png' ,  href: this.imgUrl +'/../assets/carousel/slide1.png' , clickAction: () => alert('custom click function') },
+    { url: this.imgUrl +'/../assets/carousel/slide1.png' ,  href: this.imgUrl +'/../assets/carousel/slide1.png' , clickAction: () => alert('custom click function') },
+    { url: this.imgUrl +'/../assets/carousel/slide1.png' ,  href: this.imgUrl +'/../assets/carousel/slide1.png' , clickAction: () => alert('custom click function') },
+    { url: this.imgUrl +'/../assets/carousel/slide1.png' ,  href: this.imgUrl +'/../assets/carousel/slide1.png' , clickAction: () => alert('custom click function') },
+    { url: this.imgUrl +'/../assets/carousel/slide1.png' ,  href: this.imgUrl +'/../assets/carousel/slide1.png' , clickAction: () => alert('custom click function') },
+    { url: this.imgUrl +'/../assets/carousel/slide1.png' ,  href: this.imgUrl +'/../assets/carousel/slide1.png' , clickAction: () => alert('custom click function') },
+    { url: this.imgUrl +'/../assets/carousel/slide1.png' ,  href: this.imgUrl +'/../assets/carousel/slide1.png' , clickAction: () => alert('custom click function') }
   ];
 
   /*loginFormGroup: FormGroup;
@@ -91,7 +92,6 @@ export class HomeComponent implements OnInit {
           .set('Authorization', 'Bearer ' + 'long token here')
       }, {key: 'cle', value: 'valeur'}, {key: 'params', value: this.loginFormGroup.value}];*!/
 
-      this.observable = this.http.post('http://localhost:8000/api/users/login', this.loginFormGroup.value, {
         'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
           .set('Authorization', 'Bearer ' + 'long token here'),
         'params':this.loginFormGroup.value
@@ -121,7 +121,6 @@ export class HomeComponent implements OnInit {
               password: this.password
             });
 
-            this.observable = this.http.post('http://localhost:8001/api/members-oauth?scope=ADMINISTRATOR', this.loginFormGroup.value, {
               'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
                 .set('Authorization', 'Bearer ' + token), 'params':this.loginFormGroup.value
             });

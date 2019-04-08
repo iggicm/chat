@@ -1,0 +1,143 @@
+<mat-toolbar color="primary" class="effect">
+  <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+    <ul fxLayout fxLayoutGap="15px" class="navigation-items">
+      <li [routerLinkActive]="['active']">
+        <button  class="btn btn-link popover-btn"  *ngIf="isAdmin" [ngbPopover]="popContent" [popoverTitle]="popTitle" placement="bottom"
+                 style="color: white; text-decoration: none;" popoverClass="popover-menu"><b>Administrer</b></button>
+
+        <ng-template #popContent >
+
+          <div class="row">
+            <div class="col-md-4">
+              <a [routerLink]="['./admin/applications']" class="nav-link my-nav-link align-self-center align-content-center admin-menu-item" style="color: #3f51b5; ">
+                <figure class="align-content-center myfigure">
+                  <img src="../../../assets/img/world.png" alt="" class="round-photo">
+                  <figcaption class="figure-caption">Demandes d'adhesion</figcaption>
+                </figure>
+              </a>
+            </div>
+
+            <div class="col-md-4">
+              <a [routerLink]="['./admin/suggesteddebates']" class="nav-link my-nav-link align-self-center align-content-center admin-menu-item" style="color: #3f51b5; ">
+                <figure class="align-content-center myfigure">
+                  <img src="../../../assets/img/world.png" alt="" class="round-photo">
+                  <figcaption class="figure-caption">Debats Proposes</figcaption>
+                </figure>
+              </a>
+            </div>
+
+            <div class="col-md-4">
+              <a [routerLink]="['./admin/adminproposition']"  class="nav-link my-nav-link align-self-center align-content-center admin-menu-item" style="color: #3f51b5; ">
+                <figure class="align-content-center myfigure">
+                  <img src="../../../assets/img/world.png" alt="" class="round-photo">
+                  <figcaption class="figure-caption">Proposer Un Administrateur</figcaption>
+                </figure>
+              </a>
+            </div>
+
+            <div class="col-md-4">
+              <a [routerLink]="['./admin/signeproposition']"  class="nav-link my-nav-link align-self-center align-content-center admin-menu-item" style="color: #3f51b5; ">
+                <figure class="align-content-center myfigure">
+                  <img src="../../../assets/img/world.png" alt="" class="round-photo">
+                  <figcaption class="figure-caption">Signer Proposition d'administrateur</figcaption>
+                </figure>
+              </a>
+            </div>
+
+            <div class="col-md-4">
+              <a [routerLink]="['./admin/revoke-member']" class="nav-link my-nav-link align-self-center align-content-center admin-menu-item" style="color: #3f51b5; ">
+                <figure class="align-content-center myfigure">
+                  <img src="../../../assets/img/world.png" alt="" class="round-photo">
+                  <figcaption class="figure-caption">Revoquer un membre</figcaption>
+                </figure>
+              </a>
+            </div>
+
+
+            <div class="col-md-4">
+              <a  [routerLink]="['./admin/signerevocation']" class="nav-link my-nav-link align-self-center align-content-center admin-menu-item" style="color: #3f51b5; ">
+                <figure class="align-content-center myfigure">
+                  <img src="../../../assets/img/world.png" alt="" class="round-photo">
+                  <figcaption class="figure-caption">Signer Revocation</figcaption>
+                </figure>
+              </a>
+            </div>
+
+            <div class="col-md-4">
+              <a  [routerLink]="['./admin/close-debate']"  class="nav-link my-nav-link align-self-center align-content-center admin-menu-item" style="color: #3f51b5; ">
+                <figure class="align-content-center myfigure">
+                  <img src="../../../assets/img/world.png" alt="" class="round-photo">
+                  <figcaption class="figure-caption">Cloturer un Debat</figcaption>
+                </figure>
+              </a>
+            </div>
+
+            <div class="col-md-4">
+              <a  [routerLink]="['./admin/open-debate']"  class="nav-link my-nav-link align-self-center align-content-center admin-menu-item" style="color: #3f51b5; ">
+                <figure class="align-content-center myfigure">
+                  <img src="../../../assets/img/world.png" alt="" class="round-photo">
+                  <figcaption class="figure-caption">Reouvrir un Debat</figcaption>
+                </figure>
+              </a>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template #popTitle><b [ngStyle]="{'color':'#3f51b5'}">Administration</b></ng-template>
+
+      </li>
+      <li>
+
+        <button  class="btn btn-link popover-btn"   [ngbPopover]="debatepopContent" [popoverTitle]="debatepopTitle" placement="bottom"
+                 style="color: white; text-decoration: none;" popoverClass="popover-menu"><b>Debat</b></button>
+
+        <ng-template #debatepopContent >
+
+          <div class="row">
+            <div class="col-md-4">
+              <a [routerLink]="['./list']" class="nav-link my-nav-link align-self-center align-content-center admin-menu-item" style="color: #3f51b5; ">
+                <figure class="align-content-center myfigure">
+                  <img src="../../../assets/img/world.png" alt="" class="round-photo">
+                  <figcaption class="figure-caption">Liste des Debats</figcaption>
+                </figure>
+              </a>
+            </div>
+
+            <div class="col-md-4">
+              <a [routerLink]="['./suggest-debate']" class="nav-link my-nav-link align-self-center align-content-center admin-menu-item" style="color: #3f51b5; ">
+                <figure class="align-content-center myfigure">
+                  <img src="../../../assets/img/world.png" alt="" class="round-photo">
+                  <figcaption class="figure-caption">Suggerer un debat</figcaption>
+                </figure>
+              </a>
+            </div>
+
+            <div class="col-md-4">
+              <a [routerLink]="['./closed-debate']"  class="nav-link my-nav-link align-self-center align-content-center admin-menu-item" style="color: #3f51b5; ">
+                <figure class="align-content-center myfigure">
+                  <img src="../../../assets/img/world.png" alt="" class="round-photo">
+                  <figcaption class="figure-caption">Debat Cloture</figcaption>
+                </figure>
+              </a>
+            </div>
+
+            <div class="col-md-4">
+              <a [routerLink]="['./resumed-debates']"  class="nav-link my-nav-link align-self-center align-content-center admin-menu-item" style="color: #3f51b5; ">
+                <figure class="align-content-center myfigure">
+                  <img src="../../../assets/img/world.png" alt="" class="round-photo">
+                  <figcaption class="figure-caption">Debat Resume</figcaption>
+                </figure>
+              </a>
+            </div>
+
+          </div>
+        </ng-template>
+        <ng-template #debatepopTitle><b [ngStyle]="{'color':'#3f51b5'}">Debat</b></ng-template>
+      </li>
+
+      <li>
+        <a [routerLink]="['./users']">Utilisateurs</a>
+      </li>
+
+    </ul>
+  </div>
+</mat-toolbar>

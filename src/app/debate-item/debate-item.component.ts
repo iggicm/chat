@@ -6,12 +6,13 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ChatAdapter} from 'ng-chat';
 import {MyAdapter} from '../my-adapter/my-adapter';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {geoPosition} from '../Constants';
+import {forumRootUrl, geoPosition} from '../Constants';
 import {UUID} from 'angular2-uuid';
 import {ScrollEvent} from 'ngx-scroll-event';
 import {MatDialog, MatDialogConfig} from '@angular/material';
 import {UploadDialogComponent} from '../upload-dialog/upload-dialog.component';
 import {MemberDialogComponent} from '../revoke-member/member-dialog/member-dialog.component';
+import {ShowFileDialogComponent} from '../show-file-dialog/show-file-dialog.component';
 
 declare const Pusher: any;
 
@@ -117,42 +118,61 @@ export class DebateItemComponent implements OnInit {
       this.udatedCommentsChannel = this.pusher.subscribe('chat.' + this.debateid);
 
       this.commentsChannel.bind('new-comment', data => {
+
+        console.log("NEW-COMMENT: " + JSON.stringify(this.comments));
+
         if (!(environment.userdescriptor.userDetails.userid === data.message.authorid)){
+          data.message.files = this.transformeToArray(data.message.files);
           this.comments.push(data.message);
         } else{
+          let trouvee:boolean = false;
           for (let c of this.comments){
             if (c.commentid === data.message.commentid){
               c.sent = true;
+              trouvee = true;
               break;
             }
           }
+          if (!trouvee){
+            data.message.sent = true;
+            data.message.files = this.transformeToArray(data.message.files);
+            this.comments.push(data.message);
+          }
         }
 
-        console.log(JSON.stringify(this.comments));
+
+        this.body.setValue(' ');
+
+        //console.log("NEW-COMMENT: " + JSON.stringify(this.comments));
       });
 
       this.udatedCommentsChannel.bind('updated-comment', data => {
-        //if (!(environment.userdescriptor.userDetails.userid === data.message.authorid)){
-          //this.comments.push(data.message);
-        //} else{
-          /*for (let c of this.comments){
+        /*if (!(environment.userdescriptor.userDetails.userid === data.message.authorid)){
+          this.comments.push(data.message);
+        } else{*/
+          let trouvee:boolean = false;
+          for (let c of this.comments){
             if (c.commentid === data.message.commentid){
-              //c.sent = true;
-              c = data.message;
+              c.files = this.transformeToArray(data.message.files);
+              c.sent = true;
+              console.log("TROVATO AT : " + c.commentid);
+              console.log('\n\ndata.message: ' + JSON.stringify(data.message) + '\n\n');
+              trouvee = true;
               break;
             }
-          }*/
+          }
+          if (!trouvee){
+            data.message.sent = true;
+            this.comments.push(data.message);
+          }
         //}
-
-        console.log("CATCHING: " + JSON.stringify(this.comments));
+        console.log("UPDATE-COMMENT: " + JSON.stringify(this.comments));
       });
-
-      //
 
       this.loading = true;
       this.successResponse = false;
       this.message = '';
-      this.http.get('http://localhost:8001/api/debates/' + this.debateid + '?scope=USER', {
+      this.http.get(forumRootUrl + 'debates/' + this.debateid + '?scope=USER', {
         'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
           .set('Authorization', 'Bearer ' + environment.oauth_client.token)
       }).subscribe(res=>{
@@ -171,7 +191,7 @@ export class DebateItemComponent implements OnInit {
     this.loading = true;
     this.successResponse = false;
     this.message = '';
-    this.observable = this.http.get('http://localhost:8001/api/debates/' + this.debateid + '/comments?scope=USER', {
+    this.observable = this.http.get(forumRootUrl + 'debates/' + this.debateid + '/comments?scope=USER', {
       'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
         .set('Authorization', 'Bearer ' + environment.oauth_client.token)
     });
@@ -187,6 +207,9 @@ export class DebateItemComponent implements OnInit {
           this.defined = !(this.debate===null);
 
           this.comments = response.response.comments;
+          for (let c of  this.comments){
+            c.files = this.transformeToArray(c.files);
+          }
           this.successResponse = true;
           this.message = '';
         }else {
@@ -226,7 +249,7 @@ export class DebateItemComponent implements OnInit {
     this.comments.push(newComment);
 
     this.loadingComment = true;
-    this.observable = this.http.post('http://localhost:8001/api/debates/' + this.debateid + '/comments?scope=USER', this.commentFormGroup.value, {
+    this.observable = this.http.post(forumRootUrl + 'debates/' + this.debateid + '/comments?scope=USER', this.commentFormGroup.value, {
       'headers': new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
         .set('Authorization', 'Bearer ' + environment.oauth_client.token), 'params': this.commentFormGroup.value
     });
@@ -265,17 +288,17 @@ export class DebateItemComponent implements OnInit {
   }
 
   public handleScroll(event: ScrollEvent) {
-    console.log('scroll occurred', event.originalEvent);
+    //console.log('scroll occurred', event.originalEvent);
     if (event.isReachingBottom) {
-      console.log(`the user is reaching the bottom`);
+      //console.log(`the user is reaching the bottom`);
       this.debatetheme.nativeElement.setAttribute('style','position:fixed; top:75px;')
     }
     if (event.isReachingTop) {
-      console.log(`the user is reaching the top`);
+      //console.log(`the user is reaching the top`);
       this.debatetheme.nativeElement.setAttribute('style','position:fixed; top:140px;')
     }
     if (event.isWindowEvent) {
-      console.log(`This event is fired on Window not on an element.`);
+      //console.log(`This event is fired on Window not on an element.`);
     }
 
   }
@@ -312,7 +335,7 @@ export class DebateItemComponent implements OnInit {
       this.commentid.setValue(uuid); //new FormControl(UUID.UUID(), Validators.required);
       let newComment = {
         commentid:this.commentid.value, debateid:this.debateid, authorid:environment.userdescriptor.userDetails.userid, authoremail:environment.userdescriptor.userDetails.email,
-        authorname:environment.userdescriptor.userDetails.firstname + '  ' + environment.userdescriptor.userDetails.lastname, textbody:this.body.value.trim(),
+        authorname:environment.userdescriptor.userDetails.firstname + '  ' + environment.userdescriptor.userDetails.lastname, textbody:this.body.value.trim(), files: [],
         latitude:geoPosition.latitude, longitude:geoPosition.longitude, sent:false, time:(new Date()).getTime()
       };
 
@@ -328,21 +351,67 @@ export class DebateItemComponent implements OnInit {
     //const dialogRef = this.dialog.open(MemberDialogComponent, dialogConfig);
 
 
-    let dialogRef = this.dialog.open(UploadDialogComponent, { width: '90%', height: '90%' ,
-      data:{url:'http://localhost:8001/api/debates/' + this.debateid + '/comments-with-file?scope=USER',comment:newComment,
+    console.log("Comment on open: " + JSON.stringify(newComment));
+    let dialogRef = this.dialog.open(UploadDialogComponent, { width: '30%', height: '50%' ,
+      data:{url: forumRootUrl + 'debates/' + this.debateid + '/comments-with-file?scope=USER',comment:newComment,
         debate:this.debate}
     });
   }
 
   transformeToArray(str:string):Array<any>{
+
     try {
       //console.log('str: ' + str);
       return JSON.parse(str);
 
     }catch (e) {
-      console.log('Error: ' + JSON.stringify(e.message));
+      //console.log('Error: ' + JSON.stringify(e.message));
       return [];
     }
+  }
+
+  extractFile(file:string):string{
+    let arrayObtained = file.split('/');
+    if (arrayObtained.length === 0) return '';
+    return arrayObtained[arrayObtained.length - 1];
+  }
+
+
+  popupFile(commentid, file) {
+
+    const dialogConfig = new MatDialogConfig();
+
+    /*dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;*/
+
+    //if (!(this.body.value.trim() === '')){
+
+    /*['commentid', 'debateid', 'authorid', 'authoremail', 'authorname', 'textbody', 'files', 'latitude',
+      'longitude']*/
+
+    /*let uuid = UUID.UUID();
+    this.commentid.setValue(uuid); //new FormControl(UUID.UUID(), Validators.required);
+    let newComment = {
+      commentid:this.commentid.value, debateid:this.debateid, authorid:environment.userdescriptor.userDetails.userid, authoremail:environment.userdescriptor.userDetails.email,
+      authorname:environment.userdescriptor.userDetails.firstname + '  ' + environment.userdescriptor.userDetails.lastname, textbody:this.body.value.trim(),
+      latitude:geoPosition.latitude, longitude:geoPosition.longitude, sent:false, time:(new Date()).getTime()
+    };*/
+
+    /*dialogConfig.data = {
+      url:'http://localhost:8001/api/debates/' + this.debateid + '/comments-with-file',
+      comment:newComment,
+      debate:this.debate
+
+    };*/
+
+    //this.dialog.open(MemberDialogComponent, dialogConfig);
+
+    //const dialogRef = this.dialog.open(MemberDialogComponent, dialogConfig);
+
+
+    let dialogRef = this.dialog.open(ShowFileDialogComponent, { width: '90%', height: '90%' ,
+      data:{url:forumRootUrl + 'debates/' + this.debateid + '/comments/' + commentid + '/file?file=' + this.extractFile(file)}
+    });
   }
 
 }

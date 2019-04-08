@@ -7,7 +7,7 @@ import {ApplicationsResponse} from '../domain/model/ApplicationsResponse';
 import {appStore} from '../store/AppStore';
 import {Action} from 'rxjs/internal/scheduler/Action';
 import {Router} from '@angular/router';
-import {countries} from '../Constants';
+import {countries, idRootUrl} from '../Constants';
 
 export interface Application {
   id:number;
@@ -35,6 +35,7 @@ export interface Application {
 })
 export class ApplicationsComponent implements OnInit {
 
+  idRootUrl:string = idRootUrl;
   applications:Array<Application>;
   loading:boolean;
   successResponse:boolean;
@@ -51,12 +52,12 @@ export class ApplicationsComponent implements OnInit {
     this.loading = true;
     this.successResponse = false;
     this.message= '';
-    this.httpClient.get('http://localhost:8000/api/applications?scope=ADMINISTRATOR', {
+    this.httpClient.get(idRootUrl + 'applications?scope=ADMINISTRATOR', {
       'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
         .set('Authorization', 'Bearer ' + environment.oauth_client.token)
     }).subscribe((response:MyResponse)=>{
 
-        console.log('applications: ' + JSON.stringify(response));
+        //console.log('applications: ' + JSON.stringify(response));
 
         let succes: number = response.success;
         let faillite: number = response.faillure;

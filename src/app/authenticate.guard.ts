@@ -11,7 +11,7 @@ export class AuthenticateGuard implements CanActivate {
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     //console.log('Passing auth guard: \n\n' + JSON.stringify(appStore.getState().loginResponse) + '\n\n');
     let booleen:boolean = !(environment.oauth_client.token === '');
-    console.log(booleen);
+    //console.log(booleen);
     if (booleen) {
       //this.cookiesService.set(LOGIN_RESPONSE, JSON.stringify(appStore.getState().loginResponse));
       return true;

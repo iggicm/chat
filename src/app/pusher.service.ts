@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../environments/environment';
+import {forumRootUrl} from './Constants';
 
 declare const Pusher: any;
 
@@ -17,7 +18,7 @@ export class PusherService {
     // replace xxxx's with your Pusher application key
     //this.pusher = new Pusher(environment.pusher.key);
     this.pusher = new Pusher(environment.pusher.key, {
-      authEndpoint: 'http://localhost:8001/api/members-oauth',
+      authEndpoint: forumRootUrl + 'members-oauth',
       encrypted: true
     });
 

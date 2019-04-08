@@ -1,7 +1,7 @@
 <mat-sidenav-container class="container first-container">
   <section>
-    <div class="mat-typography conversation-header" *ngIf="defined" detect-scroll (onScroll)="handleScroll($event)" #debatetheme> <!--[topOffset]="100" [bottomOffset]="200"-->
-      <h2>{{debate.theme}} ({{debate.interestcentername}})</h2>
+    <div class="mat-typography conversation-header align-content-center align-self-center align-items-center" *ngIf="defined" detect-scroll (onScroll)="handleScroll($event)" #debatetheme> <!--[topOffset]="100" [bottomOffset]="200"-->
+      <h2 class="align-content-center align-self-center align-items-center" style="margin: auto; padding: auto;">{{debate.theme}} ({{debate.interestcentername}})</h2>
     </div>
     <mat-divider></mat-divider>
     <mat-list dense class="conversation-history mat-typography" style="margin-bottom: 100px;">
@@ -17,8 +17,8 @@
       <ul *ngFor="let comment of comments" class="list-group" >
         <li class="list-group-item {{comment.authorid==userId?'active':''}}">
           <p>{{comment.textbody}}</p>
-          <ul class="list-group" *ngIf="transformeToArray(comment.files).length>0">
-            <li class="list-group-item" *ngFor="let f of transformeToArray(comment.files); let i = index">
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let f of comment.files; let i = index">
               <button class="btn btn-link" (click)="popupFile(comment.commentid, f)">{{'Fichier - ' + (i +1)}} </button>
             </li>
           </ul>
@@ -55,8 +55,6 @@
             </mat-form-field>
           </div>
           <div class="col-md-5">
-
-
             <div class="row">
               <div class="col-md-12">
                 <!--<input type="file" id="attachedFile" (change)="onSelectFile($event)" #attachedFile style="display: none;" required formControlName="attachedFile">

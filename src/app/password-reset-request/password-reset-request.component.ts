@@ -4,7 +4,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LoginService} from '../login.service';
-import {geoPosition} from '../Constants';
+import {geoPosition, idRootUrl} from '../Constants';
 import {Observable} from 'rxjs';
 
 @Component({
@@ -44,20 +44,20 @@ export class PasswordResetRequestComponent implements OnInit {
     this.message = '';
     if (this.passwordResetRequestFormGroup.valid) {
       this.loading = true;
-      console.log('submited');
+      //console.log('submited');
       /*let mesoption = [{
         key: 'headers', value: new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
           .set('Authorization', 'Bearer ' + 'long token here')
       }, {key: 'cle', value: 'valeur'}, {key: 'params', value: this.loginFormGroup.value}];*/
 
-      this.observable = this.http.post('http://localhost:8000/api/users/' + this.email.value + '/password-reset-request', {}, {
+      this.observable = this.http.post(idRootUrl + 'users/' + this.email.value + '/password-reset-request', {}, {
         'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
         //'params':this.passwordResetRequestFormGroup.value
       });
       this.observable.subscribe(
         res => {
 
-          console.log(JSON.stringify(res));
+          //console.log(JSON.stringify(res));
 
           let success: number = res.success;
           let faillure: number = res.faillure;
@@ -76,7 +76,7 @@ export class PasswordResetRequestComponent implements OnInit {
 
 
     }else{
-      console.log('invalide form');
+      //console.log('invalide form');
     }
   }
 

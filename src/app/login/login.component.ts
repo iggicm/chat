@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs';
-import {geoPosition} from '../Constants';
+import {geoPosition, idRootUrl} from '../Constants';
 import {LoginService} from '../login.service';
+import {ToastrService} from 'ngx-toastr';
 
 
 @Component({
@@ -42,7 +43,7 @@ export class LoginComponent implements OnInit {
   longitude: FormControl;
   watchID:any;
 
-  constructor(private router: Router, private route: ActivatedRoute, private http:HttpClient, private loginService: LoginService) {}
+  constructor(private router: Router, private route: ActivatedRoute, private http:HttpClient, private loginService: LoginService, private toastr: ToastrService) {}
 
   ngOnInit() {
 
@@ -54,15 +55,15 @@ export class LoginComponent implements OnInit {
 
     if (navigator.geolocation) {
       /* géolocalisation possible */
-      console.log('navigator.geolocation');
+      //console.log('navigator.geolocation');
       navigator.geolocation.getCurrentPosition((position)=>{
         this.latitude.setValue(position.coords.latitude);
         this.longitude.setValue(position.coords.longitude);
         geoPosition.latitude = this.latitude.value;
         geoPosition.longitude = this.longitude.value;
-        console.log('latitude: ' + this.latitude.value + ', longitude: ' + this.longitude.value);
+        //console.log('latitude: ' + this.latitude.value + ', longitude: ' + this.longitude.value);
       });
-      console.log('end.geolocation');
+      //console.log('end.geolocation');
 
 
        this.watchID = navigator.geolocation.watchPosition(function(position) {
@@ -72,7 +73,9 @@ export class LoginComponent implements OnInit {
         }
       );
     } else {
-      console.log("Le service de géolocalisation n'est pas disponible sur votre ordinateur.");
+      this.latitude.setValue(0);
+      this.longitude.setValue(0);
+      //console.log("Le service de géolocalisation n'est pas disponible sur votre ordinateur.");
     }
 
   }
@@ -82,13 +85,13 @@ export class LoginComponent implements OnInit {
     this.message = '';
     if (this.loginFormGroup.valid) {
       this.loading = true;
-      console.log('submited');
+      //console.log('submited');
       /*let mesoption = [{
         key: 'headers', value: new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
           .set('Authorization', 'Bearer ' + 'long token here')
       }, {key: 'cle', value: 'valeur'}, {key: 'params', value: this.loginFormGroup.value}];*/
 
-      this.observable = this.http.post('http://localhost:8000/api/users/login', this.loginFormGroup.value, {
+      this.observable = this.http.post(idRootUrl + 'users/login', this.loginFormGroup.value, {
         'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
           .set('Authorization', 'Bearer ' + 'long token here'),
         'params':this.loginFormGroup.value
@@ -96,7 +99,7 @@ export class LoginComponent implements OnInit {
       this.observable.subscribe(
         res => {
 
-          console.log(JSON.stringify(res));
+          //console.log(JSON.stringify(res));
 
           let success: number = res.success;
           let faillure: number = res.faillure;
@@ -105,7 +108,7 @@ export class LoginComponent implements OnInit {
             let token: string = res.token.access_token;
             environment.oauth_client.token = token;
 
-            console.log(token);
+            //console.log(token);
 
             environment.userdescriptor = res.response;
             this.loginService.toggle();
@@ -161,6 +164,13 @@ export class LoginComponent implements OnInit {
           }else{
             this.message = res.raison;
             this.error = true;
+            this.toastr.error(res.raison, 'Modification de mot de passe',  {
+              timeOut: 10000,
+              closeButton: true,
+              enableHtml:true,
+              positionClass: 'toast-top-full-width'
+
+            });
           }
         },
         error => {
@@ -174,6 +184,14 @@ export class LoginComponent implements OnInit {
           this.error = true;
           this.message = error.statusText;//JSON.stringify(error);
           this.loading = false;
+
+          this.toastr.error(error.statusText, 'Modification de mot de passe',  {
+            timeOut: 10000,
+            closeButton: true,
+            enableHtml:true,
+            positionClass: 'toast-top-full-width'
+
+          });
         },
         () => {
           this.loading = false;
@@ -183,7 +201,7 @@ export class LoginComponent implements OnInit {
 
 
     }else{
-      console.log('invalide form');
+      //console.log('invalide form');
     }
   }
 

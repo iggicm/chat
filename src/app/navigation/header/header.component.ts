@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.loginservice.change.subscribe(isAuthenticated => {
       this.isAuthenticated = isAuthenticated;
-      console.log('in header catch emitted: ' + this.isAuthenticated);
+      //console.log('in header catch emitted: ' + this.isAuthenticated);
 
       if (this.isAuthenticated){
         //console.log('in header environment.userdescriptor = ' + JSON.stringify(environment.userdescriptor ));

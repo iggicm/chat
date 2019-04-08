@@ -17,7 +17,7 @@ export class AppStore<T>{
   }
 
   dispatch(action: Action){
-    console.log("in dispatch: "+ JSON.stringify(action));
+    //console.log("in dispatch: "+ JSON.stringify(action));
     this.state = this.reducer(this.state, action);
     this.listeners.forEach((l:ListenerCallBack) => {
       l();

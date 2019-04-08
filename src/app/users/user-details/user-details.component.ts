@@ -16,9 +16,9 @@ export class UserDetailsComponent implements OnInit {
   }
   ngOnInit() {
     this.route.params.subscribe((param) => {
-        console.log(JSON.stringify(param));
+        //console.log(JSON.stringify(param));
         this.userid=param.userid;
-        console.log('userid: ' + this.userid);
+        //console.log('userid: ' + this.userid);
 
         //console.log(environment);
 

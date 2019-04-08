@@ -26,6 +26,12 @@ import {RevokeMemberComponent} from './revoke-member/revoke-member.component';
 import {SignerevocationComponent} from './signerevocation/signerevocation.component';
 import {CloseDebateComponent} from './close-debate/close-debate.component';
 import {OpenDebateComponent} from './open-debate/open-debate.component';
+import {ClosedDebatesComponent} from './closed-debates/closed-debates.component';
+import {DebateDetailsComponent} from './debate-to-close/debate-details/debate-details.component';
+import {ResumedDebatesComponent} from './closed-debates/resumed-debates/resumed-debates.component';
+import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
+import {ProjectsComponent} from './projects/projects.component';
+import {ConfigComponent} from './users/config/config.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -45,10 +51,7 @@ const routes: Routes = [
     path: 'password-reset-request',
     component: PasswordResetRequestComponent,
   },
-  {
-    path: 'logout',
-    component: LogoutComponent,
-  },
+//dr foken
   {
     path: 'application',
     component: ApplicationComponent,
@@ -71,9 +74,21 @@ const routes: Routes = [
       {path: 'users', component: UsersComponent},
       {path: 'list', component: DebateListComponent},
       {path: 'suggest-debate', component: SuggestdebateComponent},
+      {path: 'closed-debate', component: ClosedDebatesComponent},
+      {path: 'resumed-debates', component: ResumedDebatesComponent},
+      {path:'debate-details/:debateid', component: DebateDetailsComponent},
+      {path: 'projects', component: ProjectsComponent},
       {
         path:'debate/:debateid',
         component: DebateItemComponent
+      },
+      {
+        path: 'logout',
+        component: LogoutComponent,
+      },
+      {
+        path: 'config',
+        component: ConfigComponent,
       },
       {
         path: 'moderator-candidatures/:debateid', component: DebateModeratorCandidatureComponent
@@ -123,7 +138,8 @@ const routes: Routes = [
         ]
       }
     ]
-  }
+  },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 //

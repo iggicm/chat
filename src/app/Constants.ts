@@ -1,4 +1,5 @@
 
+
 export const  appConst:any = {
   home:{label: "Accueil", route:"home", active:false},
   project:{label:"Projets", route: "projects", active:false},
@@ -13,9 +14,13 @@ export const  appConst:any = {
   logout:{label:"Deconnexion", route: "logout", active:false},
   config:{label:"Parametrage", route: "config", active:false}
 
-
-
 };
+
+const debug: boolean = true;
+
+
+export let forumRootUrl= !debug?'http://mobilebiller.idea-cm.club/iggi/forum/public/api/':"http://192.168.100.12:8001/api/";
+export let idRootUrl= !debug?'http://mobilebiller.idea-cm.club/iggi/id/public/api/':"http://192.168.100.12:8000/api/";
 
 export let geoPosition = {latitude:0.0, longitude:0.0};
 
@@ -24,6 +29,21 @@ export const LOGIN_RESPONSE = 'loginResponse';
 /*export const emailPattern =
   '(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))';
 */
+
+export const  issues = [
+  {
+    "name": "--- Choisir une issue ---",
+    "code": ""
+  },
+  {
+    "name": "Positif",
+    "code": "POSITIVE"
+  },
+  {
+    "name": "Negatif",
+    "code": "NEGATIVE"
+  }
+];
 
 export const  countries = [
   {

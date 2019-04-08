@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs';
-import {PusherService} from '../pusher.service';
+import {AgmMarker} from '@agm/core';
+import {countries, idRootUrl} from '../Constants';
 
 declare const Pusher: any;
 
@@ -47,7 +48,7 @@ export interface Location {
   address_state?: string;
   marker?: Marker;
 }
-
+//http://mobilebiller.idea-cm.club/cluster-img/people35.png1.png
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -55,6 +56,7 @@ export interface Location {
 })
 export class UsersComponent implements OnInit {
 
+  idRootUrl:string = idRootUrl;
   users:Array<any>;
   private observable: Observable<any>;
 
@@ -64,29 +66,40 @@ export class UsersComponent implements OnInit {
 
   loading = false;
 
-
+  desiredWidthScale:number = 35;
+  desiredHeightScale: number = 35;
 
   userAcceptedChannel: any;
   loginChannel: any;
   logoutChannel: any;
 
-  texto : string = 'Wenceslau Braz - Cuidado com as cargas';
-  lat: number = -23.8779431;
-  lng: number = -49.8046873;
-  zoom: number = 15;
+  //texto : string = 'Wenceslau Braz - Cuidado com as cargas';
+  lat: number = 3.8674432;
+  lng: number = 11.5187712;
+  zoom: number = 10.5;
+  //markerLabel: MarkerLabel;
 
-
+/*
+export interface MarkerLabel {
+  color: string;
+  fontFamily: string;
+  fontSize: string;
+  fontWeight: string;
+  text: string;
+}
+ */
 
   //style="border: 1px forestgreen solid;"
 
 
   constructor(private httpClient: HttpClient) {
     this.users = [];
+    //this.markerLabel = null;
   }
 
   ngOnInit() {
 
-    console.log('users.environment.userdescriptor:  ' + JSON.stringify(environment.userdescriptor));
+    //console.log('users.environment.userdescriptor:  ' + JSON.stringify(environment.userdescriptor));
 
 
     this.pusherUserAccepted = new Pusher(environment.pusher.key, {
@@ -124,16 +137,16 @@ export class UsersComponent implements OnInit {
         }
       }
       //this.user.isconnected = data.message.isconnected;
-      console.log(JSON.stringify(data));
+      //console.log(JSON.stringify(data));
     });
 
     this.logoutChannel.bind('user-logedout', data => {
-      console.log('logetout userrrrrrrrrrrr: ' + JSON.stringify(data));
+      //console.log('logetout userrrrrrrrrrrr: ' + JSON.stringify(data));
       //this.comments.push(data.message);
       for (let u of this.users){
         if (u.userid == data.message.userid){
           u.temoins = data.message.temoins;
-          console.log('Loget out user id: ' + data.message.userid)
+          //console.log('Loget out user id: ' + data.message.userid)
           break;
         }
       }
@@ -142,14 +155,14 @@ export class UsersComponent implements OnInit {
     });
 
     this.loading = true;
-    this.observable = this.httpClient.get('http://localhost:8000/api/users', {
+    this.observable = this.httpClient.get(idRootUrl + 'users', {
       'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
         .set('Authorization', 'Bearer ' + environment.oauth_client.token)
     });
 
     this.observable.subscribe(response=>{
 
-        console.log(JSON.stringify(response));
+        //console.log(JSON.stringify(response));
 
         let succes: number = response.success;
         let faillite: number = response.faillure;
@@ -185,7 +198,7 @@ export class UsersComponent implements OnInit {
   }
 
   removeUserFromList(user:User){
-    console.log('REMOVE USER: ' + JSON.stringify(user));
+    //console.log('REMOVE USER: ' + JSON.stringify(user));
     /*let users = [];
     for (let u of this.users){
       if (!(u.userid === user.userid)){
@@ -195,6 +208,19 @@ export class UsersComponent implements OnInit {
 
     this.users = users;*/
 
+  }
+
+  showDetailsOnMarker(agmMarker){
+    //console.log('agmMarker: ' + JSON.stringify(agmMarker));
+  }
+
+  getCountryName(user:any):string {
+    for (let country of countries){
+      if (country.code === user.country){
+        return country.name;
+      }
+    }
+    return '';
   }
 
 }

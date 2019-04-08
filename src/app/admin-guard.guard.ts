@@ -3,6 +3,7 @@ import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '
 import { Observable } from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../environments/environment';
+import {idRootUrl} from './Constants';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +14,11 @@ export class AdminGuardGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
-    return this.httpClient.get('http://localhost:8000/api/confirm-admin-access-token?scope=ADMINISTRATOR',{
+    return this.httpClient.get(idRootUrl + 'confirm-admin-access-token?scope=ADMINISTRATOR',{
       'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
         .set('Authorization', 'Bearer ' + environment.oauth_client.token), 'params':{}
     }).toPromise().then(res=>{
-      console.log('promise ' + JSON.stringify(res));
+      //console.log('promise ' + JSON.stringify(res));
 
       let boolean = res != '0';
       if (boolean === false){

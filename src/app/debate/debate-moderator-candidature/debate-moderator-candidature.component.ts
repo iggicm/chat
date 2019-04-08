@@ -4,7 +4,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {ActivatedRoute, Router} from '@angular/router';
 import {appStore} from '../../store/AppStore';
-import {countries} from '../../Constants';
+import {countries, forumRootUrl, idRootUrl} from '../../Constants';
 
 @Component({
   selector: 'app-debate-moderator-candidature',
@@ -41,7 +41,7 @@ export class DebateModeratorCandidatureComponent implements OnInit {
 
         //Route::get('debates/{debateid}/candidatures', 'DebatesController@getDebateCandidature')->middleware(['auth:api']);
       this.loading = true;
-      this.observable = this.httpClient.get('http://localhost:8001/api/debates/'+this.debateid+'/candidatures?scope=ADMINISTRATOR', {
+      this.observable = this.httpClient.get(forumRootUrl + 'debates/'+this.debateid+'/candidatures?scope=ADMINISTRATOR', {
         'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
           .set('Authorization', 'Bearer ' + environment.oauth_client.token)
       });
@@ -87,7 +87,7 @@ export class DebateModeratorCandidatureComponent implements OnInit {
     );
 
 
-    this.observable = this.httpClient.get('http://localhost:8001/api/debates/'+this.debateid+'?scope=ADMINISTRATOR', {
+    this.observable = this.httpClient.get(forumRootUrl + 'debates/'+this.debateid+'?scope=ADMINISTRATOR', {
       'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
         .set('Authorization', 'Bearer ' + environment.oauth_client.token)
     });
@@ -116,11 +116,11 @@ export class DebateModeratorCandidatureComponent implements OnInit {
   }
 
   userImgUrl():string{
-    return 'http://localhost:8000/api/users/'+environment.userdescriptor.userDetails.userid+'/photo';
+    return idRootUrl + 'users/'+environment.userdescriptor.userDetails.userid+'/photo';
   }
 
   candidatureImgUrl(userid:string):string{
-    return 'http://localhost:8000/api/users/'+userid+'/photo';
+    return idRootUrl + 'users/'+userid+'/photo';
 
   }
 
@@ -131,7 +131,7 @@ export class DebateModeratorCandidatureComponent implements OnInit {
     this.responseSuccess = true;
     this.message = '';
 
-    this.httpClient.post('http://localhost:8001/api/debates/'+this.debateid+'/candidatures/'+candidatureid+'?scope=ADMINISTRATOR', {}, {
+    this.httpClient.post(forumRootUrl + 'debates/'+this.debateid+'/candidatures/'+candidatureid+'?scope=ADMINISTRATOR', {}, {
       'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
         .set('Authorization', 'Bearer ' +  environment.oauth_client.token),
       'params':{
@@ -141,7 +141,7 @@ export class DebateModeratorCandidatureComponent implements OnInit {
 
       console.log(JSON.stringify(res));
 
-      this.observable = this.httpClient.get('http://localhost:8001/api/debates/'+this.debateid+'/candidatures?scope=ADMINISTRATOR', {
+      this.observable = this.httpClient.get(forumRootUrl + 'debates/'+this.debateid+'/candidatures?scope=ADMINISTRATOR', {
         'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
           .set('Authorization', 'Bearer ' + environment.oauth_client.token)
       });
@@ -211,7 +211,7 @@ export class DebateModeratorCandidatureComponent implements OnInit {
     this.loading = true;
     this.message = '';
     this.responseSuccess = false;
-    this.httpClient.post('http://localhost:8001/api/debates/'+this.debateid+'/candidatures/'+candidatureid+'?scope=ADMINISTRATOR', {}, {
+    this.httpClient.post(forumRootUrl + 'debates/'+this.debateid+'/candidatures/'+candidatureid+'?scope=ADMINISTRATOR', {}, {
       'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
         .set('Authorization', 'Bearer ' +  environment.oauth_client.token),
       'params':{
@@ -219,7 +219,7 @@ export class DebateModeratorCandidatureComponent implements OnInit {
       }
     }).subscribe(res=>{
       console.log(JSON.stringify(res));
-      this.observable = this.httpClient.get('http://localhost:8001/api/debates/'+this.debateid+'/candidatures?scope=ADMINISTRATOR', {
+      this.observable = this.httpClient.get(forumRootUrl + 'debates/'+this.debateid+'/candidatures?scope=ADMINISTRATOR', {
         'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
           .set('Authorization', 'Bearer ' + environment.oauth_client.token)
       });

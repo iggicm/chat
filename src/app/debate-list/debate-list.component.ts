@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment';
+import {AccessService} from '../access.service';
+import {forumRootUrl} from '../Constants';
 
 @Component({
   selector: 'app-debate-list',
@@ -21,7 +23,7 @@ export class DebateListComponent implements OnInit {
   selProposedCandidateResponse: boolean;
   selProposedCandidateResponseMessage:string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private accessService: AccessService) {
 
     this.connectedUserId = environment.userdescriptor.userDetails.userid;
     this.loading = false;
@@ -30,7 +32,7 @@ export class DebateListComponent implements OnInit {
   ngOnInit() {
 
     this.loading = true;
-    this.observable = this.http.get('http://localhost:8001/api/debates?scope=USER', {
+    this.observable = this.http.get(forumRootUrl + 'debates?scope=USER', {
       'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
         .set('Authorization', 'Bearer ' + environment.oauth_client.token)
     });
@@ -64,144 +66,70 @@ export class DebateListComponent implements OnInit {
         this.loading = false;
       });
 
-
-    this.http.get('http://localhost:8000/api/confirm-admin-access-token',{
-      'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
-        .set('Authorization', 'Bearer ' + environment.oauth_client.token), 'params':{}
-    }).toPromise().then(res=>{
-      console.log('promise ' + JSON.stringify(res));
+    this.accessService.isAdmin().subscribe(res=>{
+     // console.log('promise ' + JSON.stringify(res));
 
       this.isAdmin = res != '0';
 
-      console.log('isAdmin:::::::::::::' + this.isAdmin);
+      //console.log('isAdmin:::::::::::::' + this.isAdmin);
 
     },error=>{
       this.isAdmin =  false;
     });
 
 
+    /*this.http.get('http://localhost:8000/api/confirm-admin-access-token',{
+      'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
+        .set('Authorization', 'Bearer ' + environment.oauth_client.token), 'params':{}
+    }).subscribe(res=>{
+      console.log('promise ' + JSON.stringify(res));
+
+      this.isAdmin = res != '0';
+
+      //console.log('isAdmin:::::::::::::' + this.isAdmin);
+
+    },error=>{
+      this.isAdmin =  false;
+    });*/
+
+
   }
 
-  moderatorProposition(debateid:string){
-    let userid:string = environment.userdescriptor.userDetails.userid;
-//Route::post('debates/{debateid}/candidatures', 'DebatesController@registerCandidature')->middleware(['auth:api']);
-    console.log('environment.oauth_client.token: ' + environment.oauth_client.token);
-    this.selProposedCandidateLoading = true;
-    this.selProposedCandidateResponse = false;
-    this.selProposedCandidateResponseMessage = '';
-    this.observable = this.http.post('http://localhost:8001/api/debates/'+debateid+'/candidatures?scope=USER',
-      {},{
-        'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
-          .set('Authorization', 'Bearer ' + environment.oauth_client.token), 'params':{
-          candidateid:userid,
-        }
-      });
-    this.observable.subscribe(response=>{
-
-        console.log(JSON.stringify(response));
-
-        let succes: number = response.success;
-        let faillite: number = response.faillure;
-        if (succes === 1 && faillite === 0) {
-          console.log('SUCCESS');
-          this.selProposedCandidateResponse = true;
-          this.selProposedCandidateResponseMessage = response.response;
-        }else {
-          this.selProposedCandidateResponse = false;
-          this.selProposedCandidateResponseMessage = response.raison;
-        }
-
-        this.selProposedCandidateLoading = false;
-
-      },error => {
-        console.log(JSON.stringify(error));
-        this.selProposedCandidateResponse = false;
-        this.selProposedCandidateResponseMessage = error.statusText;
-        this.selProposedCandidateLoading = false;
-      },
-      () => {
-        this.selProposedCandidateLoading = false;
-      });
+  onModeratorPropositionRegisterd(d:any){
+    d.connectedUserIsCandidate = true;
+    /*for (let debate of this.debates){
+      if (debate.debateid == d.debateid){
+        let moderators = debate.moderators;
+        moderators.push(this.connectedUserId);
+        debate.moderators = JSON.stringify(moderators);
+        //debate.state = 'CLOSED';
+        break;
+      }
+    }*/
   }
 
-  closeDebate(debateid: string){
-    let userid:string = environment.userdescriptor.userDetails.userid;
-//Route::post('debates/{debateid}/candidatures', 'DebatesController@registerCandidature')->middleware(['auth:api']);
-    this.loading = true;
-    this.observable = this.http.post('http://localhost:8001/api/debates/'+debateid+'?scope=ADMINISTRATOR',
-      {},{
-        'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
-          .set('Authorization', 'Bearer ' + environment.oauth_client.token), 'params':{
-          action:'CLOSED',
-        }
-      });
-    this.observable.subscribe(response=>{
-
-        console.log(JSON.stringify(response));
-
-        let succes: number = response.success;
-        let faillite: number = response.faillure;
-        if (succes === 1 && faillite === 0) {
-          console.log('CLOSED SUCCESS');
-
-          for (let debate of this.debates){
-            if (debate.debateid == debateid){
-              debate.state = 'CLOSED';
-              break;
-            }
-          }
-        }
-
-        this.loading = false;
-
-      },error => {
-        console.log(JSON.stringify(error));
-        this.loading = false;
-      },
-      () => {
-        this.loading= false;
-      });
+  onDebateClosed(d:any){
+    let newDebates = [];
+    for (let debate of this.debates){
+      if (debate.debateid === d.debateid){
+        //console.log('CLOSURE: ' + JSON.stringify(d));
+        //debate.state = 'CLOSED';
+        //break;
+      }else {
+        newDebates.push(debate);
+      }
+    }
+    this.debates = newDebates;
   }
 
-  reOpen(debateid: string){
-    let userid:string = environment.userdescriptor.userDetails.userid;
-//Route::post('debates/{debateid}/candidatures', 'DebatesController@registerCandidature')->middleware(['auth:api']);
-    this.loading = true;
-    this.observable = this.http.post('http://localhost:8001/api/debates/'+debateid+'?scope=ADMINISTRATOR',
-      {},{
-        'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
-          .set('Authorization', 'Bearer ' + environment.oauth_client.token), 'params':{
-          action:'REOPENED',
-        }
-      });
-    this.observable.subscribe(response=>{
-
-        console.log(JSON.stringify(response));
-
-        let succes: number = response.success;
-        let faillite: number = response.faillure;
-        if (succes === 1 && faillite === 0) {
-          console.log('CLOSED SUCCESS');
-
-          for (let debate of this.debates){
-            if (debate.debateid == debateid){
-              debate.state = 'ACCEPTED';
-              break;
-            }
-          }
-        }
-
-        this.loading = false;
-
-      },error => {
-        console.log(JSON.stringify(error));
-        this.loading = false;
-      },
-      () => {
-        this.loading = false;
-      });
+  onDebateReopened(d:any){
+    for (let debate of this.debates){
+      if (debate.debateid == d.debateid){
+        debate.state = 'ACCEPTED';
+        break;
+      }
+    }
   }
-
 
 //Route::post('debates/{debateid}/close', 'DebatesController@closeDebate')->middleware(['auth:api']);
 

@@ -54,3 +54,19 @@ mat-card{
   border-radius: 50%;*/
 }
 
+agm-marker { text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff; }
+
+agm-marker {
+  border: 5px #1c8a6f solid;
+  width: 10px;
+  height: 10px;
+  margin-top: -5px;
+  margin-left: -5px;
+  border-radius: 50%;
+  background: violetred;
+  position: absolute;
+  display: block;
+}
+
+
+

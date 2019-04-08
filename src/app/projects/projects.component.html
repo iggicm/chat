@@ -1,0 +1,445 @@
+<div class="container">
+  <mat-horizontal-stepper [linear]="true" #stepper labelPosition="bottom">
+
+    <mat-step [stepControl]="projectFormGroup">
+      <!--
+          <span style="position: relative; top: -15px; left: 3px;">{{appConst.projectform.label}}</span>
+      -->
+      <form [formGroup]="projectFormGroup" class="container " >
+        <div class="row">
+          <div class="col-md-8 offset-2">
+
+            <div class="card" >
+              <div class="card-header card-header ">
+                <h3 class="card-title">{{appConst.projectform.label}}</h3>
+              </div>
+              <div class="card-body">
+
+                <ng-template matStepLabel>{{appConst.projectform.label}}</ng-template>
+                <div class="field-container">
+                  <input   formControlName="projectid"  placeholder="ID du Project" [style.display]="displayNone()" [formControl]="projectid">
+                  <div class="form-control-feedback" *ngIf="projectname.errors && (projectname.dirty || projectname.touched)">
+                    <p *ngIf="projectname.errors.required" class="fields-error">Le nom du project est obligatoire</p>
+                    <!--
+                                        <p *ngIf="password.errors.minlength">Password must be 8 characters long</p>
+                    -->
+                  </div>
+                  <mat-form-field>
+                    <input matInput placeholder="Nom du Project" formControlName="projectname" required autocomplete="off" [formControl]="projectname">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="Objectif du Project" formControlName="projectobjective" required autocomplete="off" [formControl]="projectobjective">
+                  </mat-form-field>
+                  <mat-form-field>
+                  <textarea matInput placeholder="Description du Projet" formControlName="projectdescrition" required  autocomplete="off" rows="5"
+                            [formControl]="projectdescrition"></textarea>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="Tel. Point focal" formControlName="projectphone" required autocomplete="off" type="tel"
+                           [formControl]="projectphone">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="Email Point focal" formControlName="projectemail" required type="email" autocomplete="off"
+                           [formControl]="projectemail">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-select placeholder="Pays du projet" formControlName="projectcountry" required >
+                      <mat-option *ngFor="let country of countries" [value]="country.code">
+                        {{country.name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="Localite du Project" formControlName="projectlocality" required autocomplete="off" [formControl]="projectlocality">
+                  </mat-form-field>
+                </div>
+                <div>
+                  <button matStepperNext  class="btn btn-sm btn-primary float-right">Suivant</button>
+                </div>
+              </div>
+              <!-- <div class="card-footer">
+
+               </div>-->
+            </div>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="promoterFormGroup">
+      <form [formGroup]="promoterFormGroup" class="container">
+        <div class="row">
+          <div class="col-md-8 offset-2">
+
+            <div class="card" >
+              <div class="card-header card-header">
+                <h3>{{appConst.promoterform.label}}</h3>
+              </div>
+              <div class="card-body">
+                <div class="field-container">
+                  <ng-template matStepLabel>{{appConst.promoterform.label}}</ng-template>
+                  <!--<div formGroupName="promotername">-->
+                  <mat-form-field>
+                    <input matInput placeholder="Nom" formControlName="promoterfirstname" required autocomplete="off" [formControl]="promoterfirstname">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="Prenom" formControlName="promoterlastname" required autocomplete="off" [formControl]="promoterlastname">
+                  </mat-form-field>
+                  <!--</div>-->
+
+                  <mat-form-field>
+                    <input matInput [matDatepicker]="promoterpicker" placeholder="Date de Naissance" formControlName="promoterbirthdate" required autocomplete="off"
+                           [formControl]="promoterbirthdate">
+
+                    <mat-datepicker-toggle matSuffix [for]="promoterpicker"></mat-datepicker-toggle>
+                    <mat-datepicker #promoterpicker></mat-datepicker>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="Lieu de Naissance" formControlName="promoterplaceofbirth" required autocomplete="off" [formControl]="promoterplaceofbirth">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-select placeholder="Sexe" formControlName="promotergender" required >
+                      <mat-option *ngFor="let gender of genders" [value]="gender.value">
+                        {{gender.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-select placeholder="Type de Document" formControlName="promoterdocumenttype" required >
+                      <mat-option *ngFor="let documenttype of documenttypes" [value]="documenttype.value">
+                        {{documenttype.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="Numero du document d'identification" formControlName="promoterdocumentid" required autocomplete="off"
+                           [formControl]="promoterdocumentid">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-select placeholder="Pays de residence" formControlName="promotercountry" required >
+                      <mat-option *ngFor="let country of countries" [value]="country.code">
+                        {{country.name}}
+                      </mat-option>
+                    </mat-select>
+                    <input  placeholder="Pays " formControlName="promotercountryname" value="Cameroun" required [style.display]="displayNone()" [formControl]="promotercountryname">
+                  </mat-form-field>
+                  <mat-form-field *ngIf="promoterCountryIsCameroon()">
+                    <mat-select placeholder="Region de residence" formControlName="promoterregion">
+                      <mat-option *ngFor="let documenttype of documenttypes" [value]="documenttype.value">
+                        {{documenttype.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                    <input placeholder="Region" formControlName="promoterregionname"  [style.display]="displayNone()" [formControl]="promoterregionname">
+                  </mat-form-field>
+                  <mat-form-field *ngIf="promoterCountryIsCameroon()">
+                    <mat-select placeholder="Departement de residence" formControlName="promoterdivision"  >
+                      <mat-option *ngFor="let documenttype of documenttypes" [value]="documenttype.value">
+                        {{documenttype.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                    <input  placeholder="Departement" formControlName="promoterdivisionname" [style.display]="displayNone()" [formControl]="promoterdivisionname">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="Ville de residence" formControlName="promotertownname" required  [formControl]="promotertownname">
+                    <input   placeholder="" formControlName="promotertown"  [formControl]="promotertown" [style.display]="displayNone()">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="Numero de telephone" formControlName="promoterphone" required type="tel" autocomplete="off" [formControl]="promoterphone">
+
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="Email " formControlName="promoteremail" required type="email" autocomplete="off" [formControl]="promoteremail">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="Mot de passe" formControlName="promoterpassword" required type="password" autocomplete="off" [formControl]="promoterpassword">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="Confimer le mot de passe" formControlName="promoterpassword_confirmation" required type="password" autocomplete="off"
+                           [formControl]="promoterpassword_confirmation">
+                  </mat-form-field>
+                </div>
+                <div>
+                  <button  matStepperPrevious class="btn btn-sm btn-primary float-left">Retour</button>
+
+                  <button  matStepperNext class="btn btn-sm btn-primary float-right" (click)="goForward(stepper)" >Suivant</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="responsibleFormGroup">
+      <form [formGroup]="responsibleFormGroup" class="container">
+        <div class="row">
+          <div class="col-md-8 offset-2">
+
+            <div class="card" >
+              <div class="card-header card-header">
+                <h3>{{appConst.responsibleform.label}}</h3>
+              </div>
+              <div class="card-body">
+                <div class="field-container">
+                  <ng-template matStepLabel>{{appConst.responsibleform.label}}</ng-template>
+                  <mat-form-field>
+                    <input matInput placeholder="Nom" formControlName="responsiblefirstname" required autocomplete="off" [formControl]="responsiblefirstname">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="Prenom" formControlName="responsiblelastname" required autocomplete="off" [formControl]="responsiblelastname">
+                  </mat-form-field>
+
+                  <!--<mat-form-field>
+                    <input matInput [matDatepicker]="promoterpicker" placeholder="Date de Naissance" formControlName="promoterbirthdate" required autocomplete="off"
+                           [formControl]="promoterbirthdate">
+
+                    <mat-datepicker-toggle matSuffix [for]="promoterpicker"></mat-datepicker-toggle>
+                    <mat-datepicker #promoterpicker></mat-datepicker>
+                  </mat-form-field>-->
+                  <!--<mat-form-field>
+                    <input matInput placeholder="Lieu de Naissance" formControlName="promoterplaceofbirth" required autocomplete="off" [formControl]="promoterplaceofbirth">
+                  </mat-form-field>-->
+                  <mat-form-field>
+                    <mat-select placeholder="Sexe" formControlName="responsiblegender" required >
+                      <mat-option *ngFor="let gender of genders" [value]="gender.value">
+                        {{gender.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <!--<mat-form-field>
+                    <mat-select placeholder="Type de Document" formControlName="promoterdocumenttype" required >
+                      <mat-option *ngFor="let documenttype of documenttypes" [value]="documenttype.value">
+                        {{documenttype.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="Numero du document d'identification" formControlName="promoterdocumentid" required autocomplete="off"
+                           [formControl]="promoterdocumentid">
+                  </mat-form-field>-->
+                  <mat-form-field>
+                    <mat-select placeholder="Pays de residence" formControlName="responsiblecountry" required >
+                      <mat-option *ngFor="let country of countries" [value]="country.code">
+                        {{country.name}}
+                      </mat-option>
+                    </mat-select>
+                    <input  placeholder="Pays " formControlName="responsiblecountryname" value="Cameroun" required [style.display]="displayNone()" [formControl]="responsiblecountryname">
+                  </mat-form-field>
+                  <!--<mat-form-field *ngIf="promoterCountryIsCameroon()">
+                    <mat-select placeholder="Region de residence" formControlName="promoterregion">
+                      <mat-option *ngFor="let documenttype of documenttypes" [value]="documenttype.value">
+                        {{documenttype.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                    <input placeholder="Region" formControlName="promoterregionname"  [style.display]="displayNone()" [formControl]="promoterregionname">
+                  </mat-form-field>
+                  <mat-form-field *ngIf="promoterCountryIsCameroon()">
+                    <mat-select placeholder="Departement de residence" formControlName="promoterdivision"  >
+                      <mat-option *ngFor="let documenttype of documenttypes" [value]="documenttype.value">
+                        {{documenttype.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                    <input  placeholder="Departement" formControlName="promoterdivisionname" [style.display]="displayNone()" [formControl]="promoterdivisionname">
+                  </mat-form-field>-->
+                  <mat-form-field>
+                    <input matInput placeholder="Ville de residence" formControlName="responsibletownname" required  [formControl]="responsibletownname">
+                    <input   placeholder="" formControlName="responsibletown"  [formControl]="responsibletown" [style.display]="displayNone()">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="Numero de telephone" formControlName="responsiblephone" required type="tel" autocomplete="off" [formControl]="responsiblephone">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="Email " formControlName="responsibleemail" required type="email" autocomplete="off" [formControl]="responsibleemail">
+                  </mat-form-field>
+                  <!--<mat-form-field>
+                    <input matInput placeholder="Mot de passe" formControlName="promoterpassword" required type="password" autocomplete="off" [formControl]="promoterpassword">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="Confimer le mot de passe" formControlName="promoterpassword_confirmation" required type="password" autocomplete="off"
+                           [formControl]="promoterpassword_confirmation">
+                  </mat-form-field>-->
+                </div>
+                <div>
+                  <button  matStepperPrevious class="btn btn-sm btn-primary float-left">Retour</button>
+
+                  <button  matStepperNext class="btn btn-sm btn-primary float-right" (click)="goForward(stepper)" >Suivant</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <div class="row">
+        <div class="col-md-8 offset-2">
+
+          <div class="card" >
+            <div class="card-header card-header">
+              <h3>Resume</h3>
+            </div>
+            <div class="card-body">
+              <ng-template matStepLabel>Fin</ng-template>
+              <mat-list>
+                <h3 mat-subheader>{{appConst.project.label}}</h3>
+                <mat-list-item>
+                  <h4 mat-line>Nom du Projet</h4>
+                  <p mat-line> {{projectFormGroup.value.projectname}} </p>
+                </mat-list-item>
+
+                <mat-list-item>
+                  <h4 mat-line>Description du Projet</h4>
+                  <p mat-line> {{projectFormGroup.value.projectdescrition}} </p>
+                </mat-list-item>
+
+                <mat-list-item>
+                  <h4 mat-line>Telephone du Projet</h4>
+                  <p mat-line> {{projectFormGroup.value.projectphone}} </p>
+                </mat-list-item>
+
+                <mat-list-item>
+                  <h4 mat-line>Email du Projet</h4>
+                  <p mat-line> {{projectFormGroup.value.projectemail}} </p>
+                </mat-list-item>
+
+                <mat-list-item>
+                  <h4 mat-line>Pays du Projet</h4>
+                  <p mat-line> {{getCountNameByCode(projectFormGroup.value.projectcountry)}}({{projectFormGroup.value.projectcountry}}) </p>
+                </mat-list-item>
+
+                <mat-list-item>
+                  <h4 mat-line>Localite du Projet</h4>
+                  <p mat-line> {{projectFormGroup.value.projectlocality}} </p>
+                </mat-list-item>
+
+
+                <mat-divider></mat-divider>
+
+                <h3 mat-subheader>{{appConst.promoterform.label}}</h3>
+                <mat-list-item>
+                  <h4 mat-line>Nom du promoteur</h4>
+                  <p mat-line> {{promoterFormGroup.value.promoterfirstname}} </p>
+                </mat-list-item>
+
+                <mat-list-item>
+                  <h4 mat-line>Prenom du promoteur</h4>
+                  <p mat-line> {{promoterFormGroup.value.promoterlastname}} </p>
+                </mat-list-item>
+
+                <mat-list-item>
+                  <h4 mat-line>Date de naissance du promoteur</h4>
+                  <p mat-line> {{promoterFormGroup.value.promoterbirthdate}} </p>
+                </mat-list-item>
+
+                <mat-list-item>
+                  <h4 mat-line>Lieu de naissance du promoteur</h4>
+                  <p mat-line> {{promoterFormGroup.value.promoterplaceofbirth}} </p>
+                </mat-list-item>
+
+                <mat-list-item>
+                  <h4 mat-line>Sexe du promoteur</h4>
+                  <p mat-line> {{promoterFormGroup.value.promotergender}} </p>
+                </mat-list-item>
+
+                <mat-list-item>
+                  <h4 mat-line>Type de Document du promoteur</h4>
+                  <p mat-line> {{getDocumentTypeNameByValue(promoterFormGroup.value.promoterdocumenttype)}} </p>
+                </mat-list-item>
+
+                <mat-list-item>
+                  <h4 mat-line>Numero du document du promoteur</h4>
+                  <p mat-line> {{promoterFormGroup.value.promoterdocumentid}} </p>
+                </mat-list-item>
+
+                <mat-list-item>
+                  <h4 mat-line>Pays du promoteur</h4>
+                  <p mat-line> {{promoterFormGroup.value.promotercountryname.value + '(' + promoterFormGroup.value.promotercountry.value  + ')' }} </p>
+                </mat-list-item>
+
+                <mat-list-item>
+                  <h4 mat-line>Region du promoteur</h4>
+                  <p mat-line> {{promoterFormGroup.value.promoterregionname}} </p>
+                </mat-list-item>
+
+                <mat-list-item>
+                  <h4 mat-line>Departement du promoteur</h4>
+                  <p mat-line> {{promoterFormGroup.value.promoterdivisionname}} </p>
+                </mat-list-item>
+
+                <mat-list-item>
+                  <h4 mat-line>Ville du promoteur</h4>
+                  <p mat-line> {{promoterFormGroup.value.promotertownname}} </p>
+                </mat-list-item>
+
+                <mat-list-item>
+                  <h4 mat-line>Telephone du promoteur</h4>
+                  <p mat-line> {{promoterFormGroup.value.promoterphone}} </p>
+                </mat-list-item>
+
+                <mat-list-item>
+                  <h4 mat-line>E-Mail du promoteur</h4>
+                  <p mat-line> {{promoterFormGroup.value.promoteremail}} </p>
+                </mat-list-item>
+
+                <mat-divider></mat-divider>
+
+                <h3 mat-subheader>{{appConst.responsibleform.label}}</h3>
+
+                <mat-list-item>
+                  <h4 mat-line>Nom du Responsable</h4>
+                  <p mat-line> {{responsibleFormGroup.value.responsiblefirstname}} </p>
+                </mat-list-item>
+
+                <mat-list-item>
+                  <h4 mat-line>Prenom du Responsable</h4>
+                  <p mat-line> {{responsibleFormGroup.value.responsiblelastname}} </p>
+                </mat-list-item>
+
+                <mat-list-item>
+                  <h4 mat-line>Nom du Responsable</h4>
+                  <p mat-line> {{responsibleFormGroup.value.responsiblefirstname}} </p>
+                </mat-list-item>
+
+                <mat-list-item>
+                  <h4 mat-line>Sexe du Responsable</h4>
+                  <p mat-line> {{responsibleFormGroup.value.responsiblegender}} </p>
+                </mat-list-item>
+
+                <mat-list-item>
+                  <h4 mat-line>Pays de residence du Responsable</h4>
+                  <p mat-line> {{responsibleFormGroup.value.responsiblecountryname.value + '(' + responsibleFormGroup.value.responsiblefirstname.value + ')' }} </p>
+                </mat-list-item>
+
+
+                <mat-list-item>
+                  <h4 mat-line>Ville du Responsable</h4>
+                  <p mat-line> {{responsibleFormGroup.value.responsibletownname}} </p>
+                </mat-list-item>
+
+                <mat-list-item>
+                  <h4 mat-line>Telephone du Responsable</h4>
+                  <p mat-line> {{responsibleFormGroup.value.responsiblephone}} </p>
+                </mat-list-item>
+
+                <mat-list-item>
+                  <h4 mat-line>E-Mail du Responsable</h4>
+                  <p mat-line> {{responsibleFormGroup.value.responsibleemail}} </p>
+                </mat-list-item>
+
+              </mat-list>
+
+              <div>
+                <button  matStepperPrevious class="btn btn-sm btn-primary float-left">Retour</button>
+
+                <button  matStepperNext class="btn btn-sm btn-primary float-right" (click)="submit()" >Soummetre</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>
+
+<br><br>
+
+

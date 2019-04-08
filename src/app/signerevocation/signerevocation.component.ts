@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {countries} from '../Constants';
+import {countries, idRootUrl} from '../Constants';
 
 @Component({
   selector: 'app-signerevocation',
@@ -10,6 +10,8 @@ import {countries} from '../Constants';
   styleUrls: ['./signerevocation.component.css']
 })
 export class SignerevocationComponent implements OnInit {
+
+  idRootUrl:string = idRootUrl;
 
   revocationPropositions:Array<any>;
   observable: Observable<any>;
@@ -26,17 +28,17 @@ export class SignerevocationComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log("Token: \n\n" + environment.oauth_client.token + "\n\n");
+    //console.log("Token: \n\n" + environment.oauth_client.token + "\n\n");
 
     this.loading = true;
-    this.observable = this.httpClient.get('http://localhost:8000/api/userrevokationpropositions-created', {
+    this.observable = this.httpClient.get(idRootUrl + 'userrevokationpropositions-created?scope=ADMINISTRATOR', {
       'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
         .set('Authorization', 'Bearer ' + environment.oauth_client.token)
     });
 
     this.observable.subscribe(response=>{
 
-        console.log(JSON.stringify(response));
+        //console.log(JSON.stringify(response));
 
         let succes: number = response.success;
         let faillite: number = response.faillure;
@@ -75,17 +77,17 @@ export class SignerevocationComponent implements OnInit {
 
   signerRevocationProposition(userrevokationpropositionid:string):void{
 
-    console.log("userrevokationpropositionid : " + userrevokationpropositionid);
+    //console.log("userrevokationpropositionid : " + userrevokationpropositionid);
 
     this.loading = true;
     this.error = false;
     this.message = '';
-    this.httpClient.post('http://localhost:8000/api/userrevokationpropositions/' + userrevokationpropositionid + '', {},{
+    this.httpClient.post(idRootUrl + 'userrevokationpropositions/' + userrevokationpropositionid + '?scope=ADMINISTRATOR', {},{
       'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
         .set('Authorization', 'Bearer ' + environment.oauth_client.token), 'params':{}
     }).subscribe((response:any)=>{
 
-        console.log('applications: ' + JSON.stringify(response));
+        //console.log('applications: ' + JSON.stringify(response));
 
         let succes: number = response.success;
         let faillite: number = response.faillure;
@@ -107,7 +109,7 @@ export class SignerevocationComponent implements OnInit {
       },
       () => {
         this.loading = false;
-        console.log('navigationnnnnnnnnnn');
+        //console.log('navigationnnnnnnnnnn');
         //this.ngOnInit();
         //document.location.reload();
 
@@ -129,7 +131,7 @@ export class SignerevocationComponent implements OnInit {
       'display':'none'
     };
 
-    console.log('close call');
+    //console.log('close call');
   }
 
 }

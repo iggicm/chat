@@ -7,6 +7,7 @@ import {ApplicationsResponse} from '../domain/model/ApplicationsResponse';
 import {ADD_APPLICATIONS_RESPONSE, AddApplicationsResponseAction} from '../action/applications-response-action';
 import {appStore} from '../store/AppStore';
 import {LoginService} from '../login.service';
+import {idRootUrl} from '../Constants';
 
 @Component({
   selector: 'app-logout',
@@ -27,17 +28,17 @@ export class LogoutComponent implements OnInit {
     //environment.userdescriptor.userDetails
 
     if (environment.userdescriptor != null){
-    console.log('environment.userdescriptor: ' + JSON.stringify(environment.userdescriptor));
+    //console.log('environment.userdescriptor: ' + JSON.stringify(environment.userdescriptor));
 
-    console.log('userdescriptor.userDetails.userid: ' + environment.userdescriptor.userDetails.userid);
-    console.log('environment.oauth_client.token:  ' + environment.oauth_client.token);
+    //console.log('userdescriptor.userDetails.userid: ' + environment.userdescriptor.userDetails.userid);
+    //console.log('environment.oauth_client.token:  ' + environment.oauth_client.token);
     this.loading = true;
-    this.httpClient.post('http://localhost:8000/api/users/' + environment.userdescriptor.userDetails.userid + '/logout', {}, {
+    this.httpClient.post(idRootUrl + 'users/' + environment.userdescriptor.userDetails.userid + '/logout', {}, {
       'headers': new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
         .set('Authorization', 'Bearer ' + environment.oauth_client.token), 'params': {}
     }).subscribe((response: MyResponse) => {
 
-        console.log('applications: ' + JSON.stringify(response));
+        //console.log('applications: ' + JSON.stringify(response));
 
         let succes: number = response.success;
         let faillite: number = response.faillure;
@@ -63,7 +64,7 @@ export class LogoutComponent implements OnInit {
         environment.oauth_client.token = '';
         environment.userdescriptor = null;
         this.loginservice.toggle();
-        console.log('navigationnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn');
+        //console.log('navigationnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn');
         this.router.navigate(['/login'], {relativeTo: this.route.parent});
         //document.location.reload();
       });

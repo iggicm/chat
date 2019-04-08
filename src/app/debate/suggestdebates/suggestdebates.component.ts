@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
+import {forumRootUrl} from '../../Constants';
 
 @Component({
   selector: 'app-suggestdebates',
@@ -28,7 +29,7 @@ export class SuggestdebatesComponent implements OnInit {
     this.succesResponse = false;
     this.message = '';
 
-    this.observable = this.http.get('http://localhost:8001/api/suggesteddebates?scope=ADMINISTRATOR', {
+    this.observable = this.http.get(forumRootUrl + 'suggesteddebates?scope=ADMINISTRATOR', {
       'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
         .set('Authorization', 'Bearer ' + environment.oauth_client.token)
     });
@@ -72,7 +73,7 @@ export class SuggestdebatesComponent implements OnInit {
     this.succesResponse = false;
     this.message = '';
 
-    this.observable = this.http.post('http://localhost:8001/api/suggesteddebates/'+debatid+'?scope=ADMINISTRATOR',
+    this.observable = this.http.post(forumRootUrl + 'suggesteddebates/'+debatid+'?scope=ADMINISTRATOR',
       {},{
       'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
         .set('Authorization', 'Bearer ' + environment.oauth_client.token), 'params':{
