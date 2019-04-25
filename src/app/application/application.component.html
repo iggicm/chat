@@ -56,14 +56,23 @@
                 </mat-autocomplete>
               </mat-form-field>
 
-              <mat-form-field class="example-full-width">
+
+              <mat-form-field>
+                <mat-select placeholder="Centre d'interet" formControlName="interestcenter" required >
+                  <mat-option *ngFor="let option of interestcenters" [value]="option.interestcenterid">
+                    {{option.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <!--<mat-form-field class="example-full-width">
                 <input type="text" formControlName="interestcenter" placeholder="Centre d'interet" aria-label="Number" matInput [formControl]="interestcenter" [matAutocomplete]="auto_interestcenter">
                 <mat-autocomplete #auto_interestcenter="matAutocomplete">
                   <mat-option *ngFor="let option of interestcenters" [value]="option.name">
                     {{option.name}}
                   </mat-option>
                 </mat-autocomplete>
-              </mat-form-field>
+              </mat-form-field>-->
 
 
               <mat-form-field>

@@ -2,6 +2,8 @@ export const environment = {
   production: true,
   pusher: {
     key: 'db07cb8dbf0131afd0f6',
+    wsHost:'mobilebiller.idea-cm.club',
+    wsPort: 3030
   },
   oauth_client:{
     grant_type:'password',

@@ -55,15 +55,15 @@ export class LoginComponent implements OnInit {
 
     if (navigator.geolocation) {
       /* géolocalisation possible */
-      //console.log('navigator.geolocation');
+      console.log('navigator.geolocation');
       navigator.geolocation.getCurrentPosition((position)=>{
         this.latitude.setValue(position.coords.latitude);
         this.longitude.setValue(position.coords.longitude);
         geoPosition.latitude = this.latitude.value;
         geoPosition.longitude = this.longitude.value;
-        //console.log('latitude: ' + this.latitude.value + ', longitude: ' + this.longitude.value);
+        console.log('latitude: ' + this.latitude.value + ', longitude: ' + this.longitude.value);
       });
-      //console.log('end.geolocation');
+      console.log('end.geolocation');
 
 
        this.watchID = navigator.geolocation.watchPosition(function(position) {
@@ -90,6 +90,8 @@ export class LoginComponent implements OnInit {
         key: 'headers', value: new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
           .set('Authorization', 'Bearer ' + 'long token here')
       }, {key: 'cle', value: 'valeur'}, {key: 'params', value: this.loginFormGroup.value}];*/
+
+      console.log("loginFormGroup", JSON.stringify(this.loginFormGroup.value));
 
       this.observable = this.http.post(idRootUrl + 'users/login', this.loginFormGroup.value, {
         'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')

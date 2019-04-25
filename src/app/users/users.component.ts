@@ -103,18 +103,24 @@ export interface MarkerLabel {
 
 
     this.pusherUserAccepted = new Pusher(environment.pusher.key, {
-      cluster: 'eu',
-      forceTLS: true
+      wsHost:environment.pusher.wsHost,
+      wsPort: environment.pusher.wsPort,
+      //cluster: 'eu',
+      forceTLS: false
     });
 
     this.pusherLogin = new Pusher(environment.pusher.key, {
-      cluster: 'eu',
-      forceTLS: true
+      wsHost:environment.pusher.wsHost,
+      wsPort: environment.pusher.wsPort,
+      //cluster: 'eu',
+      forceTLS: false
     });
 
     this.pusherLogout = new Pusher(environment.pusher.key, {
-      cluster: 'eu',
-      forceTLS: true
+      wsHost:environment.pusher.wsHost,
+      wsPort: environment.pusher.wsPort,
+     // cluster: 'eu',
+      forceTLS: false
     });
 
 

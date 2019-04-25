@@ -6,6 +6,8 @@ export const environment = {
   production: false,
   pusher: {
     key: 'db07cb8dbf0131afd0f6',
+    wsHost:'192.168.100.12',
+    wsPort: 3030
   },
   oauth_client:{
     grant_type:'password',

@@ -95,6 +95,7 @@ export class SuggestdebateComponent implements OnInit {
       this.suggestDebateFormGroup.setValue({
         theme:this.theme.value,
         interestcenter:this.interestcenter.value,
+        //interestcenterid:this.interestcenter.value,
         authorid:(new FormControl(environment.userdescriptor.userDetails.userid, Validators.required)).value,
         authoremail:(new FormControl(environment.userdescriptor.userDetails.email, Validators.required)).value,
         authorname:(new FormControl(environment.userdescriptor.userDetails.firstname + '  ' + environment.userdescriptor.userDetails.firstname, Validators.required)).value,
@@ -111,12 +112,13 @@ export class SuggestdebateComponent implements OnInit {
       this.message = '';
       this.successResponse = false;
 
+      console.log('this.suggestDebateFormGroup.value' + JSON.stringify(this.suggestDebateFormGroup.value));
       this.httpClient.post(forumRootUrl + 'suggesteddebates?scope=USER', this.suggestDebateFormGroup.value, {
         'headers':new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')
           .set('Authorization', 'Bearer ' +  environment.oauth_client.token),
         'params':this.suggestDebateFormGroup.value
       }).subscribe((res:any)=>{
-        //console.log(JSON.stringify(res));
+        console.log(JSON.stringify(res));
 
         if (res.success == 1 && res.faillure == 0){
           this.message = res.response;
@@ -125,11 +127,11 @@ export class SuggestdebateComponent implements OnInit {
 
         } else {
           this.successResponse = false;
-          this.message = res.response;
+          this.message = res.raison;
         }
         this.loading = false;
       }, error=>{
-        //console.log(JSON.stringify(error));
+        console.log(JSON.stringify(error));
         this.successResponse = false;
         this.message = error.statusText;
         this.loading = false;

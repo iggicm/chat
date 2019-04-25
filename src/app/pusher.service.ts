@@ -18,8 +18,10 @@ export class PusherService {
     // replace xxxx's with your Pusher application key
     //this.pusher = new Pusher(environment.pusher.key);
     this.pusher = new Pusher(environment.pusher.key, {
-      authEndpoint: forumRootUrl + 'members-oauth',
-      encrypted: true
+      wsHost:environment.pusher.wsHost,
+      wsPort: environment.pusher.wsPort,
+      //cluster: 'eu',
+      forceTLS: false
     });
 
     this.commentsChannel = this.pusher.subscribe('private-chat');

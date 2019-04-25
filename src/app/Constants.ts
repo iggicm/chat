@@ -16,7 +16,7 @@ export const  appConst:any = {
 
 };
 
-const debug: boolean = true;
+const debug: boolean = false;
 
 
 export let forumRootUrl= !debug?'http://mobilebiller.idea-cm.club/iggi/forum/public/api/':"http://192.168.100.12:8001/api/";
@@ -28,6 +28,8 @@ export const LOGIN_RESPONSE = 'loginResponse';
 
 /*export const emailPattern =
   '(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))';
+
+  eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImZlNjVhMzg3NjNkYjQyNzIzNzc4ZDEwMDk4ZDE4NzY0ZjIzMjM2MmVmZmJlNDU4NzNlYWYyYmE2NmJjOTMzMzA2MzZhNmYzYmFhY2MwZTQ5In0.eyJhdWQiOiIzIiwianRpIjoiZmU2NWEzODc2M2RiNDI3MjM3NzhkMTAwOThkMTg3NjRmMjMyMzYyZWZmYmU0NTg3M2VhZjJiYTY2YmM5MzMzMDYzNmE2ZjNiYWFjYzBlNDkiLCJpYXQiOjE1NTUwOTc0MTIsIm5iZiI6MTU1NTA5NzQxMiwiZXhwIjoxNTU1MTgzODEwLCJzdWIiOiIxNyIsInNjb3BlcyI6WyJBRE1JTklTVFJBVE9SIiwiVVNFUiJdfQ.YW-_9fzuO3wRw856eiERqrOdhcvAm9L2paIEIQzYJOWZLQ_j7Shvgz3eWFELQqP8gaXgsWAPtO3Q5DKJcUm12YJt9t4ae4E6VvSfTLEwJ7HLSd5j1WSEZ8nwtTBUJMG-qPa-HHBosGrbUTqItsUE5adxUm39hTgMOYd8UwVOzV9Ux0w4wrQWKSzPR789ouXYWdaA0fNG8lT27xGk4QeNWvAhkR1GHSYXHaw01_EMusSWqysTM-FwbBU0JM2mu3bRRJ0JTB4ZJAX2OuAwxnthcsIrF3ApjtgkKWFsxd0seCSmVCUKHQcvdNMu4Jr7USjppzEg38ctG0I-ts38_hZBY8poKO7pW8LnPD3XqTZuVaBv3zhbUxnv8IGhAkTJF8pzGMYohTVnyCXhvDHPrHE2wyFpdnREjdC0_goak69N6EEDqj2eEWEU-vpTqeuqFFabA1xkhMe04ObIG4J1ml8eeeOMe3VR1W1mvNOqZEtzTFUMb8BiTBlhbXeku3wQhk0gz79k8oL-UoTaC4lMFznHN9-r6BMl1ghnysh8i0hjctIljMDZvuqsbvW_T4wYROqmKQhXvx6OS1HhmDHT1zwtmlxt0luKYvDueN0sIhzYrOT2ZjUQ0lEs3bnfWSjqpbZKMWL_0R5XZ0EzFGVrOQ-I2Z8s8yWPf9gidI8CQzrIbmc
 */
 
 export const  issues = [

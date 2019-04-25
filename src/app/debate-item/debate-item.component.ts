@@ -110,8 +110,10 @@ export class DebateItemComponent implements OnInit {
         this.debateid=param.debateid;
 
       this.pusher = new Pusher(environment.pusher.key, {
-        cluster: 'eu',
-        forceTLS: true
+        wsHost:environment.pusher.wsHost,
+        wsPort: environment.pusher.wsPort,
+        //cluster: 'eu',
+        forceTLS: false
       });
 
       this.commentsChannel = this.pusher.subscribe('chat.'+this.debateid);
@@ -352,7 +354,7 @@ export class DebateItemComponent implements OnInit {
 
 
     console.log("Comment on open: " + JSON.stringify(newComment));
-    let dialogRef = this.dialog.open(UploadDialogComponent, { width: '30%', height: '50%' ,
+    let dialogRef = this.dialog.open(UploadDialogComponent, { width: '40%', height: '60%' ,
       data:{url: forumRootUrl + 'debates/' + this.debateid + '/comments-with-file?scope=USER',comment:newComment,
         debate:this.debate}
     });
