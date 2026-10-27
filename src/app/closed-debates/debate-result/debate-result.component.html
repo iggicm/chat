@@ -26,13 +26,13 @@
         </li>
       </ul>
       <div>
-        <button  class="btn  btn-primary float-right" (click)="createProject();" >Projet</button>
-        <button  class="btn  btn-primary float-left" (click)="showDocumentation(debateResult.debateid);" >Documentation</button>
+        <button  class="btn  btn-primary float-end" (click)="createProject();" >Projet</button>
+        <button  class="btn  btn-primary float-start" (click)="showDocumentation(debateResult.debateid);" >Documentation</button>
       </div>
     </div>
   </div>
   <div class="card-footer">
-    <small class="text-muted float-left">Debat clos le: {{debateResult.debate.created_at}} &nbsp;</small>
-    <small class="text-muted float-right">Debat resume le: {{debateResult.created_at}} &nbsp;</small>
+    <small class="text-muted float-start">Debat clos le: {{debateResult.debate.created_at}} &nbsp;</small>
+    <small class="text-muted float-end">Debat resume le: {{debateResult.created_at}} &nbsp;</small>
   </div>
 </div>

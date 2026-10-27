@@ -36,7 +36,7 @@
 
 
 
-agm-map {
+google-map {
   height: 100%;
   width: 99%;
   border: 1px #1c8a6f solid;
@@ -54,9 +54,9 @@ mat-card{
   border-radius: 50%;*/
 }
 
-agm-marker { text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff; }
+map-marker { text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff; }
 
-agm-marker {
+map-marker {
   border: 5px #1c8a6f solid;
   width: 10px;
   height: 10px;

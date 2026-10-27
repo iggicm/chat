@@ -6,6 +6,7 @@ import {DebateService} from '../../debate.service';
 import {AccessService} from '../../access.service';
 
 @Component({
+  standalone: false,
   selector: 'app-resumed-debates',
   templateUrl: './resumed-debates.component.html',
   styleUrls: ['./resumed-debates.component.css']

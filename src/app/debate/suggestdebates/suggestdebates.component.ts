@@ -5,6 +5,7 @@ import {environment} from '../../../environments/environment';
 import {forumRootUrl} from '../../Constants';
 
 @Component({
+  standalone: false,
   selector: 'app-suggestdebates',
   templateUrl: './suggestdebates.component.html',
   styleUrls: ['./suggestdebates.component.css']

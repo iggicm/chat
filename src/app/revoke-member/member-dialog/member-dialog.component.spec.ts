@@ -1,4 +1,5 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {appTestModule} from '../../../testing/app-test-module';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MemberDialogComponent } from './member-dialog.component';
 
@@ -6,10 +7,8 @@ describe('MemberDialogComponent', () => {
   let component: MemberDialogComponent;
   let fixture: ComponentFixture<MemberDialogComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ MemberDialogComponent ]
-    })
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule(appTestModule())
     .compileComponents();
   }));
 

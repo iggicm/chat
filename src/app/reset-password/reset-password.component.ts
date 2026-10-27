@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
@@ -7,15 +7,16 @@ import {LoginService} from '../login.service';
 import {idRootUrl} from '../Constants';
 
 @Component({
+  standalone: false,
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.css']
 })
 export class ResetPasswordComponent implements OnInit {
 
-  resetPasswordFormGroup: FormGroup;
-  newpassword: FormControl;
-  newpassword_confirmation: FormControl;
+  resetPasswordFormGroup: UntypedFormGroup;
+  newpassword: UntypedFormControl;
+  newpassword_confirmation: UntypedFormControl;
 
 
   error:boolean = false;
@@ -28,10 +29,10 @@ export class ResetPasswordComponent implements OnInit {
 
   observable:Observable<any>;
 
-  constructor(private router: Router, private route: ActivatedRoute, private http:HttpClient, private loginService: LoginService, private fb:FormBuilder) {
+  constructor(private router: Router, private route: ActivatedRoute, private http:HttpClient, private loginService: LoginService, private fb:UntypedFormBuilder) {
 
-    this.newpassword = new FormControl('', [Validators.required]);
-    this.newpassword_confirmation = new FormControl('', [Validators.required]);
+    this.newpassword = new UntypedFormControl('', [Validators.required]);
+    this.newpassword_confirmation = new UntypedFormControl('', [Validators.required]);
 
     this.resetPasswordFormGroup = fb.group({
       newpassword:this.newpassword,

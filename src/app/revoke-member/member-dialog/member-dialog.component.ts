@@ -1,10 +1,11 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {countries, idRootUrl} from '../../Constants';
 import {environment} from '../../../environments/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Component({
+  standalone: false,
   selector: 'app-member-dialog',
   templateUrl: './member-dialog.component.html',
   styleUrls: ['./member-dialog.component.css']

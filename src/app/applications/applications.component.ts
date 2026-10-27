@@ -5,7 +5,6 @@ import {MyResponse} from '../application/application.component';
 import {ADD_APPLICATIONS_RESPONSE, AddApplicationsResponseAction} from '../action/applications-response-action';
 import {ApplicationsResponse} from '../domain/model/ApplicationsResponse';
 import {appStore} from '../store/AppStore';
-import {Action} from 'rxjs/internal/scheduler/Action';
 import {Router} from '@angular/router';
 import {countries, idRootUrl} from '../Constants';
 
@@ -29,6 +28,7 @@ export interface Application {
   updated_at:string;
 }
 @Component({
+  standalone: false,
   selector: 'app-applications',
   templateUrl: './applications.component.html',
   styleUrls: ['./applications.component.css']

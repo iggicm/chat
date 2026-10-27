@@ -1,19 +1,20 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {forkJoin, Observable, Subject} from 'rxjs';
 import {HttpClient, HttpEventType, HttpHeaders, HttpRequest, HttpResponse} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {FormBuilder, FormControl, FormGroup, RequiredValidator, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, RequiredValidator, Validators} from '@angular/forms';
 import {forumRootUrl, geoPosition} from '../Constants';
 
 @Component({
+  standalone: false,
   selector: 'app-upload-dialog',
   templateUrl: './upload-dialog.component.html',
   styleUrls: ['./upload-dialog.component.css']
 })
 export class UploadDialogComponent implements OnInit {
 
-  @ViewChild('file') file;
+  @ViewChild('file', {static: false}) file;
   public files: Set<File> = new Set();
   public percentages: Array<string> = [];
 
@@ -28,21 +29,21 @@ export class UploadDialogComponent implements OnInit {
   comment: any;
   validForm: boolean;
 
-  commentFormGroup: FormGroup;
+  commentFormGroup: UntypedFormGroup;
 
-  constructor(public dialogRef: MatDialogRef<UploadDialogComponent>, private http: HttpClient, @Inject(MAT_DIALOG_DATA) data: any, private fb: FormBuilder) {
+  constructor(public dialogRef: MatDialogRef<UploadDialogComponent>, private http: HttpClient, @Inject(MAT_DIALOG_DATA) data: any, private fb: UntypedFormBuilder) {
     this.data = data;
     this.debate = data.debate;
     this.comment = data.comment;
     //console.log('Comment in upload File Dialog: ' + JSON.stringify(data.comment) + "\n\nURL: " + data.url + "\n\nDebate: " + JSON.stringify(data.debate));
 
     this.commentFormGroup = this.fb.group({
-      body:new FormControl(this.comment.textbody, Validators.required),
-      latitude: new FormControl(geoPosition.latitude),
-      longitude: new FormControl(geoPosition.longitude),
-      attachedFile:new FormControl(),
-      filename:new FormControl(),
-      commentid:new FormControl(this.comment.commentid)
+      body:new UntypedFormControl(this.comment.textbody, Validators.required),
+      latitude: new UntypedFormControl(geoPosition.latitude),
+      longitude: new UntypedFormControl(geoPosition.longitude),
+      attachedFile:new UntypedFormControl(),
+      filename:new UntypedFormControl(),
+      commentid:new UntypedFormControl(this.comment.commentid)
     });
 
     //
@@ -75,7 +76,7 @@ export class UploadDialogComponent implements OnInit {
 
   public upload(files: Set<File>): { [key: string]: { progress: Observable<number> } } {
 
-    /*let commentFormGroup : FormGroup = this.fb.group({
+    /*let commentFormGroup : UntypedFormGroup = this.fb.group({
 
     });*/
 

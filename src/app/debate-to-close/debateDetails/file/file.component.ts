@@ -4,7 +4,8 @@ import {forumRootUrl} from '../../../Constants';
 import {DomSanitizer} from '@angular/platform-browser';
 
 
-/*@Pipe({ name: 'safe' })
+/*@Pipe({
+  standalone: false, name: 'safe' })
 export class SafePipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) { }
   transform(url) {
@@ -14,11 +15,12 @@ export class SafePipe implements PipeTransform {
 
 
 @Component({
+  standalone: false,
   selector: 'app-file',
   templateUrl: './file.component.html',
   styleUrls: ['./file.component.css'],
   styles: [`
-        :host >>> .popover {
+        :host ::ng-deep .popover {
           max-width: 900px;
           width: 900px;
           z-index: 1;

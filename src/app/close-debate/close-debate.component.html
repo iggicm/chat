@@ -25,11 +25,11 @@
               <!--<a [routerLink]="['../results', debate.debateid]" *ngIf="debate.state == 'CLOSED'" class="btn btn-link">Resultats</a> &nbsp;&nbsp;-->
               <!--<a [routerLink]="['../moderator-candidatures', debate.debateid]" *ngIf="isAdmin" class="btn btn-link" >Candidatures</a> &nbsp;&nbsp;<br>-->
       </span>
-            <!--<mat-chip-list><mat-chip color="primary" selected *ngIf="(debate.state == 'ACCEPTED')&&!(debate.moderators.length>0)" >En Attente d'un moderateur</mat-chip></mat-chip-list>-->
+            <!--<mat-chip-set><mat-chip color="primary" *ngIf="(debate.state == 'ACCEPTED')&&!(debate.moderators.length>0)" >En Attente d'un moderateur</mat-chip></mat-chip-set>-->
 
             <!--<div class="{{debate.state == 'ACCEPTED'?'alert-success':'alert-danger'}}">{{debate.state == 'ACCEPTED'?'OUVERT':'FERME'}}</div>-->
             <!--<span matBadge="{{debate.state == 'ACCEPTED'?'O':'F'}}" matBadgeColor="{{debate.state == 'ACCEPTED'?'primary':'warn'}}"
-                  matBadgeOverlap="false" class="float-lg-right">Statut</span><br>-->
+                  matBadgeOverlap="false" class="float-lg-end">Statut</span><br>-->
 
             <app-debate-to-close [debate]="debate" (debateClosed)="afterDebateClosed($event)" (debateSigned)="afterDebateSigned($event)" [isAdmin]="isAdmin" [connectedUserId]="connectedUserId"></app-debate-to-close>
           </mat-card-content>

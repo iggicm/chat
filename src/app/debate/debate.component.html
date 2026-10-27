@@ -1,7 +1,7 @@
 
 <mat-toolbar color="primary" class="effect">
-  <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
-    <ul fxLayout fxLayoutGap="15px" class="navigation-items">
+  <div [class.layout-flex]="true" [class.layout-row]="true" [class.layout-end]="true" [class.hide-xs]="true">
+    <ul [class.layout-row]="true" [class.layout-gap]="true" class="navigation-items">
       <li [routerLinkActive]="['active']">
         <button  class="btn btn-link popover-btn"  *ngIf="isAdmin" [ngbPopover]="popContent" [popoverTitle]="popTitle" placement="bottom"
                  style="color: white; text-decoration: none;" popoverClass="popover-menu"><b>Administrer</b></button>

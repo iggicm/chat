@@ -1,5 +1,5 @@
 import {AppState} from '../state/AppState';
-import {Action} from '@ngrx/store';
+import {Action} from 'redux';
 import {Reducer} from 'redux';
 import {ADD_APPLICATIONS_RESPONSE, AddApplicationsResponseAction} from '../action/applications-response-action';
 import {ApplicationsResponse} from '../domain/model/ApplicationsResponse';

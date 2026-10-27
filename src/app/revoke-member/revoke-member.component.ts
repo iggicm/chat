@@ -3,11 +3,12 @@ import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {countries, idRootUrl} from '../Constants';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material/dialog';
 import {MemberDialogComponent} from './member-dialog/member-dialog.component';
 
 
 @Component({
+  standalone: false,
   selector: 'app-revoke-member',
   templateUrl: './revoke-member.component.html',
   styleUrls: ['./revoke-member.component.css']

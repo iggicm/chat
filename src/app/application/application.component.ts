@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Gender} from '../domain/model/gender';
 import {countries, idRootUrl} from '../Constants';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {HttpClient, HttpEventType, HttpHeaders, HttpRequest, HttpResponse} from '@angular/common/http';
 import {Subject} from 'rxjs';
 
@@ -13,6 +13,7 @@ export interface MyResponse {
 }
 
 @Component({
+  standalone: false,
   selector: 'app-application',
   templateUrl: './application.component.html',
   styleUrls: ['./application.component.css']
@@ -33,21 +34,21 @@ export class ApplicationComponent implements OnInit {
   idRootUrl:string = idRootUrl;
 
 
-  applicationFormGroup: FormGroup;
-  email: FormControl;
-  firstname: FormControl;
-  lastname: FormControl;
-  photo: FormControl;
+  applicationFormGroup: UntypedFormGroup;
+  email: UntypedFormControl;
+  firstname: UntypedFormControl;
+  lastname: UntypedFormControl;
+  photo: UntypedFormControl;
 
-  cityofresidency: FormControl;
-  interestcenter: FormControl;
+  cityofresidency: UntypedFormControl;
+  interestcenter: UntypedFormControl;
 
-  phone: FormControl;
-  commenttotheregistration: FormControl;
-  gender: FormControl;
+  phone: UntypedFormControl;
+  commenttotheregistration: UntypedFormControl;
+  gender: UntypedFormControl;
 
-  latitude: FormControl;
-  longitude: FormControl;
+  latitude: UntypedFormControl;
+  longitude: UntypedFormControl;
 
 
   lat:number=0.0;
@@ -57,7 +58,7 @@ export class ApplicationComponent implements OnInit {
   byteTotal: number = 0;
 
 
-  country: FormControl;
+  country: UntypedFormControl;
 
   error:boolean = false;
   message:string = '';
@@ -68,12 +69,12 @@ export class ApplicationComponent implements OnInit {
   loading = false;
   label = "Veuillez patienter s'il vous plait";
 
-  @ViewChild('photo')
+  @ViewChild('photo', {static: false})
   fileInput: ElementRef;
 
   file:File;
 
-  filename:FormControl;
+  filename:UntypedFormControl;
 
 
   successType: string = "success";
@@ -82,7 +83,7 @@ export class ApplicationComponent implements OnInit {
   faillure: boolean = false;
 
 
-  constructor(private _formBuilder: FormBuilder, private httpClient:HttpClient, private cd: ChangeDetectorRef) {}
+  constructor(private _formBuilder: UntypedFormBuilder, private httpClient:HttpClient, private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
 
@@ -166,34 +167,34 @@ export class ApplicationComponent implements OnInit {
   }
 
   createControls() {
-    this.applicationFormGroup = new FormGroup({});
+    this.applicationFormGroup = new UntypedFormGroup({});
 
     /*
-    email: FormControl;
-  firstname: FormControl;
-  lastname: FormControl;
-  photo: FormControl;
+    email: UntypedFormControl;
+  firstname: UntypedFormControl;
+  lastname: UntypedFormControl;
+  photo: UntypedFormControl;
 
-  cityofresidency: FormControl;
-  interestcenter: FormControl;
+  cityofresidency: UntypedFormControl;
+  interestcenter: UntypedFormControl;
 
-  phone: FormControl;
-  commenttotheregistration: FormControl;
+  phone: UntypedFormControl;
+  commenttotheregistration: UntypedFormControl;
      */
-    this.email = new FormControl('', [Validators.required, Validators.email]);
-    this.firstname = new FormControl('', Validators.required);
-    this.lastname = new FormControl('', Validators.required);
-    this.photo = new FormControl('', Validators.required);
-    this.cityofresidency = new FormControl('', [Validators.required]);
-    this.interestcenter =  new FormControl('',Validators.required);
-    this.phone = new FormControl('', Validators.required);
-    this.commenttotheregistration = new FormControl('', Validators.required);
-    this.gender = new FormControl('', Validators.required);
-    this.country = new FormControl('', Validators.required);
-    this.latitude = new FormControl(''+this.lat, Validators.required);
-    this.longitude = new FormControl(''+this.lon, Validators.required);
-    this.filename = new FormControl();
-    //this.projectid = new FormControl(UUID.UUID(), Validators.required);
+    this.email = new UntypedFormControl('', [Validators.required, Validators.email]);
+    this.firstname = new UntypedFormControl('', Validators.required);
+    this.lastname = new UntypedFormControl('', Validators.required);
+    this.photo = new UntypedFormControl('', Validators.required);
+    this.cityofresidency = new UntypedFormControl('', [Validators.required]);
+    this.interestcenter =  new UntypedFormControl('',Validators.required);
+    this.phone = new UntypedFormControl('', Validators.required);
+    this.commenttotheregistration = new UntypedFormControl('', Validators.required);
+    this.gender = new UntypedFormControl('', Validators.required);
+    this.country = new UntypedFormControl('', Validators.required);
+    this.latitude = new UntypedFormControl(''+this.lat, Validators.required);
+    this.longitude = new UntypedFormControl(''+this.lon, Validators.required);
+    this.filename = new UntypedFormControl();
+    //this.projectid = new UntypedFormControl(crypto.randomUUID(), Validators.required);
 
 
   }

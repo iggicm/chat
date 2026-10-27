@@ -1,7 +1,8 @@
-import {ChatAdapter, Message, ParticipantResponse} from 'ng-chat';
+interface Message {fromId: string | number; toId: string | number; message: string;}
+interface ParticipantResponse {participant: unknown; metadata?: unknown;}
 import {Observable} from 'rxjs';
 
-export class MyAdapter extends ChatAdapter{
+export class MyAdapter {
   getMessageHistory(destinataryId: any): Observable<Message[]> {
     return new Observable<Message[]>();
   }

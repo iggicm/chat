@@ -1,9 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
 
 /* for sidenav to take a whole page */
 html, body {
   margin: 0 0 0 0;
   height: 100%;
 }
+
+.layout-flex { flex: 1 1 0%; }
+.layout-row { display: flex; flex-direction: row; }
+.layout-column { display: flex; flex-direction: column; }
+.layout-end { display: flex; justify-content: flex-end; }
+.layout-evenly { justify-content: space-evenly; align-items: stretch; }
+.layout-gap { gap: 15px; }
+@media (max-width: 599px) { .hide-xs { display: none !important; } }
+@media (min-width: 600px) { .hide-gt-xs { display: none !important; } }
+.notification-success { --mat-snack-bar-container-color: #27632a; }
+.notification-error { --mat-snack-bar-container-color: #a61919; }

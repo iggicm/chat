@@ -12,7 +12,7 @@
                 <mat-progress-bar mode="indeterminate"></mat-progress-bar>
               </div>
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-3" *ngFor="let u of members">
+            <div class="col-12 col-sm-6 col-md-3" *ngFor="let u of members">
               <mat-card>
                 <mat-card-header >
                   <img mat-card-avatar src="{{idRootUrl + 'users/' + u.userid + '/photo'}}" />
@@ -21,8 +21,8 @@
                 </mat-card-header>
                 <mat-card-content>
                   <p>
-                    <a class="btn btn-link  float-left" (click)="openDialog(u)" style="color: darkred;">Revoquer</a>
-                    <!--<a [routerLink]="['/user-details', user.userid]" class="btn btn-link  float-right">Deatails</a>-->
+                    <a class="btn btn-link  float-start" (click)="openDialog(u)" style="color: darkred;">Revoquer</a>
+                    <!--<a [routerLink]="['/user-details', user.userid]" class="btn btn-link  float-end">Deatails</a>-->
                   </p>
                   <br>
                 </mat-card-content>

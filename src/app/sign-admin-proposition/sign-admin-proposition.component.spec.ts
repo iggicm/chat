@@ -1,4 +1,5 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {appTestModule} from '../../testing/app-test-module';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SignAdminPropositionComponent } from './sign-admin-proposition.component';
 
@@ -6,10 +7,8 @@ describe('SignAdminPropositionComponent', () => {
   let component: SignAdminPropositionComponent;
   let fixture: ComponentFixture<SignAdminPropositionComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ SignAdminPropositionComponent ]
-    })
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule(appTestModule())
     .compileComponents();
   }));
 

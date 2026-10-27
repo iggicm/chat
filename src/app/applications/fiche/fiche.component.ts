@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {FormBuilder} from '@angular/forms';
+import {UntypedFormBuilder} from '@angular/forms';
 import {environment} from '../../../environments/environment';
 import {countries, geoPosition, idRootUrl} from '../../Constants';
 import {appStore} from '../../store/AppStore';
@@ -10,6 +10,7 @@ import {ApplicationsResponse} from '../../domain/model/ApplicationsResponse';
 import {ADD_APPLICATIONS_RESPONSE, AddApplicationsResponseAction} from '../../action/applications-response-action';
 
 @Component({
+  standalone: false,
   selector: 'app-fiche',
   templateUrl: './fiche.component.html',
   styleUrls: ['./fiche.component.css']
@@ -32,7 +33,7 @@ export class FicheComponent implements OnInit {
   private message: any;
   private photoUrl: string;
 
-  constructor(private router: Router, private route: ActivatedRoute, private httpClient: HttpClient, private fb:FormBuilder) {}
+  constructor(private router: Router, private route: ActivatedRoute, private httpClient: HttpClient, private fb:UntypedFormBuilder) {}
 
 
   ngOnInit() {

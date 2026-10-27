@@ -6,11 +6,12 @@ import {NgbPopoverConfig} from '@ng-bootstrap/ng-bootstrap';
 import {idRootUrl} from '../Constants';
 
 @Component({
+  standalone: false,
   selector: 'app-debate',
   templateUrl: './debate.component.html',
   styleUrls: ['./debate.component.css'],
   styles: [`
-        :host >>> .popover {
+        :host ::ng-deep .popover {
           max-width: 100%;
           width: 380px;
         }

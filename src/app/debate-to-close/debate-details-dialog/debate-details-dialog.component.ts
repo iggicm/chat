@@ -1,12 +1,13 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {FormBuilder, FormControl, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormControl, Validators} from '@angular/forms';
 import {forumRootUrl, geoPosition} from '../../Constants';
 import {UploadDialogComponent} from '../../upload-dialog/upload-dialog.component';
 import {environment} from '../../../environments/environment';
 
 @Component({
+  standalone: false,
   selector: 'app-debate-details-dialog',
   templateUrl: './debate-details-dialog.component.html',
   styleUrls: ['./debate-details-dialog.component.css']
@@ -23,7 +24,7 @@ export class DebateDetailsDialogComponent implements OnInit {
   comments: Array<any>;
   files: Array<string>;
 
-  constructor(public dialogRef: MatDialogRef<DebateDetailsDialogComponent>, private http: HttpClient, @Inject(MAT_DIALOG_DATA) data: any, private fb: FormBuilder) {
+  constructor(public dialogRef: MatDialogRef<DebateDetailsDialogComponent>, private http: HttpClient, @Inject(MAT_DIALOG_DATA) data: any, private fb: UntypedFormBuilder) {
     this.data = data;
     this.debate = data.debate;
     this.comments = [];

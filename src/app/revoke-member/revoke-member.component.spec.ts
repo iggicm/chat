@@ -1,4 +1,5 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {appTestModule} from '../../testing/app-test-module';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RevokeMemberComponent } from './revoke-member.component';
 
@@ -6,10 +7,8 @@ describe('RevokeMemberComponent', () => {
   let component: RevokeMemberComponent;
   let fixture: ComponentFixture<RevokeMemberComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ RevokeMemberComponent ]
-    })
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule(appTestModule())
     .compileComponents();
   }));
 

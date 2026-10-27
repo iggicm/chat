@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {MyResponse} from '../../application/application.component';
 import {environment} from '../../../environments/environment';
 import {forumRootUrl} from '../../Constants';
 
 @Component({
+  standalone: false,
   selector: 'app-suggestdebate',
   templateUrl: './suggestdebate.component.html',
   styleUrls: ['./suggestdebate.component.css']
@@ -13,26 +14,26 @@ import {forumRootUrl} from '../../Constants';
 export class SuggestdebateComponent implements OnInit {
   loading = false;
   successResponse:boolean;
-  suggestDebateFormGroup:FormGroup;
+  suggestDebateFormGroup:UntypedFormGroup;
 
-  interestcenter: FormControl;
-  theme:FormControl;
+  interestcenter: UntypedFormControl;
+  theme:UntypedFormControl;
   interestcenters:any[];
 
 
   error:boolean = false;
   message:string = '';
-  constructor(private httpClient:HttpClient, private fb:FormBuilder) {
+  constructor(private httpClient:HttpClient, private fb:UntypedFormBuilder) {
     this.loading = false;
     this.createControls();
     this.suggestDebateFormGroup = this.fb.group({
       theme:this.theme,
       interestcenter:this.interestcenter,
-      authorid:new FormControl(environment.userdescriptor.userDetails.userid, Validators.required),
-      authoremail:new FormControl(environment.userdescriptor.userDetails.email, Validators.required),
-      authorname:new FormControl(environment.userdescriptor.userDetails.firstname + '  ' + environment.userdescriptor.userDetails.firstname, Validators.required),
-      interestcentername:new FormControl('', Validators.required),
-      interestcenterdescription:new FormControl('', Validators.required)
+      authorid:new UntypedFormControl(environment.userdescriptor.userDetails.userid, Validators.required),
+      authoremail:new UntypedFormControl(environment.userdescriptor.userDetails.email, Validators.required),
+      authorname:new UntypedFormControl(environment.userdescriptor.userDetails.firstname + '  ' + environment.userdescriptor.userDetails.firstname, Validators.required),
+      interestcentername:new UntypedFormControl('', Validators.required),
+      interestcenterdescription:new UntypedFormControl('', Validators.required)
     })
 
   }
@@ -74,8 +75,8 @@ export class SuggestdebateComponent implements OnInit {
   }
 
   createControls() {
-    this.theme = new FormControl('', [Validators.required]);
-    this.interestcenter = new FormControl('', Validators.required);
+    this.theme = new UntypedFormControl('', [Validators.required]);
+    this.interestcenter = new UntypedFormControl('', Validators.required);
 
   }
 
@@ -96,9 +97,9 @@ export class SuggestdebateComponent implements OnInit {
         theme:this.theme.value,
         interestcenter:this.interestcenter.value,
         //interestcenterid:this.interestcenter.value,
-        authorid:(new FormControl(environment.userdescriptor.userDetails.userid, Validators.required)).value,
-        authoremail:(new FormControl(environment.userdescriptor.userDetails.email, Validators.required)).value,
-        authorname:(new FormControl(environment.userdescriptor.userDetails.firstname + '  ' + environment.userdescriptor.userDetails.firstname, Validators.required)).value,
+        authorid:(new UntypedFormControl(environment.userdescriptor.userDetails.userid, Validators.required)).value,
+        authoremail:(new UntypedFormControl(environment.userdescriptor.userDetails.email, Validators.required)).value,
+        authorname:(new UntypedFormControl(environment.userdescriptor.userDetails.firstname + '  ' + environment.userdescriptor.userDetails.firstname, Validators.required)).value,
         interestcentername:interstCenter.name,
         interestcenterdescription:interstCenter.description
       });

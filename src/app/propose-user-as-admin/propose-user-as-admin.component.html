@@ -15,10 +15,10 @@
       </div>
 
 
-      <div class="col-xs-12 col-sm-6 col-md-3" *ngFor="let u of users">
+      <div class="col-12 col-sm-6 col-md-3" *ngFor="let u of users">
         <mat-card  [ngStyle]="{'border':(u.temoins == null || u.temoins.revoked == true)?'1px red solid':'1px green solid'}" >
-          <span matBadge="N" matBadgeColor="warn" matBadgeOverlap="false" class="float-right" *ngIf="(u.temoins == null || u.temoins.revoked == true)">Statut</span>
-          <span matBadge="Y" matBadgeColor="primary" matBadgeOverlap="false" class="float-right" *ngIf="!(u.temoins == null || u.temoins.revoked == true)">Statut</span>
+          <span matBadge="N" matBadgeColor="warn" matBadgeOverlap="false" class="float-end" *ngIf="(u.temoins == null || u.temoins.revoked == true)">Statut</span>
+          <span matBadge="Y" matBadgeColor="primary" matBadgeOverlap="false" class="float-end" *ngIf="!(u.temoins == null || u.temoins.revoked == true)">Statut</span>
 
           <app-user  [user]="u" (userAccepted)="removeUserFromList($event)"></app-user>
         </mat-card>

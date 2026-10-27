@@ -5,6 +5,7 @@ import {environment} from '../../environments/environment';
 import {countries, idRootUrl} from '../Constants';
 
 @Component({
+  standalone: false,
   selector: 'app-signerevocation',
   templateUrl: './signerevocation.component.html',
   styleUrls: ['./signerevocation.component.css']

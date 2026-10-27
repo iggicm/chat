@@ -3,11 +3,12 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {DebateService} from '../../debate.service';
 
 @Component({
+  standalone: false,
   selector: 'app-debate-details',
   templateUrl: './debate-details.component.html',
   styleUrls: ['./debate-details.component.css'],
   styles: [`
-        :host >>> .popover {
+        :host ::ng-deep .popover {
           max-width: 100%;
           width: 650px;
         }

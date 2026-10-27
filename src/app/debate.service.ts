@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../environments/environment';
 import {forumRootUrl} from './Constants';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 import {MyOption} from './domain/model/MyOption';
 
 @Injectable({
@@ -38,7 +38,7 @@ export class DebateService {
     });
   }
 
-  submitProject(url:string, form: FormGroup, method:string, options:Array<MyOption>):Observable<any>{
+  submitProject(url:string, form: UntypedFormGroup, method:string, options:Array<MyOption>):Observable<any>{
     let  option = {};
     /*
     headers: new HttpHeaders().set('Accept', 'application/json').set('Content-type', 'application/json')

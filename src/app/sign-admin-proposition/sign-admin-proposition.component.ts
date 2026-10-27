@@ -8,6 +8,7 @@ import {idRootUrl} from '../Constants';
 declare const Pusher: any;
 
 @Component({
+  standalone: false,
   selector: 'app-sign-admin-proposition',
   templateUrl: './sign-admin-proposition.component.html',
   styleUrls: ['./sign-admin-proposition.component.css']

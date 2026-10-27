@@ -2,20 +2,21 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {User} from '../users/users.component';
 import {environment} from '../../environments/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {forumRootUrl, geoPosition, issues} from '../Constants';
-import {MatDialog, MatDialogConfig} from '@angular/material';
-import {UUID} from 'angular2-uuid';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+
 import {UploadDialogComponent} from '../upload-dialog/upload-dialog.component';
 import {DebateDetailsDialogComponent} from './debate-details-dialog/debate-details-dialog.component';
-import {ToastrService} from 'ngx-toastr';
+import {ToastrService} from '../shared/notification.service';
 
 @Component({
+  standalone: false,
   selector: 'app-debate-to-close',
   templateUrl: './debate-to-close.component.html',
   styleUrls: ['./debate-to-close.component.css'],
   styles: [`
-        :host >>> .popover {
+        :host ::ng-deep .popover {
           z-index: 1;
         }
     `]
@@ -38,13 +39,13 @@ export class DebateToCloseComponent implements OnInit {
 
   issues = issues;
 
-  resultFormGroup: FormGroup;
-  comment: FormControl = new FormControl('', Validators.required);
-  issue: FormControl = new FormControl('', Validators.required);
-  authorid: FormControl = new FormControl('', Validators.required);
-  authoremail: FormControl = new FormControl('', Validators.required);
-  authorname: FormControl = new FormControl('', Validators.required);
-  action: FormControl = new FormControl('RESUME', Validators.required);
+  resultFormGroup: UntypedFormGroup;
+  comment: UntypedFormControl = new UntypedFormControl('', Validators.required);
+  issue: UntypedFormControl = new UntypedFormControl('', Validators.required);
+  authorid: UntypedFormControl = new UntypedFormControl('', Validators.required);
+  authoremail: UntypedFormControl = new UntypedFormControl('', Validators.required);
+  authorname: UntypedFormControl = new UntypedFormControl('', Validators.required);
+  action: UntypedFormControl = new UntypedFormControl('RESUME', Validators.required);
 
 
 
@@ -53,7 +54,7 @@ export class DebateToCloseComponent implements OnInit {
   message:string;
 
 
-  constructor(private http: HttpClient, private _formBuilder: FormBuilder,public dialog: MatDialog, private toastr: ToastrService) {
+  constructor(private http: HttpClient, private _formBuilder: UntypedFormBuilder,public dialog: MatDialog, private toastr: ToastrService) {
     this.loading = false;
     this.succesResponse = false;
     this.message = '';
@@ -62,10 +63,10 @@ export class DebateToCloseComponent implements OnInit {
 
   ngOnInit() {
 
-    this.authorid = new FormControl(this.debate.authorid, Validators.required);
-    this.authoremail = new FormControl(this.debate.authoremail, Validators.required);
-    this.authorname = new FormControl(this.debate.authorname, Validators.required);
-    this.issue  = new FormControl('', Validators.required);
+    this.authorid = new UntypedFormControl(this.debate.authorid, Validators.required);
+    this.authoremail = new UntypedFormControl(this.debate.authoremail, Validators.required);
+    this.authorname = new UntypedFormControl(this.debate.authorname, Validators.required);
+    this.issue  = new UntypedFormControl('', Validators.required);
 
 
     this.resultFormGroup = this._formBuilder.group({

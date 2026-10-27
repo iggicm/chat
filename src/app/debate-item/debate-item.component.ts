@@ -3,13 +3,13 @@ import {Observable, Subject} from 'rxjs';
 import {HttpClient, HttpEventType, HttpHeaders, HttpRequest, HttpResponse} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ChatAdapter} from 'ng-chat';
+
 import {MyAdapter} from '../my-adapter/my-adapter';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {forumRootUrl, geoPosition} from '../Constants';
-import {UUID} from 'angular2-uuid';
-import {ScrollEvent} from 'ngx-scroll-event';
-import {MatDialog, MatDialogConfig} from '@angular/material';
+
+import {ScrollEvent} from '../shared/legacy-widgets.module';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {UploadDialogComponent} from '../upload-dialog/upload-dialog.component';
 import {MemberDialogComponent} from '../revoke-member/member-dialog/member-dialog.component';
 import {ShowFileDialogComponent} from '../show-file-dialog/show-file-dialog.component';
@@ -17,6 +17,7 @@ import {ShowFileDialogComponent} from '../show-file-dialog/show-file-dialog.comp
 declare const Pusher: any;
 
 @Component({
+  standalone: false,
   selector: 'app-debate-item',
   templateUrl: './debate-item.component.html',
   styleUrls: ['./debate-item.component.css']
@@ -35,15 +36,15 @@ export class DebateItemComponent implements OnInit {
   commentsChannel: any;
   udatedCommentsChannel:any;
 
-  //filename: FormControl;
+  //filename: UntypedFormControl;
 
 
-  @ViewChild('attachedFile')
+  @ViewChild('attachedFile', {static: false})
   fileInput: ElementRef;
 
   file:File;
 
-  @ViewChild('debatetheme') debatetheme;
+  @ViewChild('debatetheme', {static: false}) debatetheme;
 
 
   //https://www.npmjs.com/package/ng-chat
@@ -52,15 +53,15 @@ export class DebateItemComponent implements OnInit {
 
   userId = 1;
   title = '';
-  body:FormControl = new FormControl('', Validators.required);
-  commentid = new FormControl(UUID.UUID(), Validators.required);
+  body:UntypedFormControl = new UntypedFormControl('', Validators.required);
+  commentid = new UntypedFormControl(crypto.randomUUID(), Validators.required);
 
-  latitude: FormControl =  new FormControl();
-  longitude: FormControl =  new FormControl();
-  attachedFile: FormControl = new FormControl();
-  filename: FormControl = new FormControl();
+  latitude: UntypedFormControl =  new UntypedFormControl();
+  longitude: UntypedFormControl =  new UntypedFormControl();
+  attachedFile: UntypedFormControl = new UntypedFormControl();
+  filename: UntypedFormControl = new UntypedFormControl();
 
-  commentFormGroup: FormGroup;
+  commentFormGroup: UntypedFormGroup;
 
   validForm:boolean = false;
 
@@ -74,7 +75,7 @@ export class DebateItemComponent implements OnInit {
 
   //public adapter: ChatAdapter = new MyAdapter();
 
-  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, private fb:FormBuilder, public dialog: MatDialog) {
+  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, private fb:UntypedFormBuilder, public dialog: MatDialog) {
     console.log('environment.userdescriptor.userDetails = '  + JSON.stringify(environment.userdescriptor));
     this.userId = environment.userdescriptor.userDetails.userid;//999;
     //this.defined = true;
@@ -240,8 +241,8 @@ export class DebateItemComponent implements OnInit {
     /*['commentid', 'debateid', 'authorid', 'authoremail', 'authorname', 'textbody', 'files', 'latitude',
       'longitude']*/
 
-    let uuid = UUID.UUID();
-    this.commentid.setValue(uuid); //new FormControl(UUID.UUID(), Validators.required);
+    let uuid = crypto.randomUUID();
+    this.commentid.setValue(uuid); //new UntypedFormControl(crypto.randomUUID(), Validators.required);
     let newComment = {
       commentid:this.commentid.value, debateid:this.debateid, authorid:environment.userdescriptor.userDetails.userid, authoremail:environment.userdescriptor.userDetails.email,
       authorname:environment.userdescriptor.userDetails.firstname + '  ' + environment.userdescriptor.userDetails.lastname, textbody:this.body.value,
@@ -333,8 +334,8 @@ export class DebateItemComponent implements OnInit {
       /*['commentid', 'debateid', 'authorid', 'authoremail', 'authorname', 'textbody', 'files', 'latitude',
         'longitude']*/
 
-      let uuid = UUID.UUID();
-      this.commentid.setValue(uuid); //new FormControl(UUID.UUID(), Validators.required);
+      let uuid = crypto.randomUUID();
+      this.commentid.setValue(uuid); //new UntypedFormControl(crypto.randomUUID(), Validators.required);
       let newComment = {
         commentid:this.commentid.value, debateid:this.debateid, authorid:environment.userdescriptor.userDetails.userid, authoremail:environment.userdescriptor.userDetails.email,
         authorname:environment.userdescriptor.userDetails.firstname + '  ' + environment.userdescriptor.userDetails.lastname, textbody:this.body.value.trim(), files: [],
@@ -391,8 +392,8 @@ export class DebateItemComponent implements OnInit {
     /*['commentid', 'debateid', 'authorid', 'authoremail', 'authorname', 'textbody', 'files', 'latitude',
       'longitude']*/
 
-    /*let uuid = UUID.UUID();
-    this.commentid.setValue(uuid); //new FormControl(UUID.UUID(), Validators.required);
+    /*let uuid = crypto.randomUUID();
+    this.commentid.setValue(uuid); //new UntypedFormControl(crypto.randomUUID(), Validators.required);
     let newComment = {
       commentid:this.commentid.value, debateid:this.debateid, authorid:environment.userdescriptor.userDetails.userid, authoremail:environment.userdescriptor.userDetails.email,
       authorname:environment.userdescriptor.userDetails.firstname + '  ' + environment.userdescriptor.userDetails.lastname, textbody:this.body.value.trim(),

@@ -1,4 +1,4 @@
-import {Action} from '@ngrx/store';
+import {Action} from 'redux';
 import {ApplicationsResponse} from '../domain/model/ApplicationsResponse';
 
 

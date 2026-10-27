@@ -7,6 +7,7 @@ import {appStore} from '../../store/AppStore';
 import {countries, forumRootUrl, idRootUrl} from '../../Constants';
 
 @Component({
+  standalone: false,
   selector: 'app-debate-moderator-candidature',
   templateUrl: './debate-moderator-candidature.component.html',
   styleUrls: ['./debate-moderator-candidature.component.css']

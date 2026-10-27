@@ -7,6 +7,7 @@ interface Comment {
 }
 
 @Component({
+  standalone: false,
   selector: 'app-comments',
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.css']

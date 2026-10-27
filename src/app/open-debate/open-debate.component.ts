@@ -5,6 +5,7 @@ import {environment} from '../../environments/environment';
 import {forumRootUrl, idRootUrl} from '../Constants';
 
 @Component({
+  standalone: false,
   selector: 'app-open-debate',
   templateUrl: './open-debate.component.html',
   styleUrls: ['./open-debate.component.css']

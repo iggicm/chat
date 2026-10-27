@@ -18,7 +18,7 @@
             </div>
 
 
-            <div class="col-xs-12 col-sm-6 col-md-3" *ngFor="let application of applications">
+            <div class="col-12 col-sm-6 col-md-3" *ngFor="let application of applications">
               <mat-card >
 
                 <mat-card-header >
@@ -28,7 +28,7 @@
                 </mat-card-header>
                 <mat-card-content>
                   <p>
-                    <a [routerLink]="['../fiche', application.applicationid]" class="btn btn-link  float-right">Deatails</a>
+                    <a [routerLink]="['../fiche', application.applicationid]" class="btn btn-link  float-end">Deatails</a>
                   </p>
                   <br>
                 </mat-card-content>
@@ -49,7 +49,7 @@
 
 
 
-<!--<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 card" *ngFor="; let indice = index">
+<!--<div class="col-lg-4 col-md-4 col-sm-12 col-12 card" *ngFor="; let indice = index">
     <br>
     <h3 class="card-header">{{application.applicationid}}</h3>
     <div class="card-body">

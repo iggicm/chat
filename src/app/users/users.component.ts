@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs';
-import {AgmMarker} from '@agm/core';
+
 import {countries, idRootUrl} from '../Constants';
 
 declare const Pusher: any;
@@ -50,11 +50,14 @@ export interface Location {
 }
 //http://mobilebiller.idea-cm.club/cluster-img/people35.png1.png
 @Component({
+  standalone: false,
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
+  selectedMapUser: any;
+  markerSizeEquals(other: google.maps.Size | null): boolean { return !!other && other.width === 35 && other.height === 35; }
 
   idRootUrl:string = idRootUrl;
   users:Array<any>;

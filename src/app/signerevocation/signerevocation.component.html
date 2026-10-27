@@ -15,18 +15,18 @@
 
         <div *ngIf="!loading" style="width: 100%; height: 100%; text-align: center;" class="example-section" [ngStyle]="messageStyle">
           <p *ngIf="!error && !(message === '')">
-            <ngb-alert [dismissible]="true" [type]="'success'" (close)="closeAlert()">
+            <ngb-alert [dismissible]="true" [type]="'success'" (closed)="closeAlert()">
               <strong>{{message}}</strong>
             </ngb-alert>
           </p>
 
           <p *ngIf="error && !(message === '')">
-            <ngb-alert [dismissible]="true" [type]="'danger'" (close)="closeAlert()">
+            <ngb-alert [dismissible]="true" [type]="'danger'" (closed)="closeAlert()">
               <strong>{{message}}</strong>
             </ngb-alert>
           </p>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-3" *ngFor="let revocation of revocationPropositions">
+        <div class="col-12 col-sm-6 col-md-3" *ngFor="let revocation of revocationPropositions">
           <mat-card>
             <mat-card-header >
               <img mat-card-avatar src="{{idRootUrl + 'users/' + revocation.proposeduser.userid + '/photo'}}" />
@@ -35,7 +35,7 @@
             </mat-card-header>
             <mat-card-content>
               <div class="row">
-                <div class="col-12"><a class="btn btn-link  float-left" (click)="signerRevocationProposition(revocation.userrevokationpropositionid)" style="color: darkred;">Signer</a></div>
+                <div class="col-12"><a class="btn btn-link  float-start" (click)="signerRevocationProposition(revocation.userrevokationpropositionid)" style="color: darkred;">Signer</a></div>
                 <div class="col-12">
                   <h5>Signataires</h5>
                   <ul class="list-group">

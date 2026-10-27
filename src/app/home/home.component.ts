@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-/*import {FormControl, FormGroup, Validators} from '@angular/forms';
+/*import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient, HttpHeaders} from '@angular/common/http';*/
 
@@ -19,6 +19,7 @@ export interface IImage {
 
 // @ts-ignore
 @Component({
+  standalone: false,
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
@@ -46,13 +47,13 @@ export class HomeComponent implements OnInit {
     { url: this.imgUrl +'/../assets/carousel/slide1.png' ,  href: this.imgUrl +'/../assets/carousel/slide1.png' , clickAction: () => alert('custom click function') }
   ];
 
-  /*loginFormGroup: FormGroup;
-  email: FormControl;
-  password: FormControl;
-  grant_type: FormControl;
-  client_id: FormControl;
-  client_secret: FormControl;
-  refresh_token: FormControl;
+  /*loginFormGroup: UntypedFormGroup;
+  email: UntypedFormControl;
+  password: UntypedFormControl;
+  grant_type: UntypedFormControl;
+  client_id: UntypedFormControl;
+  client_secret: UntypedFormControl;
+  refresh_token: UntypedFormControl;
 
   error:boolean = false;
   message:string = '';
@@ -109,11 +110,11 @@ export class HomeComponent implements OnInit {
 
             console.log(token);
 
-            this.grant_type = new FormControl(environment.debate_oauth_client.grant_type);
-            this.client_id = new FormControl(environment.debate_oauth_client.client_id);
-            this.client_secret = new FormControl(environment.debate_oauth_client.client_secret);
+            this.grant_type = new UntypedFormControl(environment.debate_oauth_client.grant_type);
+            this.client_id = new UntypedFormControl(environment.debate_oauth_client.client_id);
+            this.client_secret = new UntypedFormControl(environment.debate_oauth_client.client_secret);
 
-            this.loginFormGroup = new FormGroup({
+            this.loginFormGroup = new UntypedFormGroup({
               grant_type: this.grant_type,
               client_id: this.client_id,
               client_secret: this.client_secret,
@@ -171,13 +172,13 @@ export class HomeComponent implements OnInit {
   }
 
   init(){
-    this.grant_type = new FormControl(environment.oauth_client.grant_type);
-    this.client_id = new FormControl(environment.oauth_client.client_id);
-    this.client_secret = new FormControl(environment.oauth_client.client_secret);
-    this.email = new FormControl('', [Validators.required, Validators.email]);
-    this.password = new FormControl('', Validators.required);
+    this.grant_type = new UntypedFormControl(environment.oauth_client.grant_type);
+    this.client_id = new UntypedFormControl(environment.oauth_client.client_id);
+    this.client_secret = new UntypedFormControl(environment.oauth_client.client_secret);
+    this.email = new UntypedFormControl('', [Validators.required, Validators.email]);
+    this.password = new UntypedFormControl('', Validators.required);
 
-    this.loginFormGroup = new FormGroup({
+    this.loginFormGroup = new UntypedFormGroup({
       grant_type: this.grant_type,
       client_id: this.client_id,
       client_secret: this.client_secret,

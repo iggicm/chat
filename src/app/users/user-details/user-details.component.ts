@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 
 @Component({
+  standalone: false,
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
   styleUrls: ['./user-details.component.css']

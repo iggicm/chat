@@ -1,10 +1,11 @@
 import {Component, Inject, OnInit, Pipe, PipeTransform} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {HttpClient} from '@angular/common/http';
 import {UploadDialogComponent} from '../upload-dialog/upload-dialog.component';
 import {DomSanitizer} from '@angular/platform-browser';
 /*
-@Pipe({ name: 'safe' })
+@Pipe({
+  standalone: false, name: 'safe' })
 export class SafePipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) { }
   transform(url) {
@@ -15,11 +16,12 @@ export class SafePipe implements PipeTransform {
 
 
 @Component({
+  standalone: false,
   selector: 'app-show-file-dialog',
   templateUrl: './show-file-dialog.component.html',
   styleUrls: ['./show-file-dialog.component.css'],
   styles: [`
-        :host >>> .popover {
+        :host ::ng-deep .popover {
           max-width: 100%;
           width: 650px;
         }

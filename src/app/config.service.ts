@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../environments/environment';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 import {idRootUrl} from './Constants';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class ConfigService {
 
   constructor(private httpClient: HttpClient) { }
 
-  updatePwd(form:FormGroup):Observable<any>{
+  updatePwd(form:UntypedFormGroup):Observable<any>{
 
     return this.httpClient.post(idRootUrl + 'users/'+environment.userdescriptor.userDetails.userid+'/change-password?scope=USER',
       {},{

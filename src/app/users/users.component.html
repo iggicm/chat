@@ -34,10 +34,10 @@
             </div>
 
 
-            <div class="col-xs-12 col-sm-6 col-md-3" *ngFor="let u of users" >
+            <div class="col-12 col-sm-6 col-md-3" *ngFor="let u of users" >
               <mat-card  > <!--[ngStyle]="{'border':(u.temoins == null || u.temoins.revoked == true)?'1px red solid':'1px green solid'}"-->
-                <span matBadge="-" matBadgeColor="warn" matBadgeOverlap="false" class="float-right" *ngIf="(u.temoins == null || u.temoins.revoked == true)" style="color:red;">Offline</span>
-                <span matBadge="+" matBadgeColor="primary" matBadgeOverlap="false" class="float-right" *ngIf="!(u.temoins == null || u.temoins.revoked == true)" style="color:green;">Online</span>
+                <span matBadge="-" matBadgeColor="warn" matBadgeOverlap="false" class="float-end" *ngIf="(u.temoins == null || u.temoins.revoked == true)" style="color:red;">Offline</span>
+                <span matBadge="+" matBadgeColor="primary" matBadgeOverlap="false" class="float-end" *ngIf="!(u.temoins == null || u.temoins.revoked == true)" style="color:green;">Online</span>
 
                 <app-user  [user]="u" (userAccepted)="removeUserFromList($event)"></app-user>
               </mat-card>
@@ -69,22 +69,18 @@
                 [label]="{color:(user.temoins == null || user.temoins.revoked == true)?'red':'green',fontFamily:'arial',fontSize:'0.8em',fontWeight:'bold',text: user.firstname + '' + user.lastname}"
 
                 -->
-        <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-          <agm-marker-cluster imagePath="http://mobilebiller.idea-cm.club/cluster-img/m1.png">
-          <agm-overlay *ngFor="let user of users; let i=index;" [latitude]="user.latitude" [longitude]="user.longitude"
-
-          [title]="user.firstname + ' ' + user.lastname" [openInfoWindow]="true"
-          (markerClick)="showDetailsOnMarker(user)" >
-
-            <span matBadge="-" matBadgeColor="warn" matBadgeOverlap="false" class="float-right" *ngIf="(user.temoins == null || user.temoins.revoked == true)" style="color:red;"></span>
-            <span matBadge="+" matBadgeColor="primary" matBadgeOverlap="false" class="float-right" *ngIf="!(user.temoins == null || user.temoins.revoked == true)" style="color:green;"
-                  [ngStyle]="{'color': 'white', 'background':'green'}"></span>
-            <div style="width:15px;height:15px;background-color:rgba(255, 255, 255, 0);">
-              <img [src]="idRootUrl + 'users/' + this.user.userid  + '/photo'" height="35" width="35"
-              style="margin-top: 10px;">
-            </div>
-            <agm-info-window #window>
-              <h5>{{user.firstname + '' + user.lastname}}</h5>
+        <google-map [center]="{lat: lat, lng: lng}" [zoom]="zoom" width="100%" height="500px">
+          <map-marker-clusterer>
+          <map-marker *ngFor="let user of users" #marker="mapMarker"
+            [position]="{lat: +user.latitude, lng: +user.longitude}"
+            [icon]="{url: idRootUrl + 'users/' + user.userid + '/photo', scaledSize: {width: 35, height: 35, equals: markerSizeEquals}}"
+            [title]="user.firstname + ' ' + user.lastname"
+            [label]="{text: user.firstname + ' ' + user.lastname, color: user.temoins == null || user.temoins.revoked ? 'red' : 'green'}"
+            (mapClick)="selectedMapUser = user; infoWindow.open(marker)">
+          </map-marker>
+          </map-marker-clusterer>
+          <map-info-window #infoWindow="mapInfoWindow">
+            <ng-container *ngIf="selectedMapUser as user"><h5>{{user.firstname + '' + user.lastname}}</h5>
               <ul class="list-group">
                 <li class="list-group-item"><strong>Sexe: </strong>{{user.gender}}</li>
                 <li class="list-group-item"><strong>E-Mail: </strong>{{user.email}}</li>
@@ -94,10 +90,9 @@
                 <li class="list-group-item"><strong>Centre d'interet: </strong>{{user.interestcenter}}</li>
                 <li class="list-group-item"><strong>Commentaire a l'enregistrement: </strong>{{user.commenttotheregistration}}</li>
               </ul>
-            </agm-info-window>
-          </agm-overlay>
-          </agm-marker-cluster>
-        </agm-map>
+            </ng-container>
+          </map-info-window>
+        </google-map>
       </div>
     </mat-tab>
 

@@ -55,7 +55,7 @@
 
         </div>
         <div>
-          <button  class="btn  btn-primary float-right" (click)="resumeDebate(debate.debateid)" >Resumer</button>
+          <button  class="btn  btn-primary float-end" (click)="resumeDebate(debate.debateid)" >Resumer</button>
         </div>
       </form>
     </div>
@@ -77,9 +77,9 @@
 
 <h5 *ngIf="debate.moderatorsdetails.length > 0">Moderateurs</h5>
 
-<ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0" *ngIf="debate.moderatorsdetails.length > 0">
-  <ngb-panel *ngFor="let moderatorsdetail of debate.moderatorsdetails" title="{{moderatorsdetail.firstname + '  ' + moderatorsdetail.lastname}}">
-    <ng-template ngbPanelContent>
+<div *ngIf="debate.moderatorsdetails.length > 0">
+  <details *ngFor="let moderatorsdetail of debate.moderatorsdetails; let first = first" [open]="first"><summary>{{moderatorsdetail.firstname + '  ' + moderatorsdetail.lastname}}</summary>
+    <div>
       <p>
         Telephone: {{moderatorsdetail.phone}}
       </p>
@@ -92,6 +92,6 @@
       <!--<p *ngIf="moderatorsdetail.memberid == connectedUserId && !(debate.state == 'ACCEPTED') && debate.closed_by == connectedUserId">
         <button class="btn btn-link" (click)="reOpen(debate.debateid)">Reouvrir</button>
       </p> labtag labo -->
-    </ng-template>
-  </ngb-panel>
-</ngb-accordion>
+    </div>
+  </details>
+</div>

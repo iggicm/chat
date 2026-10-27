@@ -9,6 +9,7 @@ declare const Pusher: any;
 
 
 @Component({
+  standalone: false,
   selector: 'app-propose-user-as-admin',
   templateUrl: './propose-user-as-admin.component.html',
   styleUrls: ['./propose-user-as-admin.component.css']

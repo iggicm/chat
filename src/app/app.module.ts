@@ -1,3 +1,8 @@
+import {GoogleMapsModule} from '@angular/google-maps';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {provideZoneChangeDetection} from '@angular/core';
+import {provideHttpClient, withXhr} from '@angular/common/http';
+import {LegacyWidgetsModule} from './shared/legacy-widgets.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -7,44 +12,38 @@ import { CommentsComponent } from './comments/comments.component';
 import {PusherService} from './pusher.service';
 import { HomeComponent } from './home/home.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
 import { DebateComponent } from './debate/debate.component';
 import { DebateItemComponent } from './debate-item/debate-item.component';
 import { DebateListComponent } from './debate-list/debate-list.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {
-  MatAutocompleteModule,
-  MatBadgeModule,
-  MatButtonModule,
-  MatCardModule,
-  MatCheckboxModule,
-  MatChipsModule,
-  MatDatepickerModule,
-  MatDialogModule,
-  MatFormFieldModule,
-  MatGridListModule,
-  MatIconModule,
-  MatInputModule,
-  MatListModule,
-  MatMenuModule,
-  MatNativeDateModule,
-  MatOptionModule,
-  MatProgressBarModule,
-  MatProgressSpinnerModule,
-  MatRadioModule,
-  MatSelectModule,
-  MatSidenavModule,
-  MatStepperModule,
-  MatTabsModule,
-  MatToolbarModule,
-  MatTreeModule
-} from '@angular/material';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+import {MatListModule} from '@angular/material/list';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatNativeDateModule, MatOptionModule} from '@angular/material/core';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatSelectModule} from '@angular/material/select';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatTreeModule} from '@angular/material/tree';
 import {CommonModule} from '@angular/common';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import { LoginComponent } from './login/login.component';
-import {SlideshowModule} from 'ng-simple-slideshow';
 import { ApplicationComponent } from './application/application.component';
 import { AdminComponent } from './admin/admin.component';
 import { ApplicationsComponent } from './applications/applications.component';
@@ -54,8 +53,6 @@ import { TermsofconditionComponent } from './termsofcondition/termsofcondition.c
 import { UsersComponent } from './users/users.component';
 import { UserComponent } from './users/user/user.component';
 import { UserDetailsComponent } from './users/user-details/user-details.component';
-import {AgmCoreModule, GoogleMapsAPIWrapper} from '@agm/core';
-import {NgChatModule} from 'ng-chat';
 import { FicheComponent } from './applications/fiche/fiche.component';
 import {LoginService} from './login.service';
 import { SuggestdebateComponent } from './debate/suggestdebate/suggestdebate.component';
@@ -72,10 +69,7 @@ import { SignerevocationComponent } from './signerevocation/signerevocation.comp
 import { CloseDebateComponent } from './close-debate/close-debate.component';
 import { OpenDebateComponent } from './open-debate/open-debate.component';
 import {MemberDialogComponent} from './revoke-member/member-dialog/member-dialog.component';
-import {ScrollEventModule} from 'ngx-scroll-event';
-import {MatFileUploadModule} from 'angular-material-fileupload';
 import { UploadDialogComponent } from './upload-dialog/upload-dialog.component';
-import {MatLinkPreviewModule} from '@angular-material-extensions/link-preview';
 import {ShowFileDialogComponent} from './show-file-dialog/show-file-dialog.component';
 import { DebateToCloseComponent } from './debate-to-close/debate-to-close.component';
 import { ClosedDebatesComponent } from './closed-debates/closed-debates.component';
@@ -84,16 +78,12 @@ import { DebateDetailsComponent } from './debate-to-close/debate-details/debate-
 import {DebateService} from './debate.service';
 import { FileComponent } from './debate-to-close/debateDetails/file/file.component';
 import {FileService} from './file.service';
-import {PdfViewerModule} from 'ng2-pdf-viewer';
 import { ResumedDebatesComponent } from './closed-debates/resumed-debates/resumed-debates.component';
 import { DebateResultComponent } from './closed-debates/debate-result/debate-result.component';
 import {AccessService} from './access.service';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import { ProjectsComponent } from './projects/projects.component';
-import {AgmOverlays} from 'agm-overlays';
-import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
 import { DebateElementComponent } from './debate-list/debate-element/debate-element.component';
-import {ToastrModule} from 'ngx-toastr';
 import { SubheaderComponent } from './navigation/subheader/subheader.component';
 import { ConfigComponent } from './users/config/config.component';
 import {ConfigService} from './config.service';
@@ -151,19 +141,14 @@ import {SafePipe} from './safe.pipe';
     ConfigComponent
   ],
   imports: [
-    BrowserModule, BrowserAnimationsModule,
-    AppRoutingModule, FormsModule, ReactiveFormsModule, HttpClientModule, MatSidenavModule, CommonModule,
-    MatTabsModule, MatToolbarModule, MatButtonModule, MatIconModule, MatListModule, MatMenuModule, FlexLayoutModule, MatNativeDateModule,
+    BrowserModule, BrowserAnimationsModule, GoogleMapsModule, MatSnackBarModule, LegacyWidgetsModule,
+    AppRoutingModule, FormsModule, ReactiveFormsModule, MatSidenavModule, CommonModule,
+    MatTabsModule, MatToolbarModule, MatButtonModule, MatIconModule, MatListModule, MatMenuModule, MatNativeDateModule,
     MatDatepickerModule,MatCheckboxModule, MatCardModule,MatFormFieldModule,MatInputModule,MatRadioModule, MatStepperModule, MatSelectModule,
-    MatOptionModule, MatProgressSpinnerModule, SlideshowModule, MatAutocompleteModule,
-    AgmCoreModule.forRoot({apiKey: 'AIzaSyD9LZFPNoD3k7JGQ0w4NLYBSIZfGhAsJAA'}), NgChatModule, MatBadgeModule, MatProgressSpinnerModule, MatProgressBarModule, NgbModule,
-    MatDialogModule, MatChipsModule, MatTreeModule, ScrollEventModule, MatFileUploadModule, MatLinkPreviewModule.forRoot(), MatGridListModule, PdfViewerModule,AgmOverlays,
-    AgmJsMarkerClustererModule, ToastrModule.forRoot()
-  ],
-  providers: [PusherService, GoogleMapsAPIWrapper, LoginService, NgbPopoverConfig, FileService, DebateService, AccessService, ConfigService],
-  bootstrap: [AppComponent],
-  entryComponents: [
-    MemberDialogComponent, UploadDialogComponent, ShowFileDialogComponent, DebateDetailsDialogComponent
-  ]
+    MatOptionModule, MatProgressSpinnerModule, MatAutocompleteModule,
+     MatBadgeModule, MatProgressBarModule, NgbModule,
+    MatDialogModule, MatChipsModule, MatTreeModule, MatGridListModule, ],
+  providers: [provideZoneChangeDetection(), provideHttpClient(withXhr()), PusherService, LoginService, NgbPopoverConfig, FileService, DebateService, AccessService, ConfigService],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

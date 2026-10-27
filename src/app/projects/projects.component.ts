@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
-import { UUID } from 'angular2-uuid';
-import {MatStepper} from '@angular/material';
+import {UntypedFormBuilder, UntypedFormGroup, Validators, UntypedFormControl} from '@angular/forms';
+
+import {MatStepper} from '@angular/material/stepper';
 import {HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {appConst, countries} from '../Constants';
@@ -12,6 +12,7 @@ import {DebateService} from '../debate.service';
 
 
 @Component({
+  standalone: false,
   selector: 'app-projects',
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.css']
@@ -21,7 +22,7 @@ export class ProjectsComponent implements OnInit , AfterViewInit{
   debateResult:any;
   appConst: any = appConst;
 
-  @ViewChild('stepper')  myStepper: MatStepper;
+  @ViewChild('stepper', {static: false})  myStepper: MatStepper;
   promoterSelectedCountry:any={
     name:'', code:''
   };
@@ -42,53 +43,53 @@ export class ProjectsComponent implements OnInit , AfterViewInit{
 
   promoterPhoneNumber:string = '';
 
-  globalFormGroup: FormGroup;
+  globalFormGroup: UntypedFormGroup;
 
-  projectFormGroup: FormGroup;
-  promoterFormGroup: FormGroup;
-  responsibleFormGroup: FormGroup;
+  projectFormGroup: UntypedFormGroup;
+  promoterFormGroup: UntypedFormGroup;
+  responsibleFormGroup: UntypedFormGroup;
 
-  projectid: FormControl;
-  projectname: FormControl;
-  projectobjective: FormControl;
-  projectdescrition: FormControl;
-  projectphone: FormControl;
-  projectemail: FormControl;
-  projectcountry: FormControl;
-  projectlocality: FormControl;
+  projectid: UntypedFormControl;
+  projectname: UntypedFormControl;
+  projectobjective: UntypedFormControl;
+  projectdescrition: UntypedFormControl;
+  projectphone: UntypedFormControl;
+  projectemail: UntypedFormControl;
+  projectcountry: UntypedFormControl;
+  projectlocality: UntypedFormControl;
 
-  promoterfirstname: FormControl;
-  promoterlastname: FormControl;
-  promoterbirthdate: FormControl;
-  promoterplaceofbirth: FormControl;
-  promotergender: FormControl;
-  promoterdocumenttype: FormControl;
-  promoterdocumentid: FormControl;
-  promotercountry: FormControl;
-  promotercountryname: FormControl;
-  promoterregion: FormControl;
-  promoterregionname: FormControl;
-  promoterdivision: FormControl;
-  promoterdivisionname: FormControl;
-  promotertown: FormControl;
-  promotertownname: FormControl;
-  promoterphone: FormControl;
-  promoteremail: FormControl;
-  promoterpassword: FormControl;
-  promoterpassword_confirmation: FormControl;
+  promoterfirstname: UntypedFormControl;
+  promoterlastname: UntypedFormControl;
+  promoterbirthdate: UntypedFormControl;
+  promoterplaceofbirth: UntypedFormControl;
+  promotergender: UntypedFormControl;
+  promoterdocumenttype: UntypedFormControl;
+  promoterdocumentid: UntypedFormControl;
+  promotercountry: UntypedFormControl;
+  promotercountryname: UntypedFormControl;
+  promoterregion: UntypedFormControl;
+  promoterregionname: UntypedFormControl;
+  promoterdivision: UntypedFormControl;
+  promoterdivisionname: UntypedFormControl;
+  promotertown: UntypedFormControl;
+  promotertownname: UntypedFormControl;
+  promoterphone: UntypedFormControl;
+  promoteremail: UntypedFormControl;
+  promoterpassword: UntypedFormControl;
+  promoterpassword_confirmation: UntypedFormControl;
 
 
-  responsiblefirstname: FormControl;
-  responsiblelastname: FormControl;
-  responsiblegender: FormControl;
-  responsiblecountry: FormControl;
-  responsiblecountryname: FormControl;
-  responsibletownname: FormControl;
-  responsibletown: FormControl;
-  responsiblephone: FormControl;
-  responsibleemail: FormControl;
+  responsiblefirstname: UntypedFormControl;
+  responsiblelastname: UntypedFormControl;
+  responsiblegender: UntypedFormControl;
+  responsiblecountry: UntypedFormControl;
+  responsiblecountryname: UntypedFormControl;
+  responsibletownname: UntypedFormControl;
+  responsibletown: UntypedFormControl;
+  responsiblephone: UntypedFormControl;
+  responsibleemail: UntypedFormControl;
 
-  constructor(private router: Router , private _formBuilder: FormBuilder, private debateService: DebateService) {
+  constructor(private router: Router , private _formBuilder: UntypedFormBuilder, private debateService: DebateService) {
     this.debateResult = this.router.getCurrentNavigation().extras.state;
   }
   ngOnInit() {
@@ -146,46 +147,46 @@ export class ProjectsComponent implements OnInit , AfterViewInit{
   }
 
   createControls() {
-    this.globalFormGroup = new FormGroup({});
-    this.projectid = new FormControl(UUID.UUID(), Validators.required);
-    this.projectname = new FormControl('', Validators.required);
-    this.projectobjective = new FormControl('', Validators.required);
-    this.projectdescrition = new FormControl('', Validators.required);
-    this.projectphone = new FormControl('', Validators.required);
-    this.projectemail = new FormControl('', [Validators.required, Validators.email]);
-    this.projectcountry =  new FormControl('',Validators.required);
-    this.projectlocality = new FormControl('', Validators.required);
+    this.globalFormGroup = new UntypedFormGroup({});
+    this.projectid = new UntypedFormControl(crypto.randomUUID(), Validators.required);
+    this.projectname = new UntypedFormControl('', Validators.required);
+    this.projectobjective = new UntypedFormControl('', Validators.required);
+    this.projectdescrition = new UntypedFormControl('', Validators.required);
+    this.projectphone = new UntypedFormControl('', Validators.required);
+    this.projectemail = new UntypedFormControl('', [Validators.required, Validators.email]);
+    this.projectcountry =  new UntypedFormControl('',Validators.required);
+    this.projectlocality = new UntypedFormControl('', Validators.required);
 
-    this.promoterfirstname = new FormControl('', Validators.required);
-    this.promoterlastname = new FormControl('', Validators.required);
-    this.promoterbirthdate = new FormControl('', Validators.required);
-    this.promoterplaceofbirth = new FormControl('', Validators.required);
-    this.promotergender = new FormControl('', Validators.required);
-    this.promoterdocumenttype = new FormControl('', Validators.required);
-    this.promoterdocumentid = new FormControl('', Validators.required);
-    this.promotercountry = new FormControl('');
-    this.promotercountryname = new FormControl('Cameroun', Validators.required);
-    this.promoterregion = new FormControl('');
-    this.promoterregionname = new FormControl('');
-    this.promoterdivision = new FormControl('');
-    this.promoterdivisionname = new FormControl('');
-    this.promotertown = new FormControl('');
-    this.promotertownname = new FormControl('', Validators.required);
-    this.promoterphone = new FormControl('', Validators.required);
-    this.promoterpassword = new FormControl('', Validators.required);
-    this.promoterpassword_confirmation = new FormControl('', Validators.required);
-    this.promoteremail = new FormControl('', [Validators.required, Validators.email]);
+    this.promoterfirstname = new UntypedFormControl('', Validators.required);
+    this.promoterlastname = new UntypedFormControl('', Validators.required);
+    this.promoterbirthdate = new UntypedFormControl('', Validators.required);
+    this.promoterplaceofbirth = new UntypedFormControl('', Validators.required);
+    this.promotergender = new UntypedFormControl('', Validators.required);
+    this.promoterdocumenttype = new UntypedFormControl('', Validators.required);
+    this.promoterdocumentid = new UntypedFormControl('', Validators.required);
+    this.promotercountry = new UntypedFormControl('');
+    this.promotercountryname = new UntypedFormControl('Cameroun', Validators.required);
+    this.promoterregion = new UntypedFormControl('');
+    this.promoterregionname = new UntypedFormControl('');
+    this.promoterdivision = new UntypedFormControl('');
+    this.promoterdivisionname = new UntypedFormControl('');
+    this.promotertown = new UntypedFormControl('');
+    this.promotertownname = new UntypedFormControl('', Validators.required);
+    this.promoterphone = new UntypedFormControl('', Validators.required);
+    this.promoterpassword = new UntypedFormControl('', Validators.required);
+    this.promoterpassword_confirmation = new UntypedFormControl('', Validators.required);
+    this.promoteremail = new UntypedFormControl('', [Validators.required, Validators.email]);
 
 
-    this.responsiblefirstname = new FormControl('', Validators.required);
-    this.responsiblelastname = new FormControl('', Validators.required);
-    this.responsiblegender = new FormControl('', Validators.required);
-    this.responsiblecountry = new FormControl('', Validators.required);
-    this.responsiblecountryname = new FormControl('Cameroon', Validators.required);
-    this.responsibletownname = new FormControl('', Validators.required);
-    this.responsibletown = new FormControl('');
-    this.responsiblephone = new FormControl('', Validators.required);
-    this.responsibleemail = new FormControl('', [Validators.required, Validators.email]);
+    this.responsiblefirstname = new UntypedFormControl('', Validators.required);
+    this.responsiblelastname = new UntypedFormControl('', Validators.required);
+    this.responsiblegender = new UntypedFormControl('', Validators.required);
+    this.responsiblecountry = new UntypedFormControl('', Validators.required);
+    this.responsiblecountryname = new UntypedFormControl('Cameroon', Validators.required);
+    this.responsibletownname = new UntypedFormControl('', Validators.required);
+    this.responsibletown = new UntypedFormControl('');
+    this.responsiblephone = new UntypedFormControl('', Validators.required);
+    this.responsibleemail = new UntypedFormControl('', [Validators.required, Validators.email]);
 
   }
 

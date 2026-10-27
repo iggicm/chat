@@ -54,7 +54,7 @@
                   </mat-form-field>
                 </div>
                 <div>
-                  <button matStepperNext  class="btn btn-sm btn-primary float-right">Suivant</button>
+                  <button matStepperNext  class="btn btn-sm btn-primary float-end">Suivant</button>
                 </div>
               </div>
               <!-- <div class="card-footer">
@@ -158,9 +158,9 @@
                   </mat-form-field>
                 </div>
                 <div>
-                  <button  matStepperPrevious class="btn btn-sm btn-primary float-left">Retour</button>
+                  <button  matStepperPrevious class="btn btn-sm btn-primary float-start">Retour</button>
 
-                  <button  matStepperNext class="btn btn-sm btn-primary float-right" (click)="goForward(stepper)" >Suivant</button>
+                  <button  matStepperNext class="btn btn-sm btn-primary float-end" (click)="goForward(stepper)" >Suivant</button>
                 </div>
               </div>
             </div>
@@ -258,9 +258,9 @@
                   </mat-form-field>-->
                 </div>
                 <div>
-                  <button  matStepperPrevious class="btn btn-sm btn-primary float-left">Retour</button>
+                  <button  matStepperPrevious class="btn btn-sm btn-primary float-start">Retour</button>
 
-                  <button  matStepperNext class="btn btn-sm btn-primary float-right" (click)="goForward(stepper)" >Suivant</button>
+                  <button  matStepperNext class="btn btn-sm btn-primary float-end" (click)="goForward(stepper)" >Suivant</button>
                 </div>
               </div>
             </div>
@@ -281,33 +281,33 @@
               <mat-list>
                 <h3 mat-subheader>{{appConst.project.label}}</h3>
                 <mat-list-item>
-                  <h4 mat-line>Nom du Projet</h4>
-                  <p mat-line> {{projectFormGroup.value.projectname}} </p>
+                  <h4 matListItemLine>Nom du Projet</h4>
+                  <p matListItemLine> {{projectFormGroup.value.projectname}} </p>
                 </mat-list-item>
 
                 <mat-list-item>
-                  <h4 mat-line>Description du Projet</h4>
-                  <p mat-line> {{projectFormGroup.value.projectdescrition}} </p>
+                  <h4 matListItemLine>Description du Projet</h4>
+                  <p matListItemLine> {{projectFormGroup.value.projectdescrition}} </p>
                 </mat-list-item>
 
                 <mat-list-item>
-                  <h4 mat-line>Telephone du Projet</h4>
-                  <p mat-line> {{projectFormGroup.value.projectphone}} </p>
+                  <h4 matListItemLine>Telephone du Projet</h4>
+                  <p matListItemLine> {{projectFormGroup.value.projectphone}} </p>
                 </mat-list-item>
 
                 <mat-list-item>
-                  <h4 mat-line>Email du Projet</h4>
-                  <p mat-line> {{projectFormGroup.value.projectemail}} </p>
+                  <h4 matListItemLine>Email du Projet</h4>
+                  <p matListItemLine> {{projectFormGroup.value.projectemail}} </p>
                 </mat-list-item>
 
                 <mat-list-item>
-                  <h4 mat-line>Pays du Projet</h4>
-                  <p mat-line> {{getCountNameByCode(projectFormGroup.value.projectcountry)}}({{projectFormGroup.value.projectcountry}}) </p>
+                  <h4 matListItemLine>Pays du Projet</h4>
+                  <p matListItemLine> {{getCountNameByCode(projectFormGroup.value.projectcountry)}}({{projectFormGroup.value.projectcountry}}) </p>
                 </mat-list-item>
 
                 <mat-list-item>
-                  <h4 mat-line>Localite du Projet</h4>
-                  <p mat-line> {{projectFormGroup.value.projectlocality}} </p>
+                  <h4 matListItemLine>Localite du Projet</h4>
+                  <p matListItemLine> {{projectFormGroup.value.projectlocality}} </p>
                 </mat-list-item>
 
 
@@ -315,68 +315,68 @@
 
                 <h3 mat-subheader>{{appConst.promoterform.label}}</h3>
                 <mat-list-item>
-                  <h4 mat-line>Nom du promoteur</h4>
-                  <p mat-line> {{promoterFormGroup.value.promoterfirstname}} </p>
+                  <h4 matListItemLine>Nom du promoteur</h4>
+                  <p matListItemLine> {{promoterFormGroup.value.promoterfirstname}} </p>
                 </mat-list-item>
 
                 <mat-list-item>
-                  <h4 mat-line>Prenom du promoteur</h4>
-                  <p mat-line> {{promoterFormGroup.value.promoterlastname}} </p>
+                  <h4 matListItemLine>Prenom du promoteur</h4>
+                  <p matListItemLine> {{promoterFormGroup.value.promoterlastname}} </p>
                 </mat-list-item>
 
                 <mat-list-item>
-                  <h4 mat-line>Date de naissance du promoteur</h4>
-                  <p mat-line> {{promoterFormGroup.value.promoterbirthdate}} </p>
+                  <h4 matListItemLine>Date de naissance du promoteur</h4>
+                  <p matListItemLine> {{promoterFormGroup.value.promoterbirthdate}} </p>
                 </mat-list-item>
 
                 <mat-list-item>
-                  <h4 mat-line>Lieu de naissance du promoteur</h4>
-                  <p mat-line> {{promoterFormGroup.value.promoterplaceofbirth}} </p>
+                  <h4 matListItemLine>Lieu de naissance du promoteur</h4>
+                  <p matListItemLine> {{promoterFormGroup.value.promoterplaceofbirth}} </p>
                 </mat-list-item>
 
                 <mat-list-item>
-                  <h4 mat-line>Sexe du promoteur</h4>
-                  <p mat-line> {{promoterFormGroup.value.promotergender}} </p>
+                  <h4 matListItemLine>Sexe du promoteur</h4>
+                  <p matListItemLine> {{promoterFormGroup.value.promotergender}} </p>
                 </mat-list-item>
 
                 <mat-list-item>
-                  <h4 mat-line>Type de Document du promoteur</h4>
-                  <p mat-line> {{getDocumentTypeNameByValue(promoterFormGroup.value.promoterdocumenttype)}} </p>
+                  <h4 matListItemLine>Type de Document du promoteur</h4>
+                  <p matListItemLine> {{getDocumentTypeNameByValue(promoterFormGroup.value.promoterdocumenttype)}} </p>
                 </mat-list-item>
 
                 <mat-list-item>
-                  <h4 mat-line>Numero du document du promoteur</h4>
-                  <p mat-line> {{promoterFormGroup.value.promoterdocumentid}} </p>
+                  <h4 matListItemLine>Numero du document du promoteur</h4>
+                  <p matListItemLine> {{promoterFormGroup.value.promoterdocumentid}} </p>
                 </mat-list-item>
 
                 <mat-list-item>
-                  <h4 mat-line>Pays du promoteur</h4>
-                  <p mat-line> {{promoterFormGroup.value.promotercountryname.value + '(' + promoterFormGroup.value.promotercountry.value  + ')' }} </p>
+                  <h4 matListItemLine>Pays du promoteur</h4>
+                  <p matListItemLine> {{promoterFormGroup.value.promotercountryname.value + '(' + promoterFormGroup.value.promotercountry.value  + ')' }} </p>
                 </mat-list-item>
 
                 <mat-list-item>
-                  <h4 mat-line>Region du promoteur</h4>
-                  <p mat-line> {{promoterFormGroup.value.promoterregionname}} </p>
+                  <h4 matListItemLine>Region du promoteur</h4>
+                  <p matListItemLine> {{promoterFormGroup.value.promoterregionname}} </p>
                 </mat-list-item>
 
                 <mat-list-item>
-                  <h4 mat-line>Departement du promoteur</h4>
-                  <p mat-line> {{promoterFormGroup.value.promoterdivisionname}} </p>
+                  <h4 matListItemLine>Departement du promoteur</h4>
+                  <p matListItemLine> {{promoterFormGroup.value.promoterdivisionname}} </p>
                 </mat-list-item>
 
                 <mat-list-item>
-                  <h4 mat-line>Ville du promoteur</h4>
-                  <p mat-line> {{promoterFormGroup.value.promotertownname}} </p>
+                  <h4 matListItemLine>Ville du promoteur</h4>
+                  <p matListItemLine> {{promoterFormGroup.value.promotertownname}} </p>
                 </mat-list-item>
 
                 <mat-list-item>
-                  <h4 mat-line>Telephone du promoteur</h4>
-                  <p mat-line> {{promoterFormGroup.value.promoterphone}} </p>
+                  <h4 matListItemLine>Telephone du promoteur</h4>
+                  <p matListItemLine> {{promoterFormGroup.value.promoterphone}} </p>
                 </mat-list-item>
 
                 <mat-list-item>
-                  <h4 mat-line>E-Mail du promoteur</h4>
-                  <p mat-line> {{promoterFormGroup.value.promoteremail}} </p>
+                  <h4 matListItemLine>E-Mail du promoteur</h4>
+                  <p matListItemLine> {{promoterFormGroup.value.promoteremail}} </p>
                 </mat-list-item>
 
                 <mat-divider></mat-divider>
@@ -384,52 +384,52 @@
                 <h3 mat-subheader>{{appConst.responsibleform.label}}</h3>
 
                 <mat-list-item>
-                  <h4 mat-line>Nom du Responsable</h4>
-                  <p mat-line> {{responsibleFormGroup.value.responsiblefirstname}} </p>
+                  <h4 matListItemLine>Nom du Responsable</h4>
+                  <p matListItemLine> {{responsibleFormGroup.value.responsiblefirstname}} </p>
                 </mat-list-item>
 
                 <mat-list-item>
-                  <h4 mat-line>Prenom du Responsable</h4>
-                  <p mat-line> {{responsibleFormGroup.value.responsiblelastname}} </p>
+                  <h4 matListItemLine>Prenom du Responsable</h4>
+                  <p matListItemLine> {{responsibleFormGroup.value.responsiblelastname}} </p>
                 </mat-list-item>
 
                 <mat-list-item>
-                  <h4 mat-line>Nom du Responsable</h4>
-                  <p mat-line> {{responsibleFormGroup.value.responsiblefirstname}} </p>
+                  <h4 matListItemLine>Nom du Responsable</h4>
+                  <p matListItemLine> {{responsibleFormGroup.value.responsiblefirstname}} </p>
                 </mat-list-item>
 
                 <mat-list-item>
-                  <h4 mat-line>Sexe du Responsable</h4>
-                  <p mat-line> {{responsibleFormGroup.value.responsiblegender}} </p>
+                  <h4 matListItemLine>Sexe du Responsable</h4>
+                  <p matListItemLine> {{responsibleFormGroup.value.responsiblegender}} </p>
                 </mat-list-item>
 
                 <mat-list-item>
-                  <h4 mat-line>Pays de residence du Responsable</h4>
-                  <p mat-line> {{responsibleFormGroup.value.responsiblecountryname.value + '(' + responsibleFormGroup.value.responsiblefirstname.value + ')' }} </p>
+                  <h4 matListItemLine>Pays de residence du Responsable</h4>
+                  <p matListItemLine> {{responsibleFormGroup.value.responsiblecountryname.value + '(' + responsibleFormGroup.value.responsiblefirstname.value + ')' }} </p>
                 </mat-list-item>
 
 
                 <mat-list-item>
-                  <h4 mat-line>Ville du Responsable</h4>
-                  <p mat-line> {{responsibleFormGroup.value.responsibletownname}} </p>
+                  <h4 matListItemLine>Ville du Responsable</h4>
+                  <p matListItemLine> {{responsibleFormGroup.value.responsibletownname}} </p>
                 </mat-list-item>
 
                 <mat-list-item>
-                  <h4 mat-line>Telephone du Responsable</h4>
-                  <p mat-line> {{responsibleFormGroup.value.responsiblephone}} </p>
+                  <h4 matListItemLine>Telephone du Responsable</h4>
+                  <p matListItemLine> {{responsibleFormGroup.value.responsiblephone}} </p>
                 </mat-list-item>
 
                 <mat-list-item>
-                  <h4 mat-line>E-Mail du Responsable</h4>
-                  <p mat-line> {{responsibleFormGroup.value.responsibleemail}} </p>
+                  <h4 matListItemLine>E-Mail du Responsable</h4>
+                  <p matListItemLine> {{responsibleFormGroup.value.responsibleemail}} </p>
                 </mat-list-item>
 
               </mat-list>
 
               <div>
-                <button  matStepperPrevious class="btn btn-sm btn-primary float-left">Retour</button>
+                <button  matStepperPrevious class="btn btn-sm btn-primary float-start">Retour</button>
 
-                <button  matStepperNext class="btn btn-sm btn-primary float-right" (click)="submit()" >Soummetre</button>
+                <button  matStepperNext class="btn btn-sm btn-primary float-end" (click)="submit()" >Soummetre</button>
               </div>
 
             </div>

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ConfigService} from '../../config.service';
 import {environment} from '../../../environments/environment';
-import {ToastrService} from 'ngx-toastr';
+import {ToastrService} from '../../shared/notification.service';
 
 @Component({
+  standalone: false,
   selector: 'app-config',
   templateUrl: './config.component.html',
   styleUrls: ['./config.component.css']
@@ -16,25 +17,25 @@ export class ConfigComponent implements OnInit {
   succesResponseDonneesPerso:boolean = false;
   messageDonneesPerso:string;
 
-  donneesPersoFormGroup : FormGroup;
-  firstname: FormControl;
-  lastname : FormControl;
+  donneesPersoFormGroup : UntypedFormGroup;
+  firstname: UntypedFormControl;
+  lastname : UntypedFormControl;
 
 
   loadingChangePwd:boolean = false;
   succesResponseChangePwd:boolean = false;
   messageChangePwd:string = '';
 
-  changePwdFormGroup : FormGroup;
-  currentpassword:FormControl;
-  newpassword: FormControl;
-  newpassword_confirmation: FormControl;
+  changePwdFormGroup : UntypedFormGroup;
+  currentpassword:UntypedFormControl;
+  newpassword: UntypedFormControl;
+  newpassword_confirmation: UntypedFormControl;
 
-  constructor(private router: Router, private route: ActivatedRoute, private configService: ConfigService, private fb: FormBuilder, private toastr: ToastrService) {
+  constructor(private router: Router, private route: ActivatedRoute, private configService: ConfigService, private fb: UntypedFormBuilder, private toastr: ToastrService) {
 
-    this.currentpassword = new FormControl('', Validators.required);
-      this.newpassword = new FormControl('', Validators.required);
-      this.newpassword_confirmation = new FormControl('', Validators.required);
+    this.currentpassword = new UntypedFormControl('', Validators.required);
+      this.newpassword = new UntypedFormControl('', Validators.required);
+      this.newpassword_confirmation = new UntypedFormControl('', Validators.required);
 
     this.changePwdFormGroup = this.fb.group({
       currentpassword:this.currentpassword,
@@ -42,8 +43,8 @@ export class ConfigComponent implements OnInit {
       newpassword_confirmation: this.newpassword_confirmation
     });
 
-    this.firstname = new FormControl(environment.userdescriptor.userDetails.firstname, Validators.required);
-    this.lastname = new FormControl(environment.userdescriptor.userDetails.lastname, Validators.required);
+    this.firstname = new UntypedFormControl(environment.userdescriptor.userDetails.firstname, Validators.required);
+    this.lastname = new UntypedFormControl(environment.userdescriptor.userDetails.lastname, Validators.required);
 
     this.donneesPersoFormGroup = this.fb.group({
       firstname:this.firstname,

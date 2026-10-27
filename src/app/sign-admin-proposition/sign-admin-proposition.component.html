@@ -11,7 +11,7 @@
     <span [ngStyle]="{'color':successResponse?'green':'red'}">{{message}}</span>
     <br>
     <div class="row">
-      <div class="col-xs-12 col-sm-6 col-md-3" *ngFor="let p of propositions" >
+      <div class="col-12 col-sm-6 col-md-3" *ngFor="let p of propositions" >
         <mat-card  *ngIf="!(p.user == null)">
           <mat-card-header >
             <h4>{{p.user.firstname + '  ' + p.user.lastname}}</h4>
@@ -21,18 +21,18 @@
                 <button  class="btn btn-link " (click)="signeProposition(p.administratorpropositionid)">Signer</button>
             </p>
             <h5>Signataires</h5>
-            <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
-              <ngb-panel *ngFor="let s of p.signataires" title="{{s.firstname + '  ' + s.lastname}}">
-                <ng-template ngbPanelContent>
+            <div>
+              <details *ngFor="let s of p.signataires; let first = first" [open]="first"><summary>{{s.firstname + '  ' + s.lastname}}</summary>
+                <div>
                   <p>
                     Telephone: {{s.phone}}
                   </p>
                   <p>
                     E-Mail: {{s.email}}
                   </p>
-                </ng-template>
-              </ngb-panel>
-            </ngb-accordion>
+                </div>
+              </details>
+            </div>
           </mat-card-content>
         </mat-card>
       </div>

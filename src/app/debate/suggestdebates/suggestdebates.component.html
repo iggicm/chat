@@ -9,8 +9,8 @@
         <div *ngFor="let suggesteddebate of suggesteddebates" class="col-md-3">
           <mat-card >
             <mat-card-header>
-              <span matBadge="R" matBadgeColor="warn" matBadgeOverlap="false" class="float-right" *ngIf="!(suggesteddebate.state == 'CREATE')">Statut</span>
-              <span matBadge="C" matBadgeColor="primary" matBadgeOverlap="false" class="float-right" *ngIf="suggesteddebate.state == 'CREATE'">Statut</span>
+              <span matBadge="R" matBadgeColor="warn" matBadgeOverlap="false" class="float-end" *ngIf="!(suggesteddebate.state == 'CREATE')">Statut</span>
+              <span matBadge="C" matBadgeColor="primary" matBadgeOverlap="false" class="float-end" *ngIf="suggesteddebate.state == 'CREATE'">Statut</span>
               <mat-card-title>{{suggesteddebate.theme}}</mat-card-title>
               <mat-card-subtitle>{{suggesteddebate.interestcentername}}</mat-card-subtitle>
             </mat-card-header>

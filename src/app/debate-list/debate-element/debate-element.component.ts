@@ -3,9 +3,10 @@ import {environment} from '../../../environments/environment';
 import {HttpHeaders} from '@angular/common/http';
 import {DebateService} from '../../debate.service';
 import {User} from '../../users/users.component';
-import {ToastrService} from 'ngx-toastr';
+import {ToastrService} from '../../shared/notification.service';
 
 @Component({
+  standalone: false,
   selector: 'app-debate-element',
   templateUrl: './debate-element.component.html',
   styleUrls: ['./debate-element.component.css']

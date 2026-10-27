@@ -5,6 +5,7 @@ import {environment} from '../../environments/environment';
 import {forumRootUrl, idRootUrl} from '../Constants';
 
 @Component({
+  standalone: false,
   selector: 'app-closed-debates',
   templateUrl: './closed-debates.component.html',
   styleUrls: ['./closed-debates.component.css']

@@ -23,9 +23,9 @@
             </li>
           </ul>
           <span style="font-size: x-small; float: left;">{{comment.authorname}}</span>
-          <span class="float-right" *ngIf="comment.sent"><mat-icon class="example-tab-icon">done_all</mat-icon></span>
-          <span class="float-right" *ngIf="!comment.sent"><mat-icon class="example-tab-icon">check</mat-icon></span>
-          <br><span class="float-right">{{comment.created_at}}</span>
+          <span class="float-end" *ngIf="comment.sent"><mat-icon class="example-tab-icon">done_all</mat-icon></span>
+          <span class="float-end" *ngIf="!comment.sent"><mat-icon class="example-tab-icon">check</mat-icon></span>
+          <br><span class="float-end">{{comment.created_at}}</span>
         </li>
       </ul>
     </mat-list>

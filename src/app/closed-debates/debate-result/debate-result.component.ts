@@ -3,6 +3,7 @@ import {countries} from '../../Constants';
 import {Router} from '@angular/router';
 
 @Component({
+  standalone: false,
   selector: 'app-debate-result',
   templateUrl: './debate-result.component.html',
   styleUrls: ['./debate-result.component.css']

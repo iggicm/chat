@@ -14,18 +14,18 @@
         <a [routerLink]="['../results', debate.debateid]" *ngIf="debate.state == 'CLOSED'" class="btn btn-link">Resultats</a> &nbsp;&nbsp;
         <a [routerLink]="['../moderator-candidatures', debate.debateid]" *ngIf="isAdmin && (debate.state == 'ACCEPTED' || debate.state == 'REOPENED' || debate.state == 'INITIATE_DEBATE_CLOSURE')" class="btn btn-link" >Candidatures</a> &nbsp;&nbsp;<br>
       </span>
-    <mat-chip-list><mat-chip color="primary" selected *ngIf="(debate.state == 'ACCEPTED')&&!(debate.moderators.length>0)" >En Attente d'un moderateur</mat-chip></mat-chip-list>
+    <mat-chip-set><mat-chip color="primary" *ngIf="(debate.state == 'ACCEPTED')&&!(debate.moderators.length>0)" >En Attente d'un moderateur</mat-chip></mat-chip-set>
 
     <!--<div class="{{debate.state == 'ACCEPTED'?'alert-success':'alert-danger'}}">{{debate.state == 'ACCEPTED'?'OUVERT':'FERME'}}</div>-->
     <span matBadge="{{debate.state == 'CLOSED'?'-':'+'}}" matBadgeColor="{{debate.state == 'CLOSED'?'warn':'primary'}}"
-          matBadgeOverlap="false" class="float-lg-right">
+          matBadgeOverlap="false" class="float-lg-end">
               <b style="{{debate.state == 'CLOSED'?'color:red;':'color:green;'}}">{{debate.state == 'CLOSED'?'Cloture':'Ouvert'}}</b>
             </span><br>
     <h5 *ngIf="debate.moderatorsdetails.length > 0">Moderateurs</h5>
 
-    <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0" *ngIf="debate.moderatorsdetails.length > 0">
-      <ngb-panel *ngFor="let moderatorsdetail of debate.moderatorsdetails" title="{{moderatorsdetail.firstname + '  ' + moderatorsdetail.lastname}}">
-        <ng-template ngbPanelContent>
+    <div *ngIf="debate.moderatorsdetails.length > 0">
+      <details *ngFor="let moderatorsdetail of debate.moderatorsdetails; let first = first" [open]="first"><summary>{{moderatorsdetail.firstname + '  ' + moderatorsdetail.lastname}}</summary>
+        <div>
           <p>
             Telephone: {{moderatorsdetail.phone}}
           </p>
@@ -38,9 +38,9 @@
           <p *ngIf="moderatorsdetail.memberid == connectedUserId && (debate.state == 'CLOSED')">
             <button class="btn btn-link" (click)="reOpen(debate.debateid)">Reouvrir</button>
           </p>
-        </ng-template>
-      </ngb-panel>
-    </ngb-accordion>
+        </div>
+      </details>
+    </div>
   </mat-card-content>
 
 </mat-card>

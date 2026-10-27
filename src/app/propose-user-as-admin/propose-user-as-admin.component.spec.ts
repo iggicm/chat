@@ -1,4 +1,5 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {appTestModule} from '../../testing/app-test-module';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProposeUserAsAdminComponent } from './propose-user-as-admin.component';
 
@@ -6,10 +7,8 @@ describe('ProposeUserAsAdminComponent', () => {
   let component: ProposeUserAsAdminComponent;
   let fixture: ComponentFixture<ProposeUserAsAdminComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ProposeUserAsAdminComponent ]
-    })
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule(appTestModule())
     .compileComponents();
   }));
 

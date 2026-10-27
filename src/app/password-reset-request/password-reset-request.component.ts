@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -8,14 +8,15 @@ import {geoPosition, idRootUrl} from '../Constants';
 import {Observable} from 'rxjs';
 
 @Component({
+  standalone: false,
   selector: 'app-password-reset-request',
   templateUrl: './password-reset-request.component.html',
   styleUrls: ['./password-reset-request.component.css']
 })
 export class PasswordResetRequestComponent implements OnInit {
 
-  passwordResetRequestFormGroup: FormGroup;
-  email: FormControl;
+  passwordResetRequestFormGroup: UntypedFormGroup;
+  email: UntypedFormControl;
 
   error:boolean = false;
   message:string = '';
@@ -23,9 +24,9 @@ export class PasswordResetRequestComponent implements OnInit {
 
   observable:Observable<any>;
 
-  constructor(private router: Router, private route: ActivatedRoute, private http:HttpClient, private loginService: LoginService, private fb:FormBuilder) {
+  constructor(private router: Router, private route: ActivatedRoute, private http:HttpClient, private loginService: LoginService, private fb:UntypedFormBuilder) {
 
-    this.email = new FormControl('', [Validators.required, Validators.email]);
+    this.email = new UntypedFormControl('', [Validators.required, Validators.email]);
     this.passwordResetRequestFormGroup = fb.group({
       email:this.email
     });

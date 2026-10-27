@@ -6,6 +6,7 @@ import {AccessService} from '../access.service';
 import {forumRootUrl} from '../Constants';
 
 @Component({
+  standalone: false,
   selector: 'app-debate-list',
   templateUrl: './debate-list.component.html',
   styleUrls: ['./debate-list.component.css']

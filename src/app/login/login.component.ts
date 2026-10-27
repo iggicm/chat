@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
@@ -7,23 +7,24 @@ import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs';
 import {geoPosition, idRootUrl} from '../Constants';
 import {LoginService} from '../login.service';
-import {ToastrService} from 'ngx-toastr';
+import {ToastrService} from '../shared/notification.service';
 
 
 @Component({
+  standalone: false,
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
 
-  loginFormGroup: FormGroup;
-  email: FormControl;
-  password: FormControl;
-  grant_type: FormControl;
-  client_id: FormControl;
-  client_secret: FormControl;
-  refresh_token: FormControl;
+  loginFormGroup: UntypedFormGroup;
+  email: UntypedFormControl;
+  password: UntypedFormControl;
+  grant_type: UntypedFormControl;
+  client_id: UntypedFormControl;
+  client_secret: UntypedFormControl;
+  refresh_token: UntypedFormControl;
 
   error:boolean = false;
   message:string = '';
@@ -39,8 +40,8 @@ export class LoginComponent implements OnInit {
 
   observable:Observable<any>;
 
-  latitude: FormControl;
-  longitude: FormControl;
+  latitude: UntypedFormControl;
+  longitude: UntypedFormControl;
   watchID:any;
 
   constructor(private router: Router, private route: ActivatedRoute, private http:HttpClient, private loginService: LoginService, private toastr: ToastrService) {}
@@ -119,11 +120,11 @@ export class LoginComponent implements OnInit {
 
             /*localStorage.setItem('userdescriptor', JSON.stringify(environment.userdescriptor));
 
-            this.grant_type = new FormControl(environment.debate_oauth_client.grant_type);
-            this.client_id = new FormControl(environment.debate_oauth_client.client_id);
-            this.client_secret = new FormControl(environment.debate_oauth_client.client_secret);
+            this.grant_type = new UntypedFormControl(environment.debate_oauth_client.grant_type);
+            this.client_id = new UntypedFormControl(environment.debate_oauth_client.client_id);
+            this.client_secret = new UntypedFormControl(environment.debate_oauth_client.client_secret);
 
-            this.loginFormGroup = new FormGroup({
+            this.loginFormGroup = new UntypedFormGroup({
               grant_type: this.grant_type,
               client_id: this.client_id,
               client_secret: this.client_secret,
@@ -208,15 +209,15 @@ export class LoginComponent implements OnInit {
   }
 
   init(){
-    this.grant_type = new FormControl(environment.oauth_client.grant_type);
-    this.client_id = new FormControl(environment.oauth_client.client_id);
-    this.client_secret = new FormControl(environment.oauth_client.client_secret);
-    this.email = new FormControl('', [Validators.required, Validators.email]);
-    this.password = new FormControl('', Validators.required);
-    this.latitude = new FormControl('0', Validators.required);
-    this.longitude = new FormControl('0', Validators.required);
+    this.grant_type = new UntypedFormControl(environment.oauth_client.grant_type);
+    this.client_id = new UntypedFormControl(environment.oauth_client.client_id);
+    this.client_secret = new UntypedFormControl(environment.oauth_client.client_secret);
+    this.email = new UntypedFormControl('', [Validators.required, Validators.email]);
+    this.password = new UntypedFormControl('', Validators.required);
+    this.latitude = new UntypedFormControl('0', Validators.required);
+    this.longitude = new UntypedFormControl('0', Validators.required);
 
-    this.loginFormGroup = new FormGroup({
+    this.loginFormGroup = new UntypedFormGroup({
       grant_type: this.grant_type,
       client_id: this.client_id,
       client_secret: this.client_secret,

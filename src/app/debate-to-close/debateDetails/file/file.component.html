@@ -5,7 +5,7 @@
   </div>
   <span [ngStyle]="{'color':successResponse?'green':'red'}">{{message}}</span>
 
-  <button  class="btn btn-link popover-btn"   [ngbPopover]="popContent" [popoverTitle]="popTitle" placement="bottom-right"
+  <button  class="btn btn-link popover-btn"   [ngbPopover]="popContent" [popoverTitle]="popTitle" placement="bottom-end"
            style="color: white; text-decoration: none;" popoverClass="popover-menu" [ngStyle]="{'color':'#3f51b5'}">
     <b *ngIf="isImage()">
       <img src="{{imgIconUrl}}" height="65" width="65">
