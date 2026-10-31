@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Chat</title>
+  <base href="/">
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--<script src="http://maps.googleapis.com/maps/api/js"></script>-->
+<!--
+  <script src="https://maps.googleapis.com/maps/api/js?key=&libraries=geometry,places"></script>
+-->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <style>
+    .loader {
+      margin-top: 200%;
+      border: 3px solid #ffffff;
+      border-radius: 50%;
+      border-top: 3px solid #1f288a;
+      border-bottom: 3px solid #1f288a;
+      width: 60px;
+      height: 60px;
+      -webkit-animation: spin 2s linear infinite;
+      animation: spin 2s linear infinite;
+    }
+
+    @-webkit-keyframes spin {
+      0% { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+
+</head>
+<body>
+<app-root>
+  <div  style="margin: 0 auto;">
+    <div class="col-1 mx-auto">
+      <div class="loader "></div>
+    </div>
+  </div>
+</app-root>
+</body>
+</html>

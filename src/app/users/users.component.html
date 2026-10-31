@@ -1,0 +1,120 @@
+<!--
+<div class="row">
+  <app-user *ngFor="let u of users" [user]="u"></app-user>
+</div>-->
+
+<section id="team" class="pb-5">
+  <mat-tab-group mat-stretch-tabs>
+    <mat-tab>
+      <ng-template mat-tab-label style="color: #3f51b5; font-size: xx-large;">
+        <!--<mat-icon class="example-tab-icon">thumb_up</mat-icon>-->
+
+        <i class="material-icons" >
+          person
+        </i>
+      </ng-template>
+
+      <div class="row example-large-box mat-elevation-z4">
+        <br>
+        <div class="col-12">
+          <div class="row">
+
+            <div class="col-md-12 text-center">
+              <br>
+              <h3 class="list-title">Listes Membres Adherents de IGGI</h3>
+            </div>
+
+            <div class="col-md-12 text-center">
+              <div *ngIf="loading" style="width: 100%; height: 100%; text-align: center;" class="example-section">
+                <!--<mat-spinner style="height: 25px; width: 25px;" aria-label="Veuillez patienter s'il vous plait" [diameter]="45" [ngStyle]="{
+            'margin':'auto'
+            }"></mat-spinner>-->
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+              </div>
+            </div>
+
+
+            <div class="col-12 col-sm-6 col-md-3" *ngFor="let u of users" >
+              <mat-card  > <!--[ngStyle]="{'border':(u.temoins == null || u.temoins.revoked == true)?'1px red solid':'1px green solid'}"-->
+                <span matBadge="-" matBadgeColor="warn" matBadgeOverlap="false" class="float-end" *ngIf="(u.temoins == null || u.temoins.revoked == true)" style="color:red;">Offline</span>
+                <span matBadge="+" matBadgeColor="primary" matBadgeOverlap="false" class="float-end" *ngIf="!(u.temoins == null || u.temoins.revoked == true)" style="color:green;">Online</span>
+
+                <app-user  [user]="u" (userAccepted)="removeUserFromList($event)"></app-user>
+              </mat-card>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label style="color: #3f51b5; font-size: xx-large;">
+        <!--<mat-icon class="example-tab-icon">thumb_up</mat-icon>-->
+        <i class="material-icons" >
+          person_pin_circle
+        </i>
+      </ng-template>
+      <div class="row example-large-box mat-elevation-z4">
+        <br>
+        <!--[iconUrl]="
+                        {
+                          url:'http://localhost:8000/api/users/' + this.user.userid  + '/photo',
+                          scaledSize:{
+                            width: desiredWidthScale,
+                            height: desiredHeightScale
+                          }
+                }"
+
+                [label]="{color:(user.temoins == null || user.temoins.revoked == true)?'red':'green',fontFamily:'arial',fontSize:'0.8em',fontWeight:'bold',text: user.firstname + '' + user.lastname}"
+
+                -->
+        <google-map [center]="{lat: lat, lng: lng}" [zoom]="zoom" width="100%" height="500px">
+          <map-marker-clusterer>
+          <map-marker *ngFor="let user of users" #marker="mapMarker"
+            [position]="{lat: +user.latitude, lng: +user.longitude}"
+            [icon]="{url: idRootUrl + 'users/' + user.userid + '/photo', scaledSize: {width: 35, height: 35, equals: markerSizeEquals}}"
+            [title]="user.firstname + ' ' + user.lastname"
+            [label]="{text: user.firstname + ' ' + user.lastname, color: user.temoins == null || user.temoins.revoked ? 'red' : 'green'}"
+            (mapClick)="selectedMapUser = user; infoWindow.open(marker)">
+          </map-marker>
+          </map-marker-clusterer>
+          <map-info-window #infoWindow="mapInfoWindow">
+            <ng-container *ngIf="selectedMapUser as user"><h5>{{user.firstname + '' + user.lastname}}</h5>
+              <ul class="list-group">
+                <li class="list-group-item"><strong>Sexe: </strong>{{user.gender}}</li>
+                <li class="list-group-item"><strong>E-Mail: </strong>{{user.email}}</li>
+                <li class="list-group-item"><strong>Telephone: </strong>{{user.phone}}</li>
+                <li class="list-group-item"><strong>Pays: </strong>{{getCountryName(user)}}</li>
+                <li class="list-group-item"><strong>Ville De Residence: </strong>{{user.cityofresidency}}</li>
+                <li class="list-group-item"><strong>Centre d'interet: </strong>{{user.interestcenter}}</li>
+                <li class="list-group-item"><strong>Commentaire a l'enregistrement: </strong>{{user.commenttotheregistration}}</li>
+              </ul>
+            </ng-container>
+          </map-info-window>
+        </google-map>
+      </div>
+    </mat-tab>
+
+    <!--<mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">thumb_up</mat-icon>
+        Membre connecte
+      </ng-template>
+
+      Content 3
+    </mat-tab>-->
+
+    <!--<mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">thumb_up</mat-icon>
+        Carte Membre connecte
+      </ng-template>
+
+      Carte membre connectes
+    </mat-tab>-->
+  </mat-tab-group>
+  <!--</div>-->
+</section>
+
+

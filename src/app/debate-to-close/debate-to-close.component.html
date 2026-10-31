@@ -1,0 +1,97 @@
+
+<div *ngIf="loading" style="width: 100%; height: 100%; text-align: center;" class="example-section">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+<span [ngStyle]="{'color':succesResponse?'green':'red'}">{{message}}</span>
+
+
+<p *ngIf="isAdmin && (debate.state == 'ACCEPTED' || debate.state == 'INITIATE_DEBATE_CLOSURE' || debate.state == 'REOPENED')">
+  <!--<span>{{debate.admin_signatures_to_close}}</span><br/>-->
+
+  <button class="btn btn-link" (click)="closeDebate(debate.debateid)"  *ngIf="connectedUserIsModerator(connectedUserId, debate.moderatorsdetails)">Cloturer</button>
+  <button class="btn btn-link" (click)="signeDebateClosure(debate.debateid)"
+          *ngIf="!connectedUserIsModerator(connectedUserId, debate.moderatorsdetails) && hasbeenYetSigned(debate.admin_signatures_to_close) &&
+          !connectedUserHasYetSign(debate.admin_signatures_to_close, connectedUserId)">Signer la Cloture</button>
+  <button class="btn btn-link" (click)="initiateDebateClosure(debate.debateid)"
+          *ngIf="!connectedUserIsModerator(connectedUserId, debate.moderatorsdetails) && !hasbeenYetSigned(debate.admin_signatures_to_close)">Initier la Cloture</button>
+</p>
+
+
+<p *ngIf="isAdmin">
+  <button class="btn btn-link" (click)="reOpen(debate.debateid)"
+          *ngIf="debate.state == 'CLOSED'">Reouvrir</button>
+
+  <button class="btn btn-link" *ngIf="debate.state == 'CLOSED' && connectedUserIsModerator(connectedUserId, debate.moderatorsdetails)"
+          [ngbPopover]="popContent" [popoverTitle]="popTitle" placement="bottom" [autoClose]="false">Resumer</button>
+</p>
+
+<p>
+  <a class="btn btn-link" [routerLink]="['../debate-details', debate.debateid]">Voir details et Documents</a>
+  <!--<button class="btn btn-link" *ngIf="debate.state == 'CLOSED'" (click)="showDebateDetails(debate)">Voir details et Documents</button>-->
+</p>
+
+<ng-template #popContent >
+
+  <div class="row">
+    <div class="card-body">
+
+      <form [formGroup]="resultFormGroup">
+        <div class="field-container">
+          <mat-form-field>
+                  <textarea matInput placeholder="Commentaire" formControlName="comment" required  autocomplete="off" rows="3" [formControl]="comment"></textarea>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select placeholder="Issue" formControlName="issue" required >
+              <mat-option *ngFor="let i of issues" [value]="i.code">
+                {{i.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+            <input   formControlName="authorid"  placeholder="authorid" [style.display]="displayNone()" [formControl]="authorid">
+            <input   formControlName="authoremail"  placeholder="authoremail" [style.display]="displayNone()" [formControl]="authoremail">
+            <input   formControlName="authorname"  placeholder="authorname" [style.display]="displayNone()" [formControl]="authorname">
+            <input   formControlName="action"  placeholder="action" [style.display]="displayNone()" [formControl]="action">
+
+        </div>
+        <div>
+          <button  class="btn  btn-primary float-end" (click)="resumeDebate(debate.debateid)" >Resumer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+<ng-template #popTitle><b [ngStyle]="{'color':'#3f51b5'}">Resumer le Debat <strong>{{debate.theme}}</strong></b></ng-template>
+
+
+
+<p *ngIf="!isAdmin && (debate.state == 'ACCEPTED' || debate.state == 'INITIATE_DEBATE_CLOSURE' || debate.state == 'REOPENED')">
+  <!--<span>{{debate.admin_signatures_to_close}}</span><br/>-->
+
+  <button class="btn btn-link" (click)="closeDebate(debate.debateid)"  *ngIf="connectedUserIsModerator(connectedUserId, debate.moderatorsdetails)">Cloturer</button>
+  <!--<button class="btn btn-link" (click)="signeDebateClosure(debate.debateid)"
+          *ngIf="!connectedUserIsModerator(connectedUserId, debate.moderatorsdetails) && hasbeenYetSigned(debate.admin_signatures_to_close)">Signer la Cloture</button>
+  <button class="btn btn-link" (click)="initiateDebateClosure(debate.debateid)"
+          *ngIf="!connectedUserIsModerator(connectedUserId, debate.moderatorsdetails) && !hasbeenYetSigned(debate.admin_signatures_to_close)">Initier la Cloture</button>-->
+</p>
+
+<h5 *ngIf="debate.moderatorsdetails.length > 0">Moderateurs</h5>
+
+<div *ngIf="debate.moderatorsdetails.length > 0">
+  <details *ngFor="let moderatorsdetail of debate.moderatorsdetails; let first = first" [open]="first"><summary>{{moderatorsdetail.firstname + '  ' + moderatorsdetail.lastname}}</summary>
+    <div>
+      <p>
+        Telephone: {{moderatorsdetail.phone}}
+      </p>
+      <p>
+        E-Mail: {{moderatorsdetail.email}}
+      </p>
+      <p *ngIf="moderatorsdetail.memberid == connectedUserId && debate.state == 'ACCEPTED'">
+        <button class="btn btn-link" (click)="closeDebate(debate.debateid)">Cloturer</button>
+      </p>
+      <!--<p *ngIf="moderatorsdetail.memberid == connectedUserId && !(debate.state == 'ACCEPTED') && debate.closed_by == connectedUserId">
+        <button class="btn btn-link" (click)="reOpen(debate.debateid)">Reouvrir</button>
+      </p> labtag labo -->
+    </div>
+  </details>
+</div>

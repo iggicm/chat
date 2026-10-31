@@ -1,0 +1,30 @@
+<mat-toolbar color="primary" class="effect">
+  <div [class.hide-gt-xs]="true">
+    <button mat-icon-button>
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <div>
+    <a routerLink="/home" class="iggi"><b>IGGI</b></a> (<b class="iggi-abreviation">I</b>nteret <b class="iggi-abreviation">G</b>eneral - <b class="iggi-abreviation">G</b>eneral <b class="iggi-abreviation">I</b>nterest)
+  </div>
+  <div [class.layout-flex]="true" [class.layout-row]="true" [class.layout-end]="true" [class.hide-xs]="true">
+    <ul [class.layout-row]="true" [class.layout-gap]="true" class="navigation-items">
+      <li [routerLinkActive]="['active']">
+        <a [routerLink]="['/home']">Accueil</a>
+      </li>
+      <li *ngIf="!isAuthenticated">
+        <a [routerLink]="['/login']">Connexion</a>
+      </li>
+
+      <li *ngIf="isAuthenticated" [routerLinkActive]="['active']">
+
+        <button mat-button [matMenuTriggerFor]="menu"><b>{{name}} </b><i class="material-icons">expand_more</i></button>
+        <mat-menu #menu="matMenu">
+          <a mat-menu-item [routerLink]="['/debates/logout']" style="color: #3f51b5"><mat-icon>power_off</mat-icon><span><b>Deconnexion</b></span></a>
+          <a mat-menu-item [routerLink]="['/debates/config']" style="color: #3f51b5"><mat-icon>settings</mat-icon><span><b>Configurer mom Profil</b></span></a>
+        </mat-menu>
+      </li>
+    </ul>
+  </div>
+</mat-toolbar>
+

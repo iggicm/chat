@@ -1,0 +1,30 @@
+.full-width {
+  display: flex;
+  flex-direction: column;
+}
+
+.full-width > * {
+  width: 100%;
+}
+
+.first-container{
+  margin-top: 50px;
+}
+
+.conversation-input{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 10000;
+  background: rgba(255, 255, 255, 0.95);
+  margin-left: -15px;
+}
+
+.conversation-header{
+  width: 100%;
+  background: rgba(255, 255, 255, 0.90);
+  height: 40px;
+  position: fixed;
+  top: 140px;
+  z-index: 10000;
+}

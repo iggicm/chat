@@ -1,0 +1,45 @@
+
+<!--<div class="col-12 col-sm-6 col-md-3">
+  <div class="card">-->
+
+<mat-card-header >
+  <img mat-card-avatar src="{{photoUrl}}" />
+  <mat-card-title>{{user.firstname + '  ' + user.lastname}}</mat-card-title>
+  <mat-card-subtitle>{{user.email}} | {{countryName}} </mat-card-subtitle>
+</mat-card-header>
+<mat-card-content>
+  <p>
+    <!--<img src="../../../assets/img/{{genderimg}}" height="20" width="20"/>    | -->
+    <a class="btn btn-link  float-start" (click)="proposeAsAdmin(user.userid)" style="color: darkblue;" *ngIf="isAdmin && !user.isAdmin && !user.wasProposedAsAdmin">Proposer Comme Administrateur</a>
+    <a [routerLink]="['/user-details', user.userid]" class="btn btn-link  float-end">Deatails</a>
+  </p>
+  <br>
+<!--
+  <div class="{{user.isconnected==0?'alert-danger':'alert-success'}}">{{user.isconnected==0?'Deconnecte':'Connecte'}}</div>
+-->
+  <div *ngIf="loading" style="width: 100%; height: 100%; text-align: center;" class="example-section">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+  <br>
+  <span [ngStyle]="{'color':succesResponse?'green':'red'}">{{message}}</span>
+  <br>
+</mat-card-content>
+
+  <!--</div>
+</div>-->
+
+
+    <!--<div class="card-body text-center">
+      <p>
+        <img class=" img-fluid" src="../../assets/img/world.png" alt="card image">
+      </p>
+      <h4 class="card-title">Demande d'adhesion & Condition d'adhesion</h4>
+      <p class="card-text">Pour faire partir du groupe IGGI</p>
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <a href="#" class="btn btn-success btn-lg" [routerLink]="['/termsofcondition']">Termes des conditions d'adhesion</a>
+        <a class="btn btn-primary btn-lg" [routerLink]="['/application']">Faire ma demande d'adhesion</a>
+      </div>
+    </div>
+-->
+
+

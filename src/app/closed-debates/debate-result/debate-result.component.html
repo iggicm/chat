@@ -1,0 +1,38 @@
+<div class="card">
+  <div class="card-horizontal">
+    <!--<div class="img-square-wrapper">
+      <img class="" src="http://via.placeholder.com/300x180" alt="Card image cap">
+
+    </div>-->
+    <div class="card-body">
+
+      <h4 class="card-title">{{debateResult.debate.theme}}</h4>
+      <hr>
+      <h5 class="card-subtitle">Centre d'interet: {{debateResult.debate.interestcentername}} ({{debateResult.debate.interestcentername}})</h5>
+      <div class="alert-{{isPositive?'success':'danger'}} align-content-center">{{isPositive?'ISSUE POSITIVE':'ISSUE NEGATIVE'}}</div>
+      <div >Sous la Proposition de: <h6>{{debateResult.authorname}} - {{debateResult.authoremail}}</h6></div>
+      <p class="card-text"></p>
+      <hr>
+      <h5 class="card-title">Moderateurs</h5>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let moderator of debateResult.debate.moderators_details">
+          <div class="row">
+            <div class="col-md-12">
+              {{moderator.firstname}} {{moderator.lastname}}
+              <span class="card-subtitle">{{moderator.email}} | {{moderator.phone}}</span>
+              <span class="card-subtitle">{{getCountryName(moderator.country)}} | {{moderator.cityofresidency}}</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div>
+        <button  class="btn  btn-primary float-end" (click)="createProject();" >Projet</button>
+        <button  class="btn  btn-primary float-start" (click)="showDocumentation(debateResult.debateid);" >Documentation</button>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <small class="text-muted float-start">Debat clos le: {{debateResult.debate.created_at}} &nbsp;</small>
+    <small class="text-muted float-end">Debat resume le: {{debateResult.created_at}} &nbsp;</small>
+  </div>
+</div>

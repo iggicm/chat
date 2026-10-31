@@ -1,0 +1,37 @@
+<section id="team" class="pb-5">
+      <div class="row example-large-box mat-elevation-z4">
+        <br>
+        <div class="col-12">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <br>
+              <h3 class="list-title">Listes Membres de IGGI</h3>
+            </div>
+            <div class="col-md-12 text-center">
+              <div *ngIf="loading" style="width: 100%; height: 100%; text-align: center;" class="example-section">
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3" *ngFor="let u of members">
+              <mat-card>
+                <mat-card-header >
+                  <img mat-card-avatar src="{{idRootUrl + 'users/' + u.userid + '/photo'}}" />
+                  <mat-card-title>{{u.firstname + '  ' + u.lastname}}</mat-card-title>
+                  <mat-card-subtitle>{{u.email}} | {{getCountryName(u)}} </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                  <p>
+                    <a class="btn btn-link  float-start" (click)="openDialog(u)" style="color: darkred;">Revoquer</a>
+                    <!--<a [routerLink]="['/user-details', user.userid]" class="btn btn-link  float-end">Deatails</a>-->
+                  </p>
+                  <br>
+                </mat-card-content>
+              </mat-card>
+            </div>
+
+          </div>
+        </div>
+      </div>
+</section>
+
+

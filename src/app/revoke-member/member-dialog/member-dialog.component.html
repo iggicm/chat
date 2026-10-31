@@ -1,0 +1,74 @@
+<h1 mat-dialog-title class="text-center">
+  Revocation de <strong>{{data.user.firstname + ' ' + data.user.firstname}}</strong>
+</h1>
+<mat-dialog-content class="mat-typography">
+
+  <div *ngIf="loading" style="width: 100%; height: 100%; text-align: center;" class="example-section">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+  <div *ngIf="!loading" style="width: 100%; height: 100%; text-align: center;" class="example-section">
+    <p *ngIf="!error && !(message === '')">
+      <ngb-alert [dismissible]="true" [type]="'success'" (closed)="closeAlert()">
+        <strong>{{message}}</strong>
+      </ngb-alert>
+    </p>
+
+    <p *ngIf="error && !(message === '')">
+      <ngb-alert [dismissible]="true" [type]="'danger'" (closed)="closeAlert()">
+        <strong>{{message}}</strong>
+      </ngb-alert>
+    </p>
+  </div>
+
+  <img src="{{idRootUrl + 'users/' + data.user.userid + '/photo'}}" class="round-photo text-center">
+
+  <mat-list>
+
+    <mat-list-item>
+      Sexe: <span><strong>{{data.user.gender}}</strong></span>
+    </mat-list-item>
+
+    <mat-list-item>
+      Pays: <span><strong>{{getCountryName(data.user)}}</strong></span>
+    </mat-list-item>
+
+    <mat-list-item>
+      Ville de Residence: <span><strong>{{data.user.cityofresidency}}</strong></span>
+    </mat-list-item>
+
+    <mat-list-item>
+      Centre d'interet: <span><strong>{{data.user.interestcenter}}</strong></span>
+    </mat-list-item>
+
+    <mat-list-item>
+      Email: <span><strong>{{data.user.email}}</strong></span>
+    </mat-list-item>
+
+    <mat-list-item>
+      Telephone: <span><strong>{{data.user.phone}}</strong></span>
+    </mat-list-item>
+
+    <mat-list-item>
+      Accepte par: <span><strong>{{data.user.accepted_by}}</strong></span>
+    </mat-list-item>
+
+    <mat-list-item>
+      Commentaire : <span><strong>{{data.user.commenttotheregistration}}</strong></span>
+    </mat-list-item>
+
+    <p style="color: #ffffff;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 000000000 &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+  </mat-list>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Annuler</button>
+  <button mat-button class="btn  btn-primary" (click)="revokeUser(data.user.userid)">Revoquer</button>
+</mat-dialog-actions>
+
+
+<!--
+['userid', 'firstname', 'lastname', 'gender', 'photo', 'country','cityofresidency', 'interestcenter',
+'email', 'phone', 'enablement', 'accepted_by', 'password',  'commenttotheregistration', 'mustresetpassword', 'latitude',
+'longitude', 'isconnected', 'access_token'];-->

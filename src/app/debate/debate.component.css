@@ -1,0 +1,112 @@
+a {
+  text-decoration: none;
+  color: white;
+}
+
+a:hover, a:active{
+  color: lightgray;
+}
+
+.navigation-items{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  display: inline;
+}
+
+mat-toolbar{
+  border-radius: 0;
+  z-index: 9000;
+  padding-left: 50px;
+  padding-right: 50px;
+  margin-top: 75px;
+
+}
+
+@media(max-width: 959px){
+  mat-toolbar{
+    border-radius: 0;
+  }
+}
+
+.example-icon {
+  padding: 0 14px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+
+/*
+
+ */
+
+.mat-toolbar-row, .mat-toolbar-single-row {
+  height: 60px;
+}
+
+.iggi{
+  font-size: xx-large;
+}
+
+/*
+https://css-tricks.com/almanac/properties/b/box-shadow/
+ */
+
+
+.effect {
+  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+}
+
+
+
+.popover-menu {
+  width: 600px;
+  max-width: 800px;
+}
+
+.round-photo{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border-bottom: 3px #3f51b5 solid;
+}
+
+.admin-menu-item {
+  height: 100px;
+  width: 100px;
+  border: 0 white solid;
+  border-radius: 5px;
+  text-align: center;
+
+}
+
+.admin-menu-item:hover{
+  border: 1px #d1d1d1 solid;
+  border-radius: 5px;
+  /*height: 107px;
+  width: 107px;*/
+}
+
+.myfigure{
+  margin: auto;
+  position: relative;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+figcaption{
+  font-size: small;
+  color: #3f51b5;
+}
+
+.popover-btn{
+  font-size: large;
+  color: #ffffff;
+}
+

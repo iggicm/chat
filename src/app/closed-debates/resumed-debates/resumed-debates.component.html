@@ -1,0 +1,16 @@
+<div class="container-fluid container">
+  <div class="row">
+    <div class="col-12 align-content-center">
+      <h2>Liste des debats resumes</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 mt-3">
+      <div *ngIf="loading" style="width: 100%; height: 100%; text-align: center;" class="example-section">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </div>
+      <span [ngStyle]="{'color':successResponse?'green':'red'}">{{message}}</span>
+      <app-debate-result *ngFor="let debateResult of debatesResults" [debateResult]="debateResult"></app-debate-result>
+    </div>
+  </div>
+</div>

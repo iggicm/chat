@@ -1,0 +1,103 @@
+<mat-sidenav-container class="container first-container">
+  <section>
+    <div class="mat-typography conversation-header align-content-center align-self-center align-items-center" *ngIf="defined" detect-scroll (onScroll)="handleScroll($event)" #debatetheme> <!--[topOffset]="100" [bottomOffset]="200"-->
+      <h2 class="align-content-center align-self-center align-items-center" style="margin: auto; padding: auto;">{{debate.theme}} ({{debate.interestcentername}})</h2>
+    </div>
+    <mat-divider></mat-divider>
+    <mat-list dense class="conversation-history mat-typography" style="margin-bottom: 100px;">
+
+      <div class="col-md-12 text-center">
+        <div *ngIf="loading" style="width: 100%; height: 100%; text-align: center;" class="example-section">
+          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </div>
+        <span [ngStyle]="{'color':successResponse?'green':'red'}">{{message}}</span>
+        <br>
+      </div>
+
+      <ul *ngFor="let comment of comments" class="list-group" >
+        <li class="list-group-item {{comment.authorid==userId?'active':''}}">
+          <p>{{comment.textbody}}</p>
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let f of comment.files; let i = index">
+              <button class="btn btn-link" (click)="popupFile(comment.commentid, f)">{{'Fichier - ' + (i +1)}} </button>
+            </li>
+          </ul>
+          <span style="font-size: x-small; float: left;">{{comment.authorname}}</span>
+          <span class="float-end" *ngIf="comment.sent"><mat-icon class="example-tab-icon">done_all</mat-icon></span>
+          <span class="float-end" *ngIf="!comment.sent"><mat-icon class="example-tab-icon">check</mat-icon></span>
+          <br><span class="float-end">{{comment.created_at}}</span>
+        </li>
+      </ul>
+    </mat-list>
+    <div class="conversation-input container">
+      <form [formGroup]="commentFormGroup">
+
+        <div class="row">
+          <div class="col-md-7">
+            <mat-form-field class="full-width ">
+              <div class="row">
+                <div class="col-11">
+                  <textarea matInput placeholder="Start chatting..." name="body" formControlName="body" [formControl]="body" placeholder="Commentaire..." type="text" ></textarea>
+                </div>
+                <div class="col-1"><button (click)="posteComment()" *ngIf="validForm" class="btn btn-link">
+                  <mat-icon matSuffix >send</mat-icon>
+                  <mat-spinner style="height: 18px; width: 18px;" aria-label="Veuillez patienter s'il vous plait" [diameter]="25" [ngStyle]="{
+            'margin':'auto'
+            }" *ngIf="loadingComment"></mat-spinner>
+                </button>
+                </div>
+              </div>
+
+              <input   formControlName="latitude"  placeholder="Latitude" [style.display]="displayNone()" [formControl]="latitude">
+              <input   formControlName="longitude"  placeholder="Longitude" [style.display]="displayNone()" [formControl]="longitude">
+              <input   formControlName="commentid"  placeholder="" [style.display]="displayNone()" [formControl]="commentid">
+
+            </mat-form-field>
+          </div>
+          <div class="col-md-5">
+            <div class="row">
+              <div class="col-md-12">
+                <!--<input type="file" id="attachedFile" (change)="onSelectFile($event)" #attachedFile style="display: none;" required formControlName="attachedFile">
+                <button (click)="selectFile()" class="btn btn-link"><mat-icon matSuffix >attach_file</mat-icon></button>
+                <input matInput formControlName="filename" placeholder="" style="display: none;" readonly [formControl]="filename" (click)="selectFile()">-->
+
+                <button mat-raised-bufileInputtton (click)="openUploadDialog()">Upload</button>
+
+
+
+
+                <!--<button class="btn btn-link"><mat-icon matSuffix >attach_file</mat-icon></button> <input id="singleFile" type="file" [fileUploadInputFor]= "fileUploadQueueSingle" />
+
+                <mat-file-upload-queue #fileUploadQueueSingle
+                                       [fileAlias]="'file'"
+                                       [httpUrl]="'http://localhost:8001/api/debates/'+debate.debateid + '/comments-with-file'">
+
+                  <mat-file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueueSingle.files; let i = index"></mat-file-upload>
+                </mat-file-upload-queue>-->
+
+              </div>
+              <!--<div class="col-md-7" style="border: 1px #007b5e solid;">
+                <div [fileUploadInputFor]="fileUploadQueueMultiple" class="upload-drop-zone" style="border: 1px red solid; width: 105%; height: 70px; margin-left: -5%;">
+                  Deposer les fichier ici (jpg,jpeg,png,bmp,gif,pdf,doc,docx)
+                </div>
+
+                <div style="width: 500px">
+                  <mat-file-upload-queue #fileUploadQueueMultiple
+                                         [fileAlias]="'file'"
+                                         [httpUrl]="'http://localhost:8001/api/debates/'+debate.debateid + '/comments-with-file'" multiple >
+
+                    <mat-file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueueMultiple.files; let i = index"></mat-file-upload>
+                  </mat-file-upload-queue>
+                </div>
+              </div>-->
+            </div>
+
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+</mat-sidenav-container>
+
+
+<!--<ng-chat [adapter]="adapter" [userId]="userId" [historyEnabled]="false" [fileUploadUrl]="'http://localhost:3000/uploadFile'" [theme]="'dark-theme'"></ng-chat>-->

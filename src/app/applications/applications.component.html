@@ -1,0 +1,65 @@
+<div id="team" class="pb-5">
+
+      <div class="row example-large-box mat-elevation-z4">
+        <br>
+        <div class="col-10 offset-1">
+          <div class="row">
+
+            <div class="col-md-12 text-center">
+              <br>
+              <h3 class="list-title">Listes de demandes d'adhesion</h3>
+            </div>
+
+            <div class="col-md-12 text-center">
+              <div *ngIf="loading" style="width: 100%; height: 100%; text-align: center;" class="example-section">
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+              </div>
+              <span [ngStyle]="{'color':successResponse?'green':'red'}">{{message}}</span>
+            </div>
+
+
+            <div class="col-12 col-sm-6 col-md-3" *ngFor="let application of applications">
+              <mat-card >
+
+                <mat-card-header >
+                  <img mat-card-avatar src="{{idRootUrl + 'applications/' + application.applicationid + '/photo'}}" />
+                  <mat-card-title>{{application.firstname + '  ' + application.lastname}}</mat-card-title>
+                  <mat-card-subtitle>{{application.email}} | {{getCountryName(application)}} </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                  <p>
+                    <a [routerLink]="['../fiche', application.applicationid]" class="btn btn-link  float-end">Deatails</a>
+                  </p>
+                  <br>
+                </mat-card-content>
+              </mat-card>
+            </div>
+            <div *ngIf="applications!= null && applications.length === 0">
+              <h5>Aucune demande trouvee</h5>
+            </div>
+
+          </div>
+        </div>
+      </div>
+</div>
+
+
+
+
+
+
+
+<!--<div class="col-lg-4 col-md-4 col-sm-12 col-12 card" *ngFor="; let indice = index">
+    <br>
+    <h3 class="card-header">{{application.applicationid}}</h3>
+    <div class="card-body">
+      <p>{{application.firstname+ '  ' + application.lastname}}</p>
+      <p>
+
+        <input #aplicationid value="{{application.applicationid}}"/>
+        <a [routerLink]="['../fiche', application.applicationid]" class="btn btn-primary" >Details</a>
+      </p>
+    </div>
+
+    <br>
+  </div>-->

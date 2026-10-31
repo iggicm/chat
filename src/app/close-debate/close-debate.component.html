@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-md-10 offset-1">
+    <div class="col-md-12 text-center">
+      <br>
+      <h3 class="list-title">Listes debat de IGGI</h3>
+    </div>
+    <div class="col-md-12 text-center">
+      <div *ngIf="loading" style="width: 100%; height: 100%; text-align: center;" class="example-section">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </div>
+      <mat-progress-bar mode="indeterminate" *ngIf="selProposedCandidateLoading"></mat-progress-bar>
+      <span [ngStyle]="{'color':selProposedCandidateResponse?'green':'red'}">{{selProposedCandidateResponseMessage}}</span>
+    </div>
+    <div class="row">
+      <div *ngFor="let debate of debates" class="col-md-3">
+
+        <mat-card >
+          <mat-card-title>{{debate.theme}}</mat-card-title>
+          <mat-card-subtitle>{{debate.interestcentername}}</mat-card-subtitle>
+          <mat-card-content>
+            <span>Par: {{debate.authorname}}</span><br>
+            <span>
+        <!--<a [routerLink]="['../debate', debate.debateid]" *ngIf="(debate.state == 'ACCEPTED')&&(debate.moderators.length>0)" class="btn btn-link">Participer</a> &nbsp;&nbsp;-->
+              <!--<button (click)="moderatorProposition(debate.debateid)" class="btn  btn-link">Se proposer comme modérateur</button>&nbsp;&nbsp;-->
+              <!--<a [routerLink]="['../results', debate.debateid]" *ngIf="debate.state == 'CLOSED'" class="btn btn-link">Resultats</a> &nbsp;&nbsp;-->
+              <!--<a [routerLink]="['../moderator-candidatures', debate.debateid]" *ngIf="isAdmin" class="btn btn-link" >Candidatures</a> &nbsp;&nbsp;<br>-->
+      </span>
+            <!--<mat-chip-set><mat-chip color="primary" *ngIf="(debate.state == 'ACCEPTED')&&!(debate.moderators.length>0)" >En Attente d'un moderateur</mat-chip></mat-chip-set>-->
+
+            <!--<div class="{{debate.state == 'ACCEPTED'?'alert-success':'alert-danger'}}">{{debate.state == 'ACCEPTED'?'OUVERT':'FERME'}}</div>-->
+            <!--<span matBadge="{{debate.state == 'ACCEPTED'?'O':'F'}}" matBadgeColor="{{debate.state == 'ACCEPTED'?'primary':'warn'}}"
+                  matBadgeOverlap="false" class="float-lg-end">Statut</span><br>-->
+
+            <app-debate-to-close [debate]="debate" (debateClosed)="afterDebateClosed($event)" (debateSigned)="afterDebateSigned($event)" [isAdmin]="isAdmin" [connectedUserId]="connectedUserId"></app-debate-to-close>
+          </mat-card-content>
+
+        </mat-card>
+      </div>
+
+    </div>
+  </div>
+</div>
+

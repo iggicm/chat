@@ -1,0 +1,43 @@
+<div class="" style="padding: 5px;">
+
+  <div *ngIf="loading" style="width: 100%; height: 100%; text-align: center;" class="example-section">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+  <span [ngStyle]="{'color':successResponse?'green':'red'}">{{message}}</span>
+
+  <button  class="btn btn-link popover-btn"   [ngbPopover]="popContent" [popoverTitle]="popTitle" placement="bottom-end"
+           style="color: white; text-decoration: none;" popoverClass="popover-menu" [ngStyle]="{'color':'#3f51b5'}">
+    <b *ngIf="isImage()">
+      <img src="{{imgIconUrl}}" height="65" width="65">
+      <!--<i class="material-icons">
+        image
+      </i>-->
+  </b>
+    <b *ngIf="!isImage()">
+      <!--<i class="material-icons">
+        file_copy
+      </i>-->
+      <img src="{{pdfIconUrl}}" height="65" width="65">
+    </b>
+  </button>
+  
+    <ng-template #popContent >
+
+      <div class="row">
+        <div class="col-md-12 align-content-center align-items-center align-self-center" *ngIf="isImage()" style="text-align: center;">
+          <img [src]="blobToShow" style="margin: auto;" class="align-self-center">
+        </div>
+        <div class="col-md-12" *ngIf="!isImage()">
+          <div *ngIf="isPdf()">
+
+            <iframe [src]="url | safe" style="width: 100%; height: 3000px;"></iframe>
+
+          </div>
+          <div *ngIf="!isPdf()" style="width: 900px; height: 1200px;" class="align-content-center">
+            <iframe [src]="'https://view.officeapps.live.com/op/embed.aspx?src=' + url + '&embedded=true' | safe " style="width: 100%; height: 3000px;"></iframe>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #popTitle><b [ngStyle]="{'color':'#3f51b5'}">{{file}}</b></ng-template>
+</div>

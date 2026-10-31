@@ -1,0 +1,35 @@
+  <div class="row" style="margin-top: 25px;">
+    <div class="col-md-10 offset-1">
+      <div class="row">
+        <div class="col-md-12">
+          <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+          <span [ngStyle]="{'color':succesResponse?'green':'red'}">{{message}}</span>
+        </div>
+        <div class="col-md-12 align-content-center"><h3 class="text-center">Liste des debat proposes</h3></div>
+        <div *ngFor="let suggesteddebate of suggesteddebates" class="col-md-3">
+          <mat-card >
+            <mat-card-header>
+              <span matBadge="R" matBadgeColor="warn" matBadgeOverlap="false" class="float-end" *ngIf="!(suggesteddebate.state == 'CREATE')">Statut</span>
+              <span matBadge="C" matBadgeColor="primary" matBadgeOverlap="false" class="float-end" *ngIf="suggesteddebate.state == 'CREATE'">Statut</span>
+              <mat-card-title>{{suggesteddebate.theme}}</mat-card-title>
+              <mat-card-subtitle>{{suggesteddebate.interestcentername}}</mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-card-content>
+              <span>Par: {{suggesteddebate.authorname}}</span><br>
+
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <button (click)="takeDecisionOnDebate(suggesteddebate.suggesteddebateid, 'VALIDATE', 'REFUSED')" class="btn btn-danger">Refuser</button>
+                <button (click)="takeDecisionOnDebate(suggesteddebate.suggesteddebateid, 'VALIDATE', 'ACCEPTED')" class="btn btn-success">Accepter</button>
+              </div>
+              <br>
+            </mat-card-content>
+            <!--<div class="{{suggesteddebate.state == 'CREATE'?'alert-success':'alert-danger'}}">{{suggesteddebate.state == 'CREATE'?'CREATED':'REFUSED'}}</div>-->
+          </mat-card>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+

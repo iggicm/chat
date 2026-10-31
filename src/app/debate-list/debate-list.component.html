@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-md-10 offset-1">
+    <div class="col-md-12 text-center">
+      <br>
+      <h3 class="list-title">Listes debat de IGGI</h3>
+    </div>
+    <div class="col-md-12 text-center">
+      <div *ngIf="loading" style="width: 100%; height: 100%; text-align: center;" class="example-section">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </div>
+
+    </div>
+    <div class="row">
+      <div *ngFor="let debate of debates" class="col-md-3">
+
+          <app-debate-element [debate]="debate" [isAdmin]="isAdmin"
+                              (debateClosed)="onDebateClosed($event)"
+                              (debateReopened)="onDebateReopened($event)"
+                              (moderatorPropositionRegisterd)="onModeratorPropositionRegisterd($event)"></app-debate-element>
+      </div>
+
+    </div>
+  </div>
+</div>
+

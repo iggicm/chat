@@ -1,0 +1,11 @@
+node_modules
+dist
+coverage
+.git
+.github
+.angular
+*.log
+playwright-report
+test-results
+.editorconfig
+README-backup.md
